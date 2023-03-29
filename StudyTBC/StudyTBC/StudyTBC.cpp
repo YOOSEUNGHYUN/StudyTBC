@@ -1,28 +1,19 @@
-#include <iostream> // cout, cin, endl, ...
+#include <iostream>
 using namespace std;
 
-int addTwoNumbers(int a, int b)
+void doSomething(int x)
 {
-	int sum = a + b;
-	cout << sum << endl;
-
-	return 0;
+	x = 123;
+	cout << x << endl;        //   #2
 }
 
 int main()
 {
-	int a;
-	int b;
+	int x = 0;
 
-	cin >> a;
-	cin >> b;
+	cout << x << endl;		//   #1
+	doSomething(x);
+	cout << x << endl;		//   #3
 
-	while(1)
-	{
-		addTwoNumbers(a, b);
-		cin >> a;
-		cin >> b;
-	}
-	
 	return 0;
 }
