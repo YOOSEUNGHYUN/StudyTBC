@@ -1,25 +1,28 @@
-#include <iostream>
+#include <iostream> // cout, cin, endl, ...
+#include <cstdio> // printf
 using namespace std;
 
 int main()
 {
+	/*int x = 1024;
+	double pi = 3.141592;
+
+	cout << "I love this lecture!\n\n\n\n";
+	cout << "x is " << x << " pi is " << pi << endl;
+
+	cout << "abc" << "\t" << "def" << endl;
+	cout << "ab" << "\t" << "cdef" << endl;
+	cout << "abcde" << "\t" << "fghijk" << endl;
+
+	cout << "\a";*/
+
 	int x = 1;
-	x = x + 2;
-	cout << x << endl;                 // #1
 
-	int y = x;
-	cout << y << endl;                 // #2
+	cout << "Before your input, x was " << x << endl;
 
-	//is (x+y) l-value or r-value?
-	cout << x + y << endl;             // #3
+	cin >> x;
 
-	cout << x << endl;                 // #4
-	
-	int z;
-	z = y;
-	cout << z << endl;                 // #5
+	cout << "Your input is " << x << endl;
 
 	return 0;
 }
-
-//3 3 6 3 3
