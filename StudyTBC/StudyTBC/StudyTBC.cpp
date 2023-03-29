@@ -3,18 +3,23 @@ using namespace std;
 
 int main()
 {
-	int sight;
-	int n_items;
-	int price_per_item;
+	int x = 1;
+	x = x + 2;
+	cout << x << endl;                 // #1
 
-	//물약 먹어서 시야 거리가 0
-	sight = 0;
+	int y = x;
+	cout << y << endl;                 // #2
 
-	n_items = 100;
-	price_per_item = 20;
+	//is (x+y) l-value or r-value?
+	cout << x + y << endl;             // #3
 
-	// 1 + 1 event
-	int cost = n_items / 2 * price_per_item;
+	cout << x << endl;                 // #4
+	
+	int z;
+	z = y;
+	cout << z << endl;                 // #5
 
 	return 0;
 }
+
+//3 3 6 3 3
