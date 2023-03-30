@@ -1,19 +1,13 @@
 #include <iostream>
 using namespace std;
 
-void doSomething(int x)
-{
-	x = 123;
-	cout << x << endl;        //   #2
-}
-
 int main()
 {
-	int x = 0;
+	int x = 2; //x is a variable, 2 is a literal.
 
-	cout << x << endl;		//   #1
-	doSomething(x);
-	cout << x << endl;		//   #3
+	int y = (x > 0) ? 1 : 2; //삼항연산자는 왼쪽이 true 오른쪽이 false
+
+	cout << y << endl;
 
 	return 0;
 }
