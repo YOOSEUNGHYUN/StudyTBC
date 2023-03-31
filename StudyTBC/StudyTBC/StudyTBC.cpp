@@ -1,13 +1,22 @@
 #include <iostream>
 using namespace std;
 
+int add(int x, int y)
+{
+	return x + y; //indenting
+}
+
 int main()
 {
-	int x = 2; //x is a variable, 2 is a literal.
+	int my_v			= 1;
+	int x				= 4;
+	int num_apples		= 123;
 
-	int y = (x > 0) ? 1 : 2; //삼항연산자는 왼쪽이 true 오른쪽이 false
+	// this is important
+	int x = 1 + 2; 
 
-	cout << y << endl;
+	// this is important, too
+	int y = 3 + 4; 
 
 	return 0;
 }
