@@ -1,22 +1,30 @@
 #include <iostream>
 using namespace std;
 
-int add(int x, int y)
-{
-	return x + y; //indenting
-}
+int add(int a, int b); // forward declaration 전방선언
+int multiply(int a, int b);
+int subtract(int a, int b);
 
 int main()
 {
-	int my_v			= 1;
-	int x				= 4;
-	int num_apples		= 123;
-
-	// this is important
-	int x = 1 + 2; 
-
-	// this is important, too
-	int y = 3 + 4; 
+	cout << add(1, 2) << endl;
 
 	return 0;
 }
+
+// definition 함수 정의
+int add(int a, int b)
+{
+	return a + b;
+}
+
+int multiply(int a, int b)
+{
+	return a * b;
+}
+
+int subtract(int a, int b)
+{
+	return a - b;
+}
+
