@@ -139,7 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="add.cpp" />
     <ClCompile Include="StudyTBC.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MyHeaders\add.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
