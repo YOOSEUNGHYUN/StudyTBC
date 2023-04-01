@@ -18,16 +18,8 @@
     <ClCompile Include="StudyTBC.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="add.cpp">
+    <ClCompile Include="different_source.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="MyHeaders\add.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="my_work.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

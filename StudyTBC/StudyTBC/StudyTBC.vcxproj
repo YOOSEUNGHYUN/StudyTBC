@@ -139,12 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="add.cpp" />
+    <ClCompile Include="different_source.cpp" />
     <ClCompile Include="StudyTBC.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="MyHeaders\add.h" />
-    <ClInclude Include="my_work.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
