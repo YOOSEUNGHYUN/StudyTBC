@@ -1,10 +1,12 @@
 #include <iostream>
-#include "MyHeaders/add.h"
+#include "my_work.h"
+#include "add.h"
+
 using namespace std;
 
 int main()
 {
-	cout << add(1, 2) << endl;
+	doSomething();
 
 	return 0;
 }
