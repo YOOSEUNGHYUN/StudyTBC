@@ -1,29 +1,25 @@
 #include <iostream>
+#include <cmath>
+#include <limits>
 using namespace std;
 
 int main()
 {
-	bool bValue = true;
-	char chValue = 65;
-	float fValue = 3.141592f;
-	double dValue = 3.141592;
+	short       s = 1; // 2 bytes = 2 * 8 bits = 16 bits
+	unsigned int         i = 1;
 
-	int a (123);  // direct initialization
-	int b{ 123 }; // uniform initialization
+	cout << pow(2, sizeof(unsigned int) * 8) -1 << endl;
+	cout << numeric_limits<unsigned int>::max() << endl;
+	cout << numeric_limits<unsigned int>::min() << endl;
+	cout << numeric_limits<unsigned int>::lowest() << endl;
 
-	int i = (int)3.141592;
-	int z((int)3.14);
-	int y{ 4 }; 
+	i = numeric_limits<unsigned int>::max();
 
-	//int k = 0, l = 456, m = 123;
-	int k = 0, l(456), m{ 123 };
+	cout << "unsigned int max() : " << i << endl;
 
-	auto aValue = 3.141592;
-	auto aValue2 = 3.141592f;
+	i = i + 1;
 
-	cout << sizeof(aValue) << endl;
-	cout << sizeof(aValue2) << endl;
-	cout << sizeof(bool) << endl;
+	cout << i << endl;
 
 	return 0;
 }
