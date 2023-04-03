@@ -1,21 +1,33 @@
 #include <iostream>
-//#include <cstdint>
+#include <iomanip>
+#include <limits>
+#include <cmath>
+
 using namespace std;
-
-void my_function()
-{
-
-}
 
 int main()
 {
-	int i = 123;
-	float f = 123.456f;
+	double zero = 0.0;
+	double posinf = 5.0 / zero;
+	double neginf = -5.0 / zero;
+	double nan = zero / zero;
 
-	void *my_void; //주소
+	/*cout << posinf << " " << isinf(posinf) << endl;
+	cout << neginf << " " << isinf(neginf) << endl;
+	cout << nan << " " << isnan(nan) << endl;
+	cout << 1.0 << " " << isnan(1.0) << endl;*/
 
-	my_void = (void*)&i; //정수형 변수의 주소
-	my_void = (void*)&f; //실수형 변수의 주소
+	//과제
+	cout << setprecision(8);
+	cout << 31.41592e-1 << endl;
+	cout << 3.141e1 << endl;
+	printf("%f\n", 1.0e-3f);
+	cout << 1230.002e-1 << endl;
+	cout << setprecision(13);
+	float a = 1 / (float)10000010000;
+	printf("%.10f\n", a);
+	double b = 234560000.000;
+	printf("%.3f\n", 234560000000.e-3f);
 
 	return 0;
 }
