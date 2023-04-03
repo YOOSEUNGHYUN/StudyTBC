@@ -2,15 +2,20 @@
 //#include <cstdint>
 using namespace std;
 
+void my_function()
+{
+
+}
+
 int main()
 {
-	int16_t i(5);
-	int8_t myint = 65;
+	int i = 123;
+	float f = 123.456f;
 
-	cout << myint << endl;
+	void *my_void; //주소
 
-	int_fast8_t fi(5);
-	int_least64_t fl(5);
+	my_void = (void*)&i; //정수형 변수의 주소
+	my_void = (void*)&f; //실수형 변수의 주소
 
 	return 0;
 }
