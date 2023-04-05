@@ -1,34 +1,15 @@
 #include <iostream>
-#include <limits>
-
 using namespace std;
 
 int main()
 {
-	char c1(72);
-	char c2(89);
-	char c3(79);
-	char c4(78);
-	char c5(73);
-	int ic1(72);
-	int ic2(69);
-	int ic3(76);
-	int ic4(76);
-	int ic5(79);
+	// Decimal(10진수)      : 0 1 2 3 4 5 6 7 8 9 10
+	// Octal(8진수)         : 0 1 2 3 4 5 6 7 10 11 12 13
+	// Hexa Decimal(16진수) : 0 1 2 3 4 5 6 7 8 9 A B C D E F 10
 
-	cin >> ic1;
-	cin >> ic2;
-	cin >> ic3;
-	cin >> ic4;
-	cin >> ic5;
-	
-	cout << static_cast<char>(ic1) 
-		<< static_cast<char>(ic2) 
-		<< static_cast<char>(ic3) 
-		<< static_cast<char>(ic4) 
-		<< static_cast<char>(ic5) << endl;
-
-	cout << c1 << c2 << c3 << c4 << c5 << endl;
+	const int price_per_item = 10;
+	int num_items = 123;
+	int price = num_items * price_per_item; 
 
 	return 0;
 }
