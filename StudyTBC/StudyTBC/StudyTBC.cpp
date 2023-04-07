@@ -4,25 +4,13 @@ using namespace std;
 
 int main()
 {
-	int x = 7;
-	int y = 4;
-
-	int z = x;
-	z += y; // z = z + y;
-	cout << z << endl;
-
-	z -= y; // z = z - y;
-	cout << z << endl;
-
-	z *= y; // z = z * y;
-	cout << z << endl;
-
-	z /= y; // z = z / y;
-	cout << z << endl;
-
-	z %= y; // z = z % y;
-	cout << z << endl;
-
+	int x = 6, y = 6;
+	cout << x << " " << y << endl;
+	cout << ++x << " " << --y << endl;
+	cout << x << " " << y << endl;
+	cout << x++ << " " << y-- << endl;
+	cout << x << " " << y << endl;
+	
 	return 0;
 }
 
