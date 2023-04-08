@@ -2,15 +2,13 @@
 
 using namespace std;
 
+
 int main()
 {
-	int x = 6, y = 6;
-	cout << x << " " << y << endl;
-	cout << ++x << " " << --y << endl;
-	cout << x << " " << y << endl;
-	cout << x++ << " " << y-- << endl;
-	cout << x << " " << y << endl;
-	
+	int x = 5;
+
+	cout << ((x % 2 == 0) ? "even" : "odd") << endl;
+
 	return 0;
 }
 
