@@ -1,38 +1,19 @@
 #include <iostream>
-#include <cmath>
-#include <iomanip>
 
 using namespace std;
 
 int main()
 {
-	/*bool x = true;
-	bool y = true;
 	
-	cout << boolalpha;
-	cout << (true && true) || false;
-	cout << (false && true) || true;
-	cout << (false && true) || false || true;
-	cout << (14 > 13 || 2 > 1) && (9 > 1);
-	cout << !(2314123 > 2 || 123123 > 2387) << endl;
-	cout << true || false;
-	cout << (false && true);*/
+	/*
+	1001 1110
+	0110 0001
+	0110 0010 -> 98 -> -98*/
 
-	bool v1 = true;
-	bool v2 = false;
-	bool v3 = false;
+	//signed vs unsigned
 
-	bool r1 = v1 || v2 && v3;
-	bool r2 = (v1 || v2) && v3;
-	bool r3 = v1 || (v2 && v3);
-
-
-	cout << boolalpha;
-	cout << r1 << endl;
-	cout << r2 << endl;
-	cout << r3 << endl;
-
-
+	/*1001 1110 - > 2^7*1 + 2^4*1 + 2^3*1 + 2^2*1 + 2^1*1 = 128 + 16 + 8 + 4 + 2*/
+	
 	return 0;
 }
 
