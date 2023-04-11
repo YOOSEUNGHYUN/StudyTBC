@@ -1,19 +1,30 @@
 #include <iostream>
+#include <bitset>
 
 using namespace std;
 
 int main()
 {
+	// << left shift
+	// >> right shift
+	// ~ bitwise not
+	// & bitwise and 
+	// | bitwise or
+	// ^ bitwise xor
 	
-	/*
-	1001 1110
-	0110 0001
-	0110 0010 -> 98 -> -98*/
+	unsigned int a = 0b0110;
+	unsigned int x = 5;
+	unsigned int y = 12;
 
-	//signed vs unsigned
+	cout << std::bitset<8>(a >> 2)<< " " << (a >> 2) << endl;
 
-	/*1001 1110 - > 2^7*1 + 2^4*1 + 2^3*1 + 2^2*1 + 2^1*1 = 128 + 16 + 8 + 4 + 2*/
-	
+	cout << std::bitset<16>(x) << endl;
+	cout << std::bitset<16>(y) << endl;
+	cout << std::bitset<16>(x | y) << "  " << (x | y) << endl;
+	cout << std::bitset<16>(x & y) << "  " << (x & y) << endl;
+	cout << std::bitset<16>(x ^ y) << "  " << (x ^ y) << endl;
+
+
 	return 0;
 }
 
