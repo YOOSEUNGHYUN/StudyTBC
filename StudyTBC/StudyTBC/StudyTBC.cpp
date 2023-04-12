@@ -5,24 +5,21 @@ using namespace std;
 
 int main()
 {
-	// << left shift
-	// >> right shift
-	// ~ bitwise not
-	// & bitwise and 
-	// | bitwise or
-	// ^ bitwise xor
-	
-	unsigned int a = 0b0110;
-	unsigned int x = 5;
-	unsigned int y = 12;
+	const unsigned char opt0 = 1 << 0;
+	const unsigned char opt1 = 1 << 1;
+	const unsigned char opt2 = 1 << 2;
+	const unsigned char opt3 = 1 << 3;
+	//코드 길어져서 opt4, 5, 6, 7 생략함
 
-	cout << std::bitset<8>(a >> 2)<< " " << (a >> 2) << endl;
+	cout << bitset<8>(opt0) << endl;
+	cout << bitset<8>(opt1) << endl;
+	cout << bitset<8>(opt2) << endl;
+	cout << bitset<8>(opt3) << endl;
 
-	cout << std::bitset<16>(x) << endl;
-	cout << std::bitset<16>(y) << endl;
-	cout << std::bitset<16>(x | y) << "  " << (x | y) << endl;
-	cout << std::bitset<16>(x & y) << "  " << (x & y) << endl;
-	cout << std::bitset<16>(x ^ y) << "  " << (x ^ y) << endl;
+	unsigned char items_flag = 0;
+	cout << "No item " << bitset<8>(items_flag) << endl;
+
+	//item0 on
 
 
 	return 0;
