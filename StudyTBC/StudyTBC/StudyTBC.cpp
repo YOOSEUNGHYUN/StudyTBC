@@ -5,26 +5,37 @@ using namespace std;
 
 int main()
 {
-	const unsigned int red_mask = 0xFF0000;
-	const unsigned int green_mask = 0x00FF00;
-	const unsigned int blue_mask = 0x0000FF;
+	unsigned char option_viewd = 0x01;
+	unsigned char option_edited = 0x02;
+	unsigned char option_liked = 0x04;
+	unsigned char option_shared = 0x08;
+	unsigned char option_deleted = 0x80;
 
-	cout << std::bitset<32>(red_mask) << endl;
-	cout << std::bitset<32>(green_mask) << endl;
-	cout << std::bitset<32>(blue_mask) << endl;
+	unsigned char my_article_flags = 0;
 
-	unsigned int pixel_color = 0xDAA520;
-	//int 4byte = 32bit
-	cout << std::bitset<32>(pixel_color) << endl;
-
-	unsigned char red = (pixel_color & red_mask)>>16;
-	unsigned char green = (pixel_color & green_mask)>>8;
-	unsigned char blue = pixel_color & blue_mask;
 	
-	cout << "red " << bitset<8>(red) << " " << int(red) << endl;
-	cout << "green " << bitset<8>(green) << " " << int(green) << endl;
-	cout << "blue " << bitset<8>(blue) << " " << int(blue) << endl;
+	//기사를 봤을 때
+	if (my_article_flags | option_viewd)
+	{
+		my_article_flags |= option_viewd;
+	}
 
+	//기사의 좋아요를 다시 클릭했을 때
+	if (my_article_flags & option_liked)
+	{
+		my_article_flags ^= option_liked;
+	}
+	else //기사의 좋아요를 클릭했을 때
+	{
+		my_article_flags |= option_liked;
+	}
+
+	//본 기사만 삭제할 때
+	if (my_article_flags & option_viewd)
+	{
+		my_article_flags |= option_deleted;
+	}
+	
 	return 0;
 }
 
