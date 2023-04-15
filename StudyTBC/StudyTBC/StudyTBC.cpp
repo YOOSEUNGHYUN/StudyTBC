@@ -1,15 +1,29 @@
 #include <iostream>
-#include "MyConstants.h"
-
 using namespace std;
 
-void doSomething();
+namespace a
+{
+	int my_var(10);
+	int count(12312312);
+}
+
+namespace b
+{
+	int my_var(20);
+}
 
 int main()
 {
-	cout << "In main.cpp file " << Constants::pi << " " << &Constants::pi << endl;
+	{
+		using namespace a;
+		cout << my_var << endl;
+		cout << a::count << endl;
+	}
 
-	doSomething();
+	{
+		using namespace b;
+		cout << my_var << endl;
+	}
 
 	return 0;
 }
