@@ -1,29 +1,23 @@
 #include <iostream>
 using namespace std;
 
-namespace a
+auto add(int x, int y) -> int
 {
-	int my_var(10);
-	int count(12312312);
+	return x + y;
 }
 
-namespace b
+auto add(double x, double y)
 {
-	int my_var(20);
+	return x + y;
 }
 
 int main()
 {
-	{
-		using namespace a;
-		cout << my_var << endl;
-		cout << a::count << endl;
-	}
+	auto a = 123;
+	auto d = 123.0;
+	auto c = 1 + 2.0;
 
-	{
-		using namespace b;
-		cout << my_var << endl;
-	}
+	auto result = add(1, 2);
 
 	return 0;
 }
