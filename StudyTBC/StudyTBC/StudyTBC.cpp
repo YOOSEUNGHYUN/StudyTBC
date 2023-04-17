@@ -1,23 +1,16 @@
 #include <iostream>
+#include <typeinfo>
+#include <iomanip>
 using namespace std;
-
-auto add(int x, int y) -> int
-{
-	return x + y;
-}
-
-auto add(double x, double y)
-{
-	return x + y;
-}
 
 int main()
 {
-	auto a = 123;
-	auto d = 123.0;
-	auto c = 1 + 2.0;
+	//numeric conversion
+	cout << 5u - 10u;
 
-	auto result = add(1, 2);
+	// (가장 낮음)int, unsigned int, long, unsigned long, 
+	// long long, unsigned long long, float, double
+	// long double 우선순위 (가장 높음)
 
 	return 0;
 }
