@@ -1,32 +1,16 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 int main()
 {
-	enum class Color
-	{
-		RED,
-		BLUE
-	};
+	//typedef vector<pair<string, int>> pairlist_t;
 
-	enum class Fruit
-	{
-		BANANA,
-		APPLE,
-	};
+	using pairlist_t = vector<pair<string, int>>;
 
-	Color color1 = Color::RED;
-	Color color2 = Color::BLUE;
-
-	if (color1 == color2)
-	{
-		cout << "Same Color" << endl;
-	}
-	else
-	{
-		cout << "Not Same Color" << endl;
-	}
+	pairlist_t pairlist1;
+	pairlist_t pairlist2;
 
 	return 0;
 }
