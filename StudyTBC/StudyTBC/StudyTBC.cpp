@@ -1,16 +1,20 @@
 #include <iostream>
-#include <vector>
+#include <string>
 
 using namespace std;
 
+struct Employee      // 2 + (2) + 4 + 8 = 16 // 이걸 padding 이라고 부른다.
+{
+	short	id;      // 2 bytes
+	int	    age;	 // 4 bytes
+	double  wage;	 // 8 bytes
+};
+
 int main()
 {
-	//typedef vector<pair<string, int>> pairlist_t;
+	Employee emp1;
 
-	using pairlist_t = vector<pair<string, int>>;
-
-	pairlist_t pairlist1;
-	pairlist_t pairlist2;
+	cout << sizeof(Employee) << endl;
 
 	return 0;
 }
