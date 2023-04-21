@@ -1,23 +1,19 @@
 #include <iostream>
-#include <string>
+#include <cstdlib>
 
 using namespace std;
 
-struct Employee      // 2 + (2) + 4 + 8 = 16 // 이걸 padding 이라고 부른다.
-{
-	short	id;      // 2 bytes
-	int	    age;	 // 4 bytes
-	double  wage;	 // 8 bytes
-};
-
 int main()
 {
-	Employee emp1;
+	cout << "I love you " << endl;
 
-	cout << sizeof(Employee) << endl;
+	exit(0);
+
+	/*return 0;*/
+
+	cout << "I love you, too " << endl;
 
 	return 0;
 }
-
 
 
