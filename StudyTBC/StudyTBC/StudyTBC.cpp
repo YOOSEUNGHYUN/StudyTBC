@@ -1,17 +1,16 @@
 #include <iostream>
-#include <cstdlib>
 
 using namespace std;
 
 int main()
 {
-	cout << "I love you " << endl;
+	int x;
+	cin >> x;
 
-	exit(0);
+	if (x = 0) // x = 0; if(x)
+		cout << x << endl;
 
-	/*return 0;*/
-
-	cout << "I love you, too " << endl;
+	cout << x << endl;
 
 	return 0;
 }
