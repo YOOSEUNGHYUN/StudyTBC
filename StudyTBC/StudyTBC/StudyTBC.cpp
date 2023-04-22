@@ -1,23 +1,23 @@
 #include <iostream>
-#include <cmath> //sqrt()
 
 using namespace std;
 
-
 int main()
 {
-	double x;
+	cout << "While-loop test" << endl;
 
-tryAgain : // label
-	cout << "Enter a non-negative number" << endl;
-	cin >> x;
+	int count = 10;
 
-	if (x < 0.0)
-		goto tryAgain;
+	while (count >= 0)
+	{
+		if (count == 0)
+			cout << "zero";
+		else
+			cout << count << " ";
+		
+		count--;
+	}
 
-	cout << sqrt(x) << endl;
-
-	return 0;
 }
 
 
