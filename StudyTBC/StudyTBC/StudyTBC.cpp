@@ -1,33 +1,21 @@
 #include <iostream>
+#include <cmath> //sqrt()
 
 using namespace std;
 
 
 int main()
 {
-	int x;
+	double x;
+
+tryAgain : // label
+	cout << "Enter a non-negative number" << endl;
 	cin >> x;
 
-	switch (x)
-	{
-		case 0:
-		{
-			int y = 5;
-			y = y + x;
-			cout << y << endl;
-			break;
-		}
-		case 1:
-		{
-			int y = 5;
-			y = y - x;
-			cout << y << endl;
-			break;
-		}
+	if (x < 0.0)
+		goto tryAgain;
 
-		default:
-			cout << "Undefined input " << x << endl;
-	}
+	cout << sqrt(x) << endl;
 
 	return 0;
 }
