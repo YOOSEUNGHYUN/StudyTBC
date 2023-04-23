@@ -6,18 +6,20 @@ int main()
 {
 	cout << "While-loop test" << endl;
 
-	int count = 10;
+	int outer_count=1;
 
-	while (count >= 0)
+	while (outer_count <= 5)
 	{
-		if (count == 0)
-			cout << "zero";
-		else
-			cout << count << " ";
-		
-		count--;
-	}
+		int inner_count = 1;
+		while (inner_count <= outer_count)
+		{
+			cout << inner_count++ << " ";
+		}
 
+		cout << endl;
+		++outer_count;
+	}
+	return 0;
 }
 
 
