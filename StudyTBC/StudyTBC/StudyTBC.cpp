@@ -20,7 +20,11 @@ void breakOrReturn()
 
 int main()
 {
-	breakOrReturn();
+	for (int i = 0; i < 10; ++i)
+	{
+		cout << i << endl;
+		if (i == 5) break;
+	}
 
 	return 0;
 }
