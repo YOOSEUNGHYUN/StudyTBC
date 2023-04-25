@@ -2,15 +2,25 @@
 
 using namespace std;
 
-int main()
+void breakOrReturn()
 {
-	int count = 0;
 	while (true)
 	{
-		cout << count << endl;
-		if (count == 10) break;
-		count++;
+		char ch;
+		cin >> ch;
+
+		if (ch == 'b')
+			break;
+		if (ch == 'r')
+			return;
 	}
+
+	cout << "Hello" << endl;
+}
+
+int main()
+{
+	breakOrReturn();
 
 	return 0;
 }
