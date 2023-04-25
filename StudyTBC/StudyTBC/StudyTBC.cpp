@@ -2,21 +2,20 @@
 
 using namespace std;
 
+int pow(int base, int exponent)
+{
+	int result = 1;
+
+	for (int count = 0; count < exponent; ++count)
+		result *= base;
+
+	return result;
+}
+
 int main()
 {
-	int selection; // must be declared outside do/while loop
+	cout << pow(2, 4) << endl;
 
-	do
-	{
-		cout << "1. add" << endl;
-		cout << "2. sub" << endl;
-		cout << "3. mult" << endl;
-		cout << "4. div" << endl;
-		cin >> selection;
-	} while (selection <= 0 || selection >= 5);
-
-	cout << "You selected " << selection << endl;
-	
 	return 0;
 }
 
