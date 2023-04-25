@@ -14,7 +14,11 @@ int pow(int base, int exponent)
 
 int main()
 {
-	cout << pow(2, 4) << endl;
+	for(int j = 0; j <9; ++j)
+		for (int i = 0; i < 9; ++i)
+		{
+			cout << i << " " << j << endl;
+		}
 
 	return 0;
 }
