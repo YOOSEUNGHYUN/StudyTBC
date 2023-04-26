@@ -20,11 +20,17 @@ void breakOrReturn()
 
 int main()
 {
-	for (int i = 0; i < 10; ++i)
+	int count(0);
+	bool escape_flag = false;
+	while (true)
 	{
-		if (i % 2 == 0) continue;
-			
-		cout << i << endl;
+		char ch;
+		cin >> ch;
+
+		cout << ch << " " << count++ << endl;
+
+		if (ch == 'x')
+			break;
 	}
 
 	return 0;
