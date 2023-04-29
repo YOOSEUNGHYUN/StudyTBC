@@ -2,40 +2,13 @@
 
 using namespace std;
 
-int getInt()
-{
-	cout << "Enter a integer number : ";
-	int x;
-	cin >> x;
-
-	return x;
-}
-
-char getOperator()
-{
-	cout << "Enter an operator (+, -) : "; //TODO : more operators *, / etc.
-	char op;
-	cin >> op;
-	return op;
-}
-
-void printResult(int x, char op, int y)
-{
-	if (op == '+') cout << x + y << endl;
-	else if (op == '-') cout << x - y << endl;
-	else
-	{
-		cout << "Invalid operator" << endl;
-	}
-}
-
 int main()
 {
-	int x = getInt();
-	char op = getOperator();
-	int y = getInt();
+	int one_student_score; // 1 variable
+	int student_scores[5]; // 5 int
 
-	printResult(x, op, y);
+	cout << sizeof(one_student_score) << endl;
+	cout << sizeof(student_scores) << endl;
 
 	return 0;
 }
