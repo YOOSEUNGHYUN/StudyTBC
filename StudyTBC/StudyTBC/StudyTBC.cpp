@@ -1,22 +1,26 @@
 #include <iostream>
 using namespace std;
 
-#define NUM_STUDENTS 100000
-
 int main()
 {
-	const int num_students = 20;
-	//cin >> num_students;
+	//const int num_students = 5;
+	int scores[] = { 84, 92, 76, 81, 56 };
 
-	int students_scores[num_students];
+	const int num_students = sizeof(scores) / sizeof(int);
 
-	cout << &students_scores << endl;
-	cout << &students_scores[0] << endl;
-	cout << &students_scores[1] << endl; 
-	cout << &students_scores[2] << endl;
-	cout << &students_scores[3] << endl;
+	int max_score = 0;
+	int total_score = 0;
 
-	cout << sizeof(students_scores) << endl;
+	for (int i = 0; i < num_students; ++i)
+	{
+		total_score += scores[i];
+		//max_score = (max_score < scores[i]) ? scores[i] : max_score;
+		if (max_score < scores[i]) max_score = scores[i];
+	}
+
+	double avg_score = static_cast<double>(total_score) / num_students;
+
+	cout << max_score << endl;
 
 	return 0;
 }
