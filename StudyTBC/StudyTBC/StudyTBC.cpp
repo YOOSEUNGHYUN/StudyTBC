@@ -2,64 +2,57 @@
 
 using namespace std;
 
-int getInt()
+void printArray(const int array[], const int length)
 {
-	while(true)
-	{ 
-		cout << "Enter an integer number : ";
-		int x;
-		cin >> x;
-
-		if (std::cin.fail())
-		{
-			std::cin.clear();
-			std::cin.ignore(32767, '\n');
-			cout << "Invalid number, please try again" << endl;
-		}
-		else
-		{
-			std::cin.ignore(32767, '\n');
-			return x;
-		}
-	}
-}
-
-char getOperator()
-{
-	while(true)
-	{ 
-		cout << "Enter an operator (+,-,*,/) : ";
-		char op;
-		cin >> op;
-		std::cin.ignore(32767, '\n');
-
-		if (op == '+' || op == '-' || op == '*' || op == '/')
-			return op;
-		else
-			cout << "Invalid operator, please try again " << endl;
-	}
-}
-
-void printResult(int x, char op, int y)
-{
-	if (op == '+') cout << x + y << endl;
-	else if (op == '-') cout << x - y << endl;
-	else if (op == '*') cout << x * y << endl;
-	else if (op == '/') cout << x / y << endl;
-	else
-	{
-		cout << "Invalid operator" << endl;
-	}
+	for (int index = 0; index < length; ++index)
+		cout << array[index] << " ";
+	cout << endl;
 }
 
 int main()
 {
-	int  x = getInt();
-	char op = getOperator();
-	int  y = getInt();
+	/*             value     index
+	3 5 2 1 4        1         3
+	1 5 2 3 4		 2		   2
+	1 2 5 3 4		 3		   3
+	1 2 3 5 4		 4		   4
+	1 2 3 4 5
+	*/
 
+	const int length = 5;
 
-	printResult(x, op, y);
+	int array[length] = { 3, 5, 2, 1, 4 };
+
+	printArray(array, length);
+
+	// swap
+	/*int temp = array[0];
+	array[0] = array[1];
+	array[1] = temp;*/
+
+	for (int startIndex = 0; startIndex < length - 1; ++startIndex)
+	{
+		int smallestIndex = startIndex;
+
+		for (int currentIndex = startIndex + 1; currentIndex < length; ++currentIndex)
+		{
+			if (array[smallestIndex] > array[currentIndex])
+			{
+				smallestIndex = currentIndex;
+			}
+		}
+
+		//swap two values in the array
+		//std::swap(array[smallestIndex],array[startIndex]);
+		{
+			int temp = array[smallestIndex];
+			array[smallestIndex] = array[startIndex];
+			array[startIndex] = temp;
+		}
+
+		printArray(array, length);
+	}
+
 
 	return 0;
 
