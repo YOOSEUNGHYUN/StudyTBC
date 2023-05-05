@@ -2,31 +2,32 @@
 
 using namespace std;
 
-struct Something
+#define NUM_STUDENTS 1000000
+
+void doSomething(int students_scores[20])
 {
-	int a, b, c, d;		// 4 x 4 = 16byte
-};
+	cout << (int)&students_scores << endl;
+	cout << (int)&students_scores[0] << endl;
+	cout << students_scores[0] << endl;
+	cout << students_scores[1] << endl;
+	cout << students_scores[2] << endl;
+	cout << sizeof(students_scores) << endl;
+}
 
 int main()
 {
-	int x = 5;
-	double d = 123.0;
+	const int num_students = 20;
 
-	int *ptr_x;
-	double *ptr_d;
-
-	cout << sizeof(x) << endl;
-	cout << sizeof(d) << endl;
-	cout << sizeof(&x) << " " << sizeof(ptr_x) << endl;
-	cout << sizeof(&d) << " " << sizeof(ptr_d) << endl;
-
-	Something ss;
-	Something *ptr_s;
-
-	cout << sizeof(Something) << endl;
-	cout << sizeof(ptr_s) << endl;
-
-
+	int students_scores[num_students] = { 1, 2, 3, 4, 5, };
+	
+	cout << (int)students_scores << endl;
+	cout << (int)&students_scores << endl;
+	cout << students_scores[0] << endl;
+	cout << students_scores[1] << endl;
+	cout << students_scores[2] << endl;
+	cout << sizeof(students_scores) << endl;
+	
+	doSomething(students_scores);
 
 	return 0;
 }
