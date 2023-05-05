@@ -1,19 +1,32 @@
 #include <iostream>
-#include <cstring>
 
 using namespace std;
 
+struct Something
+{
+	int a, b, c, d;		// 4 x 4 = 16byte
+};
+
 int main()
 {
-	char source[] = "Copy this!";
-	char dest[50];
-	strcpy_s(dest, 50, source);
+	int x = 5;
+	double d = 123.0;
 
-	//cout << source << endl;
-	//cout << dest << endl;
+	int *ptr_x;
+	double *ptr_d;
 
-	//strcat()
-	//strcmp()
+	cout << sizeof(x) << endl;
+	cout << sizeof(d) << endl;
+	cout << sizeof(&x) << " " << sizeof(ptr_x) << endl;
+	cout << sizeof(&d) << " " << sizeof(ptr_d) << endl;
+
+	Something ss;
+	Something *ptr_s;
+
+	cout << sizeof(Something) << endl;
+	cout << sizeof(ptr_s) << endl;
+
+
 
 	return 0;
 }
