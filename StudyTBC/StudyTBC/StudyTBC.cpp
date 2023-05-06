@@ -1,24 +1,16 @@
 #include <iostream>
+#include <cstring>
 
 using namespace std;
 
 int main()
 {
-	char myString[255];
+	char source[] = "Copy this!";
+	char dest[5];
+	strcpy_s(dest, source);
 
-	//cin >> myString;
-	cin.getline(myString, 255);
-
-	//cout << myString << endl;
-
-	int ix = 0;
-	while (true)
-	{
-		if (myString[ix] == '\0') break;
-
-		cout << myString[ix] << " " << (int)myString[ix] << endl;
-		++ix;
-	}
+	cout << source << endl;
+	cout << dest << endl;
 	
 	return 0;
 }
