@@ -1,25 +1,43 @@
 #include <iostream>
-#include <cstring>
+#include <cstddef>
 
 using namespace std;
 
+void doSomething(double* ptr)
+{
+	cout << "Address of pointer variable in doSomething() " << &ptr << endl;
+
+	if (ptr != nullptr)
+	{
+		//do something useful
+		cout << *ptr << endl;
+	}
+	else
+	{
+		//do nothing with ptr
+		cout << "Null ptr, do nothing" << endl;
+	}
+}
+
 int main()
 {
-	char source[] = "Copy this!";
-	char dest[50] = "Copy this!";
-	//strcpy_s(dest, source);
+	
+	double* ptr{ nullptr }; //modern c++
 
-	//strcat() 한 문자열 뒤에 어떠한 문자열을 붙여준다.
-	//strcmp() 두 문자열이 동일한지 비교해본다.
+	doSomething(ptr);
+	doSomething(nullptr);
 
-	if (strcmp(source, dest))
-	{
-		cout << "Not Same" << endl;
-	}
-	else if (strcmp(source, dest) == 0)
-	{
-		cout << "Same Same" << endl;
-		
-	}
+	double d = 123.4;
+
+	doSomething(&d);
+
+	ptr = &d;
+
+	doSomething(ptr);
+
+	std::nullptr_t nptr;
+
+	cout << "Address of pointer variable in main() " << &ptr << endl;
+
 	return 0;
 }
