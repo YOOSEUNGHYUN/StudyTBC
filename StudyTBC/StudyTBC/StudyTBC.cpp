@@ -2,24 +2,15 @@
 
 using namespace std;
 
-struct MyStruct
-{
-	int array[5] = { 9, 7, 5, 3, 1 };
-
-};
-
-void doSomething(MyStruct ms)
-{
-	cout << sizeof(ms.array) << endl;
-}
-
 int main()
 {
-	MyStruct ms;
-	cout << ms.array[0] << endl;
-	cout << sizeof(ms.array) << endl;
+	double value = 7.0;
+	double *ptr = &value;
 
-	doSomething(ms);
+	cout << uintptr_t(ptr - 1) << endl;
+	cout << uintptr_t(ptr) << endl;
+	cout << uintptr_t(ptr + 1) << endl;
+	cout << uintptr_t(ptr + 2) << endl;
 
 	return 0;
 }
