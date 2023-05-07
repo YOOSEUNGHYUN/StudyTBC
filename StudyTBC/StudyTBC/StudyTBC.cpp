@@ -1,43 +1,25 @@
 #include <iostream>
-#include <cstddef>
 
 using namespace std;
 
-void doSomething(double* ptr)
+struct MyStruct
 {
-	cout << "Address of pointer variable in doSomething() " << &ptr << endl;
+	int array[5] = { 9, 7, 5, 3, 1 };
 
-	if (ptr != nullptr)
-	{
-		//do something useful
-		cout << *ptr << endl;
-	}
-	else
-	{
-		//do nothing with ptr
-		cout << "Null ptr, do nothing" << endl;
-	}
+};
+
+void doSomething(MyStruct ms)
+{
+	cout << sizeof(ms.array) << endl;
 }
 
 int main()
 {
-	
-	double* ptr{ nullptr }; //modern c++
+	MyStruct ms;
+	cout << ms.array[0] << endl;
+	cout << sizeof(ms.array) << endl;
 
-	doSomething(ptr);
-	doSomething(nullptr);
-
-	double d = 123.4;
-
-	doSomething(&d);
-
-	ptr = &d;
-
-	doSomething(ptr);
-
-	std::nullptr_t nptr;
-
-	cout << "Address of pointer variable in main() " << &ptr << endl;
+	doSomething(ms);
 
 	return 0;
 }
