@@ -4,13 +4,14 @@ using namespace std;
 
 int main()
 {
-	double value = 7.0;
-	double *ptr = &value;
+	int array[] = { 9, 7, 5, 3, 1 };
 
-	cout << uintptr_t(ptr - 1) << endl;
-	cout << uintptr_t(ptr) << endl;
-	cout << uintptr_t(ptr + 1) << endl;
-	cout << uintptr_t(ptr + 2) << endl;
+	int *ptr = array;
+	for ( int i = 0; i < 5 ; ++i)
+	{ 
+		//cout << array[i] << " " << (uintptr_t)&array[i] << endl;
+		cout << *(ptr + i) << " " << (uintptr_t)(ptr + i) << endl;
+	}
 
 	return 0;
 }
