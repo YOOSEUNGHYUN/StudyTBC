@@ -2,25 +2,31 @@
 
 using namespace std;
 
-//while, break, 포인터와 증감연산자 ++ptr을 사용하여 문자열을 '\0'은 나오지 않게 출력해봐라 
+const char* getName()
+{
+	return "Hyoni";
+}
+
 int main()
 {
-	char name[] = "Hello Hyoni";
-	const int n_name = sizeof(name) / sizeof(char);
-	char *ptr = name;
+	//char name[] = "Hello Hyoni";
+	/*const char* name = getName();
+	const char *name2 = getName();
 
-	while(1)
-	{
-		int i = 0;
-		
-		if (*ptr != '\0')
-		{
-			cout << *(ptr);
-			++ptr;
-		}
-		else
-			break;
-	}
-	
+	cout << (uintptr_t)name << endl;
+	cout << (uintptr_t)name2 << endl;*/
+
+	/*int int_arr[5] = { 1, 2, 3, 4, 5 };
+	char char_arr[] = "Hello, World!";
+	const char *name = "Hyoni";*/
+
+	//cout에서 문자열은 특별하게 처리한다.
+	//cout << int_arr << endl;		//	주소
+	//cout << char_arr << endl;		// 문자열
+	//cout << name << endl;			// 문자열
+
+	char c = 'Q';
+	cout << &c << endl;				// 이상한 문자 출력됨
+
 	return 0;
 }
