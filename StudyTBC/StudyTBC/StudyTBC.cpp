@@ -1,26 +1,25 @@
 #include <iostream>
-
 using namespace std;
 
 int main()
 {
-	//int var;
-	//var = 7;
+	int length;
 
-	int *ptr = new int{ 7 };
+	cin >> length;
 
-	cout << ptr << endl;
-	cout << *ptr << endl;
-	
-	delete ptr;
-	ptr = nullptr;
+	// int array[length];
+	int* array = new int[length]{};
 
-	cout << "After delete" << endl;
-	if (ptr != nullptr)
+	array[0] = 1;
+	array[1] = 2;
+
+	for (int i = 0; i < length; ++i)
 	{
-		cout << ptr << endl;
-		cout << *ptr << endl;
+		cout << (uintptr_t) & array[i] << endl;
+		cout << array[i] << endl;
 	}
-	
+
+	delete[] array;
+
 	return 0;
 }
