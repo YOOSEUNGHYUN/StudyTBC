@@ -3,14 +3,10 @@ using namespace std;
 
 int main()
 {
-	//memory leak
-	while (true)
-	{
-		int *ptr = new int;
-		cout << ptr << endl;
-
-		delete ptr;
-	}
+	int value = 5;
+	const int *ptr1 = &value;
+	int *const ptr2 = &value;
+	const int *const ptr3 = &value;
 
 	return 0;
 }
