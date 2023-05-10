@@ -1,25 +1,23 @@
 #include <iostream>
 using namespace std;
 
+struct MyStruct
+{
+	int array[5] = { 9, 7, 5, 3, 1 };
+};
+
+void doSomething(MyStruct *ms)
+{
+	cout << sizeof((*ms).array) << endl;
+}
+
 int main()
 {
-	int length;
+	MyStruct ms;
+	cout << ms.array[0] << endl;
+	cout << sizeof(ms.array) << endl;
 
-	cin >> length;
-
-	// int array[length];
-	int* array = new int[length]{};
-
-	array[0] = 1;
-	array[1] = 2;
-
-	for (int i = 0; i < length; ++i)
-	{
-		cout << (uintptr_t) & array[i] << endl;
-		cout << array[i] << endl;
-	}
-
-	delete[] array;
+	doSomething(&ms);
 
 	return 0;
 }
