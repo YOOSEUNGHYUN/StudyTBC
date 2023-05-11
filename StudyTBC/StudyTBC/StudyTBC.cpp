@@ -4,9 +4,17 @@ using namespace std;
 int main()
 {
 	int value = 5;
-	const int *ptr1 = &value;
-	int *const ptr2 = &value;
-	const int *const ptr3 = &value;
+	
+	/*int *ptr = nullptr;
+	ptr = &value;*/
+
+	int& ref = value;
+
+	cout << ref << endl;
+
+	ref = 10; //*ptr = 10;
+
+	cout << value << " " << ref << endl;
 
 	return 0;
 }
