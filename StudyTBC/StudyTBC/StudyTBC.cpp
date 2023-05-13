@@ -1,18 +1,34 @@
 #include <iostream>
 using namespace std;
 
-void doSomething(const int& x)
+struct Person
 {
-	cout << x << endl;
-}
+	int age;
+	double weight;
+};
+
 int main()
 {
-	int a = 1;
+	Person person;
 
-	doSomething(a);
-	doSomething(1);
-	doSomething(a+3);
-	doSomething(3*4);
+	person.age = 5;
+	person.weight = 30;
+
+	Person &ref = person;
+	ref.age = 15;
+
+	Person *ptr = &person;
+	ptr->weight = 40;
+	(*ptr).age = 20;
+
+	Person &ref2 = *ptr;
+	ref2.age = 45;
+
+	cout << &person << endl;
+	cout << &ref2 << endl;
+
+
+
 
 	return 0;
 }
