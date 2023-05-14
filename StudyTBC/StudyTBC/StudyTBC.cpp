@@ -9,25 +9,14 @@ struct Person
 
 int main()
 {
-	Person person;
+	const int fibo[] = { 0, 1, 1, 2, 3, 5, 8 , 13, 21, 34, 55, 89 };
 
-	person.age = 5;
-	person.weight = 30;
+		for (int number : fibo)
+			number = 10;
 
-	Person &ref = person;
-	ref.age = 15;
-
-	Person *ptr = &person;
-	ptr->weight = 40;
-	(*ptr).age = 20;
-
-	Person &ref2 = *ptr;
-	ref2.age = 45;
-
-	cout << &person << endl;
-	cout << &ref2 << endl;
-
-
+			for (int number : fibo)
+				cout << number << " ";
+	cout << endl;
 
 
 	return 0;
