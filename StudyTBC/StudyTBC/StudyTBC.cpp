@@ -1,23 +1,22 @@
 #include <iostream>
 using namespace std;
 
-struct Person
-{
-	int age;
-	double weight;
-};
-
 int main()
 {
-	const int fibo[] = { 0, 1, 1, 2, 3, 5, 8 , 13, 21, 34, 55, 89 };
+	int i = 5;
+	float f = 3.0;
+	char c = 'a';
 
-		for (int number : fibo)
-			number = 10;
+	void *ptr = nullptr;
 
-			for (int number : fibo)
-				cout << number << " ";
-	cout << endl;
+	ptr = &i;
+	ptr = &f;
+	ptr = &c;
 
+	int *ptr_i = &i;
+
+	cout << ptr_i << endl;
+	cout << ptr_i + 1 << endl;
 
 	return 0;
 }
