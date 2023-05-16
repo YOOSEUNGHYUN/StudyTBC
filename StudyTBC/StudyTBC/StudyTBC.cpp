@@ -3,23 +3,17 @@ using namespace std;
 
 int main()
 {
-	int length = 5;
+	int* ptr = nullptr;
+	int** ptrptr = nullptr;
 
-	cin >> length;
+	int value = 5;
 
-	//int array[length];
-	int* array = new int[length]{11, 22, 33, 44, 55, 66};
+	ptr = &value;
+	ptrptr = &ptr;
 
-	array[0] = 1;
-	array[1] = 2;
-
-	for (int i = 0; i < length; ++i)
-	{
-		cout << (uintptr_t) & array[i] << endl;
-		cout << array[i] << endl;
-	}
-
-	delete[] array;
+	cout << ptr << " " << *ptr << " " << &ptr << endl;
+	cout << ptrptr << " " << *ptrptr << " " << &ptrptr << endl;
+	cout << **ptrptr << endl;
 
 	return 0;
 
