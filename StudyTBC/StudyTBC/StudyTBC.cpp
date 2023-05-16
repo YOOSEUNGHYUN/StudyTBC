@@ -3,20 +3,24 @@ using namespace std;
 
 int main()
 {
-	int i = 5;
-	float f = 3.0;
-	char c = 'a';
+	int length = 5;
 
-	void *ptr = nullptr;
+	cin >> length;
 
-	ptr = &i;
-	ptr = &f;
-	ptr = &c;
+	//int array[length];
+	int* array = new int[length]{11, 22, 33, 44, 55, 66};
 
-	int *ptr_i = &i;
+	array[0] = 1;
+	array[1] = 2;
 
-	cout << ptr_i << endl;
-	cout << ptr_i + 1 << endl;
+	for (int i = 0; i < length; ++i)
+	{
+		cout << (uintptr_t) & array[i] << endl;
+		cout << array[i] << endl;
+	}
+
+	delete[] array;
 
 	return 0;
+
 }
