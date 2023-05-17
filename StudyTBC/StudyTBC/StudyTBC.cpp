@@ -1,19 +1,16 @@
 #include <iostream>
+#include <array>
 using namespace std;
 
 int main()
 {
-	int* ptr = nullptr;
-	int** ptrptr = nullptr;
+	//int array[5] = { 1, 2, 3, 4, 5 };
 
-	int value = 5;
+	array<int, 5>my_arr = { 1, 2, 3, 4, 5 };
+	my_arr = { 0, 1, 2, 3, 4 };
+	my_arr = { 0, 1, 2, };
 
-	ptr = &value;
-	ptrptr = &ptr;
-
-	cout << ptr << " " << *ptr << " " << &ptr << endl;
-	cout << ptrptr << " " << *ptrptr << " " << &ptrptr << endl;
-	cout << **ptrptr << endl;
+	cout << my_arr[0] << endl;
 
 	return 0;
 
