@@ -1,18 +1,21 @@
 #include <iostream>
 using namespace std;
 
-int foo(int x, int y);
-
-int foo(int x, int y)
+void doSomething(int y)
 {
-	return x + y;
-}// x and y are destroyed here
+	cout << "In func " << y << " " << &y << endl;
+}
 
 int main()
 {
-	int x = 1, y = 2;
+	doSomething(5);
 
-	foo(6, 7); //6, 7 : arguments (actual parameters)
-	foo(x, y + 1);
+	int x = 6;
+
+	cout << "In main " << x << " " << &x << endl;
+
+	doSomething(x);
+	doSomething(x + 1);
+
 	return 0;
 }
