@@ -1,21 +1,21 @@
 #include <iostream>
 using namespace std;
 
-void doSomething(int y)
+void addOne(int &y)
 {
-	cout << "In func " << y << " " << &y << endl;
+	cout << y << " " << &y << endl;
+	y = y + 1;
 }
 
 int main()
 {
-	doSomething(5);
+	int x = 5;
 
-	int x = 6;
+	cout << x << " " << &x << endl;
 
-	cout << "In main " << x << " " << &x << endl;
+	addOne(x);
 
-	doSomething(x);
-	doSomething(x + 1);
+	cout << x << " " << &x << endl;
 
 	return 0;
 }
