@@ -1,21 +1,27 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
 typedef int* pint;
 
-//void printElement(int (&arr)[4]) //대괄호 안에 element 개수 반드시 들어가야함
-void printElement(const vector<int>& arr)
+void foo(int *ptr)
 {
-
+	cout << *ptr << " " << ptr << " " << &ptr << endl;
 }
+
 
 int main()
 {
-	/*int arr[]{ 1, 2, 3, 4 };*/
-	vector<int> arr{ 1, 2, 3, 4 };
+	int value = 5;
 
-	printElement(arr);
+	cout << value << " " << &value << endl;
+
+	int *ptr = &value;
+
+	cout << &ptr << endl;
+
+	foo(ptr);
+	foo(&value);
+	//foo(5);//리터럴이라 안돼
 
 	return 0;
 }
