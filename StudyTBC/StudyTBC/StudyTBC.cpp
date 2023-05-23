@@ -1,23 +1,22 @@
 #include <iostream>
 using namespace std;
 
-typedef int* pint;
+//int* getValue(int x)
+//{
+//	int value = x * 2;
+//	return &value;
+//}
 
-void foo(const int * const ptr, int *arr, int length)
+int* allocateMemory(int size)
 {
-	for (int i = 0; i < length; ++i)
-		cout << arr[i] << endl;
-
-	arr[0] = 1.0;
-
-	int x = 1;
-
-	//ptr = &x;
+	return new int[size];
 }
-
 
 int main()
 {
-	
+	int* array = allocateMemory(1024);
+
+	delete[] array;
+
 	return 0;
 }
