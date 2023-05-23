@@ -3,9 +3,10 @@ using namespace std;
 
 typedef int* pint;
 
-void foo(int *ptr)
+void foo(double degrees, double *sin_out, double *cos_out)
 {
-	cout << *ptr << " " << ptr << " " << &ptr << endl;
+	*sin_out = 1.0;
+	*cos_out = 2.0;
 }
 
 
@@ -19,9 +20,11 @@ int main()
 
 	cout << &ptr << endl;
 
-	foo(ptr);
-	foo(&value);
-	//foo(5);//¸®ÅÍ·²ÀÌ¶ó ¾ÈµÅ
+	double degrees = 30;
+	double sin, cos;
 
+	foo(degrees, &sin, &cos);
+	cout << sin << " " << cos << endl;
+	
 	return 0;
 }
