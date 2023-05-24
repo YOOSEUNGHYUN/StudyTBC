@@ -1,21 +1,25 @@
 #include <iostream>
 #include <array>
+#include <tuple>
 using namespace std;
 
-struct S
+std::tuple<int, double> getTuple()
 {
-	int a, b, c, d;
-};
+	int a = 10;
+	double d = 3.14;
+	return std::make_tuple(a, d);
 
-S getStruct()
-{
-	S my_s{ 1, 2, 3, 4 };
 }
 
 int main()
 {
-	S my_s = getStruct();
-	my_s.b;
+	std::tuple<int, double> my_tp = getTuple();
+	cout << std::get<0>(my_tp) << endl; // a
+	cout << std::get<1>(my_tp) << endl; // d
+
+	/*auto [a, d] = getTuple();
+	cout << a << endl;
+	cout << d << endl;*/
 
 	return 0;
 }
