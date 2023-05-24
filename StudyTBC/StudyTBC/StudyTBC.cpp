@@ -1,22 +1,18 @@
 #include <iostream>
 using namespace std;
 
-//int* getValue(int x)
-//{
-//	int value = x * 2;
-//	return &value;
-//}
-
-int* allocateMemory(int size)
+int& getValue(int x)
 {
-	return new int[size];
+	int value = x * 2;
+	return value;
 }
 
 int main()
 {
-	int* array = allocateMemory(1024);
+	int value = getValue(5);
 
-	delete[] array;
+	cout << value << endl;
+
 
 	return 0;
 }
