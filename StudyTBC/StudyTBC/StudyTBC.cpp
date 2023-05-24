@@ -1,18 +1,20 @@
 #include <iostream>
+#include <array>
 using namespace std;
 
-int& getValue(int x)
+int& get(array<int, 100>& my_array, int ix)
 {
-	int value = x * 2;
-	return value;
+	return my_array[ix];
 }
 
 int main()
 {
-	int value = getValue(5);
+	array<int, 100> my_array;
+	my_array[30] = 10;
 
-	cout << value << endl;
+	get(my_array, 30) = 1024;
 
+	cout << my_array[30] << endl;
 
 	return 0;
 }
