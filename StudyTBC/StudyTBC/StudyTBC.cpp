@@ -2,19 +2,20 @@
 #include <array>
 using namespace std;
 
-int& get(array<int, 100>& my_array, int ix)
+struct S
 {
-	return my_array[ix];
+	int a, b, c, d;
+};
+
+S getStruct()
+{
+	S my_s{ 1, 2, 3, 4 };
 }
 
 int main()
 {
-	array<int, 100> my_array;
-	my_array[30] = 10;
-
-	get(my_array, 30) = 1024;
-
-	cout << my_array[30] << endl;
+	S my_s = getStruct();
+	my_s.b;
 
 	return 0;
 }
