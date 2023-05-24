@@ -1,25 +1,20 @@
+//Inline Functions
 #include <iostream>
-#include <array>
-#include <tuple>
+
 using namespace std;
 
-std::tuple<int, double> getTuple()
+inline int min(int x, int y)
 {
-	int a = 10;
-	double d = 3.14;
-	return std::make_tuple(a, d);
-
+	return x > y ? y : x;
 }
 
 int main()
 {
-	std::tuple<int, double> my_tp = getTuple();
-	cout << std::get<0>(my_tp) << endl; // a
-	cout << std::get<1>(my_tp) << endl; // d
+	cout << min(5, 6) << endl;
+	cout << min(3, 2) << endl;
 
-	/*auto [a, d] = getTuple();
-	cout << a << endl;
-	cout << d << endl;*/
+	cout << (5 > 6 ? 6 : 5) << endl;
+	cout << (3 > 2 ? 2 : 3) << endl;
 
 	return 0;
 }
