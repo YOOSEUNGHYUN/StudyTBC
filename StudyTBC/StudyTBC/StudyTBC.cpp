@@ -1,18 +1,18 @@
-//Function Overloading
 #include <iostream>
-#include <string>
+
 using namespace std;
 
-typedef int my_int;
-
-void print(unsigned int value) {}
-void print(float value) {}
+void print(int x = 10, int y = 20, int z = 30)
+{
+	cout << x << " " << y << " " << z << endl;
+}
 
 int main()
 {
-	print((unsigned int)'a');
-	print(0u);
-	print(3.14159f);
+	print();
+	print(100);
+	print(100,200);
+	print(100, 200, 300);
 
 	return 0;
 }
