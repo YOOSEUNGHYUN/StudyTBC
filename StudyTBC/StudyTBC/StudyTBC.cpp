@@ -1,20 +1,18 @@
-//Inline Functions
+//Function Overloading
 #include <iostream>
-
+#include <string>
 using namespace std;
 
-inline int min(int x, int y)
-{
-	return x > y ? y : x;
-}
+typedef int my_int;
+
+void print(unsigned int value) {}
+void print(float value) {}
 
 int main()
 {
-	cout << min(5, 6) << endl;
-	cout << min(3, 2) << endl;
-
-	cout << (5 > 6 ? 6 : 5) << endl;
-	cout << (3 > 2 ? 2 : 3) << endl;
+	print((unsigned int)'a');
+	print(0u);
+	print(3.14159f);
 
 	return 0;
 }
