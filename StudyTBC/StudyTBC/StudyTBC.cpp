@@ -1,26 +1,36 @@
 #include <iostream>
-
+#include <array>
 using namespace std;
 
-int func()
+bool isEven(const int& number)
 {
-	return 5;
+	if (number % 2 == 0) return true;
+	else return false;
 }
 
-int goo()
+bool isOdd(const int& number)
 {
-	return 10;
+	if (number % 2 != 0) return true;
+	else return false;
+}
+
+void printNumber(const array<int, 10> &my_array, bool (*check_fcn)(const int&))
+{
+	for (auto element : my_array)
+	{
+		if (check_fcn(element) == true) cout << element;
+		/*if (print_even && element % 2 == 1) cout << element;*/
+	}
+	cout << endl;
 }
 
 int main()
 {
-	int(*fcnptr)() = func;
+	std::array<int, 10> my_array{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-	cout << fcnptr() << endl;
-
-	fcnptr = goo;
-
-	cout << fcnptr() << endl;
+	printNumber(my_array, isEven);
+	printNumber(my_array, isOdd);
+	
 
 	return 0;
 }
