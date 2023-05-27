@@ -2,17 +2,25 @@
 
 using namespace std;
 
-void print(int x = 10, int y = 20, int z = 30)
+int func()
 {
-	cout << x << " " << y << " " << z << endl;
+	return 5;
+}
+
+int goo()
+{
+	return 10;
 }
 
 int main()
 {
-	print();
-	print(100);
-	print(100,200);
-	print(100, 200, 300);
+	int(*fcnptr)() = func;
+
+	cout << fcnptr() << endl;
+
+	fcnptr = goo;
+
+	cout << fcnptr() << endl;
 
 	return 0;
 }
