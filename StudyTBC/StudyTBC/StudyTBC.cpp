@@ -9,10 +9,10 @@ int main()
 
 	// size, capacity
 
-	v.resize(2);
+	v.reserve(1024);
 
-	for (auto& e : v)
-		cout << e << " ";
+	for(unsigned int i = 0; i < v.size(); ++i)
+		cout << v[i] << " ";
 	cout << endl;
 
 	cout << v.size() << " " << v.capacity() << endl;
