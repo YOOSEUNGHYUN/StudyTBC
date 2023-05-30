@@ -1,37 +1,18 @@
 #include <iostream>
-#include <vector>
 using namespace std;
+//Recursive Function Call
 
-void printStack(const std::vector<int> &stack)
+void countDown(int count)
 {
-	for (auto& e : stack)
-		cout << e << " ";
-	cout << endl;
+	cout << count << endl;
+
+	if(count > 0)
+		countDown(count - 1);
 }
 
 int main()
 {
-	std::vector<int> stack;
-
-	//stack.reserve(1024);
-
-	stack.push_back(3);
-	printStack(stack);
-
-	stack.push_back(5);
-	printStack(stack);
-
-	stack.push_back(7);
-	printStack(stack);
-	
-	stack.pop_back();
-	printStack(stack);
-
-	stack.pop_back();
-	printStack(stack);
-
-	stack.pop_back();
-	printStack(stack);
+	countDown(5);
 
 	return 0;
 }
