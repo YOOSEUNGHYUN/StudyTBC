@@ -1,30 +1,36 @@
 #include <iostream>
+#include <string>
 using namespace std;
-//Recursive Function Call
-// 0 1 2 3 5 8 13 21 ... fibonacci
+//Defensive Programming
 
-int fibonacci(int fibo)
-{
-	if (fibo <= 0)
-		return 0;
-	else if (fibo == 1) return 1;
-	else
-	{
-		return fibonacci(fibo - 2) + fibonacci(fibo - 1);
-	}
-}
-
-void printFibonacci(int (*fibonacci)(int), int n)
-{
-	for (int k = 0; k < n; k++)
-	{
-		cout << fibonacci(k) << " ";
-	}
-	cout << endl;
-}
 int main()
 {
-	printFibonacci(fibonacci, 10);
+	// semantic errors
+	//int x;
+	//cin >> x;
+
+	//if (x > 5)
+	//	cout << "x is greater than 5" << endl;
+
+	// violated assumption
+
+	string hello = "Hello, my name is Hyoni";
+
+	cout << "Input from 0 to " << hello.size() - 1 << endl;
+
+	while (true)
+	{
+		int ix;
+		cin >> ix;
+
+		if (ix >= 0 && ix <= hello.size() - 1)
+		{
+			cout << hello[ix] << endl;
+			break;
+		}
+		else
+			cout << "Please try again" << endl;
+	}
 
 	return 0;
 }
