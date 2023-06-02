@@ -1,16 +1,22 @@
 #include <iostream>
-#include <cassert> //assert.h
-#include <array>
+#include <string>
 using namespace std;
+//command line arguments
 
-int main()
+int main(int argc, char *argv[])
 {
-	const int x = 5;
+	for (int count = 0; count << argc; ++count)
+	{
+		std::string argv_single = argv[count];
 
-	assert(x == 5);
-
-	static_assert(x == 5, "x should be 5");
-
+		if (count == 1)
+		{
+			int input_number = std::stoi(argv_single);
+			cout << input_number + 1 << endl;
+		}
+		else
+			cout << argv_single << endl;
+	}
 
 	return 0;
 }
