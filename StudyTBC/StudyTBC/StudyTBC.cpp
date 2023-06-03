@@ -1,22 +1,29 @@
 #include <iostream>
-#include <string>
+#include <cstdarg> // for Ellipsis
 using namespace std;
-//command line arguments
 
-int main(int argc, char *argv[])
+double findAverage(int count, ...)
 {
-	for (int count = 0; count << argc; ++count)
-	{
-		std::string argv_single = argv[count];
+	double sum = 0;
 
-		if (count == 1)
-		{
-			int input_number = std::stoi(argv_single);
-			cout << input_number + 1 << endl;
-		}
-		else
-			cout << argv_single << endl;
-	}
+	va_list list;
 
+	va_start(list, count);
+
+	for (int arg = 0; arg < count; ++arg)
+		sum += va_arg(list, int);
+
+	va_end(list);
+
+	return sum / count;
+}
+
+int main()
+{
+	cout << findAverage(1, 1, 2, 3, "Hello", 'c') << endl;
+	cout << findAverage(3, 1, 2, 3) << endl;
+	cout << findAverage(5, 1, 2, 3, 4, 5) << endl;
+	cout << findAverage(10, 1, 2, 3, 4, 5) << endl;
+	
 	return 0;
 }
