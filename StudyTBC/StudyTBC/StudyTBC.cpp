@@ -1,70 +1,69 @@
 #include <iostream>
 #include <string>
 #include <vector>
+//Encapsulation, Access Specifiers, Access Functions
 using namespace std;
 
-// Object(객체) 라는 것은 데이터와 기능을 묶어놓은 것
-// Friend : name, address, age, height, weight, ...
-//			print()
-
-// 데이터를 넣을 때는 struct를 쓰고,
-// 기능을 넣을 때는 class를 쓰는 것이 일반적이다.
-// C 에서는 struct에 기능을 넣을 수 없다. C++은 가능
-
-class Friend
+class Date
 {
-public: //access specifier(public, private, protected) 접근지정자
-	string m_name;
-	string address;
-	int	   age;
-	double height;
-	double weight;
-	// 멤버변수라는 것을 알려주기 위해서 변수명에 앞에 m_를 붙이기도하고
-	// 요즘엔 앞에나 뒤에 _ 를 붙이기도 한다.
+//private:이 기본이다. 막는걸 기본으로 한다.
+private:			//access specifier
+	int m_month;
+	int m_day;
+	int m_year;
 
-	void print()
+public:
+	void setDate(const int& month_input, const int& day_input, const int& year_input)
 	{
-		cout << m_name << " " << address << " " << age << " " << height << " "
-			<< weight << endl;
+		m_month = month_input;
+		m_day = day_input;
+		m_year = year_input;
+	}
+
+	void setMonth(const int& month_input)
+	{
+		m_month = month_input;
+	}
+
+	void setDay(const int& day_input)
+	{
+		m_day = day_input;
+	}
+
+	// setters
+	void setYear(const int& year_input)
+	{
+		m_year = year_input;
+	}
+
+	// getters
+	const int& getDay()			// 보통 멤버변수 접근함수를 만들때는 const로 막는다.
+	{
+		return m_day;
+	}
+
+	void copyFrom(const Date& original) // 자기 자신의 타입을 파라미터로 받는다.
+	{
+		m_month = original.m_month;
+		m_day = original.m_day;
+		m_year = original.m_year;
 	}
 };
 
-
-void print(const string &name, const string &address, const int &age, 
-	const double &height, const double &weight)
-{
-	cout << name << " " << address << " " << age << " " << height << " " 
-		<< weight << endl;
-}
-
 int main()
 {
-	// 클래스가 메모리를 갖도록하는 것을 instanciation 이라고한다.
-	Friend JJ{"Jack Jack", "Uptown", 2, 30, 100}; 
-	// JJ를 클래스의 instance 인스턴스라고 부른다.
+	Date today; //{ 8, 4, 2025 };
+	/*today.m_month = 8;
+	today.m_day = 4;
+	today.m_year = 2025;*/
 
-	cout << &JJ << endl; // 이렇게하면 주소가 나온다. 하지만 Friend라는 클래스는 찍어볼 수 없다.
-						 // 왜냐하면 instanciation 되지 않은 것이라 그렇다.
-	
-	
-	JJ.print();
+	today.setDate(8, 4, 2025);
+	today.setMonth(10);
 
-	vector<Friend> my_friends;
-	my_friends.resize(2); // 친구 두명 저장할 공간이 생김
+	cout << today.getDay() << endl;
 
-	//my_friends[0].print();
-	//my_friends[1].print();
-
-	for (auto& ele : my_friends)
-		ele.print();
-
-	/*vector<string> name_vec;
-	vector<string> addr_vec;
-	vector<int>    age_vec;
-	vector<double> height_vec;
-	vector<double> weight_vec;
-
-	print(name_vec[0], addr_vec[0], age_vec[0], height_vec[0], weight_vec[0]);*/
+	Date copy;
+	copy.copyFrom(today);
 
 	return 0;
 }
