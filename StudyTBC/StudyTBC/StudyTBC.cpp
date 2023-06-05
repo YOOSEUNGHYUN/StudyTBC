@@ -1,69 +1,51 @@
 #include <iostream>
 #include <string>
 #include <vector>
-//Encapsulation, Access Specifiers, Access Functions
+//Constructors
 using namespace std;
 
-class Date
+class Fraction
 {
-//private:이 기본이다. 막는걸 기본으로 한다.
-private:			//access specifier
-	int m_month;
-	int m_day;
-	int m_year;
+private:
+	int m_numerator;
+	int m_denominator;
 
 public:
-	void setDate(const int& month_input, const int& day_input, const int& year_input)
-	{
-		m_month = month_input;
-		m_day = day_input;
-		m_year = year_input;
-	}
+	//Fraction()
+	//{
+	//	m_numerator = 1;
+	//	m_denominator = 1;
+	//}
 
-	void setMonth(const int& month_input)
+	Fraction(const int& num_in = 1, const int& den_in = 1) 
+	// 생성자는 return 값이 없다! 반환데이터 타입이 없고
+    // 클래스와 이름이 동일하면 생성자 Constructor다.
 	{
-		m_month = month_input;
-	}
+		m_numerator = num_in;
+		m_denominator = den_in;
 
-	void setDay(const int& day_input)
-	{
-		m_day = day_input;
+		cout << "Fraction constructor" << endl;
 	}
-
-	// setters
-	void setYear(const int& year_input)
+	void print()
 	{
-		m_year = year_input;
-	}
-
-	// getters
-	const int& getDay()			// 보통 멤버변수 접근함수를 만들때는 const로 막는다.
-	{
-		return m_day;
-	}
-
-	void copyFrom(const Date& original) // 자기 자신의 타입을 파라미터로 받는다.
-	{
-		m_month = original.m_month;
-		m_day = original.m_day;
-		m_year = original.m_year;
+		cout << m_numerator << " / " << m_denominator << endl;
 	}
 };
 
 int main()
 {
-	Date today; //{ 8, 4, 2025 };
-	/*today.m_month = 8;
-	today.m_day = 4;
-	today.m_year = 2025;*/
+	//Fraction frac; // 여기에 선언과 동시에 메모리에 자리를 잡는 동시에 바로 생성자가 실행된다.
+				   // frac 다음에 괄호가 없다!
+				   // 생성자의 파라미터가 하나도 없을 경우에만 괄호를 안쓴다.
+				   // 생성자가 없을 때에는 아무것도 안하는 default생성자가 숨어있다. Fraction() {}
+				   // 파라미터가 없는 생성자를 호출 할 때는 괄호를 꼭 뺴야한다. 
+				   // 오류 해결 방법은 기본 생성자를 만들어라. 또는 파라미터가 있는 생성자에 오버로딩해서 default값 넣어버려라
 
-	today.setDate(8, 4, 2025);
-	today.setMonth(10);
+	Fraction frac{ 1, 3 }; //uniform initialization은 타입변환을 허용하지 않는다.
+	frac.print();
 
-	cout << today.getDay() << endl;
-
-	Date copy;
-	copy.copyFrom(today);
+	/*Fraction one_thirds(1);
+	one_thirds.print();*/
 
 	return 0;
 }
