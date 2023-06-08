@@ -1,53 +1,48 @@
 #include <iostream>
 #include <string>
 #include <vector>
-//Member Initializer List
+//Delegating Constructors
 using namespace std;
 
-class B
+class Student
 {
-private:
-	int m_b;
+private: 
+	int	   m_id;
+	string m_name;
 
 public:
-	B(const int& m_b_in)
-		: m_b(m_b_in)
+	Student(const string& name_in)
+		//:m_id(0), m_name(name_in)
+		//: Student(0, name_in)
 	{
-
+		Init(0, name_in);
 	}
-};
 
-class Something
-{
-private:
-	int m_i = 100;
-	double m_d = 100.0;
-	char m_c = 'F';
-	int m_arr[5] = { 100, 200, 300, 400, 500 };
-	B m_b{ 1024 };
-
-public:
-	Something()
-		: m_i{ 1 }, m_d{ 3.14 }, m_c{ 'a' }, m_arr{ 1,2,3,4,5 }, m_b(m_i - 1) //이렇게 초기화하면 형변환이 안된다. 좀 더 엄격함
-		// : m_i(1), m_d(3.14), m_c('a')
+	Student(const int& id_in, const string& name_in)
+	///	:m_id(id_in), m_name(name_in)
 	{
-		m_i *= 3;
-		m_d *= 3.0;
-		m_c += 3;
+		Init(id_in, name_in);
+	}
+
+	void Init(const int& id_in, const string& name_in)
+	{
+		m_id = id_in;
+		m_name = name_in;
 	}
 
 	void print()
 	{
-		cout << m_i << " " << m_d << " " << m_c << endl;
-		for (auto& e : m_arr)
-			cout << e << " ";
-		cout << endl;
+		cout << m_id << " " << m_name << endl;
 	}
 };
+
 int main()
 {
-	Something som;
-	som.print();
+	Student st1(0, "Jack Jack");
+	st1.print();
+
+	Student st2("Dash");
+	st2.print();
 
 	return 0;
 }
