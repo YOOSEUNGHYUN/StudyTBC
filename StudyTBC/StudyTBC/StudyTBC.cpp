@@ -1,48 +1,39 @@
 #include <iostream>
 #include <string>
 #include <vector>
-//Delegating Constructors
+//Destructor
 using namespace std;
 
-class Student
+class Simple
 {
-private: 
-	int	   m_id;
-	string m_name;
+private:
+	int m_id;
 
 public:
-	Student(const string& name_in)
-		//:m_id(0), m_name(name_in)
-		//: Student(0, name_in)
+	Simple(const int& id_in)
+		: m_id(id_in)
 	{
-		Init(0, name_in);
+		cout << "Constructor " << m_id << endl;
 	}
 
-	Student(const int& id_in, const string& name_in)
-	///	:m_id(id_in), m_name(name_in)
+	~Simple()
 	{
-		Init(id_in, name_in);
-	}
-
-	void Init(const int& id_in, const string& name_in)
-	{
-		m_id = id_in;
-		m_name = name_in;
-	}
-
-	void print()
-	{
-		cout << m_id << " " << m_name << endl;
+		cout << "Destructor " << m_id << endl;
 	}
 };
 
 int main()
 {
-	Student st1(0, "Jack Jack");
-	st1.print();
+	//Simple s1(0);
+	Simple *s1 = new Simple(0);
+	Simple s2(1);
 
-	Student st2("Dash");
-	st2.print();
+	delete s1;
+	// 보통 소멸자는 instance가 메모리에서 해제될 떄 내부에서 자동으로 호출.
+	// 동적할당으로 만들어진 경우에는 영역을 벗어나도 자동으로 메모리가 해제되지 않기 때문에
+	// delete로 메모리를 해제할 때에만 소멸자가 호출된다.
+	// 소멸자를 프로그래머가 직접 호출하는 것은 대부부의 경우 권장하지 않는다.
+
 
 	return 0;
 }
