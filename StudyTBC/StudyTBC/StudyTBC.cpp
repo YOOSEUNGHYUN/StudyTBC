@@ -4,36 +4,39 @@
 //Destructor
 using namespace std;
 
-class Simple
+class IntArray
 {
-private:
-	int m_id;
+private: 
+	int *m_arr = nullptr; // new, delete 하기 귀찮으면 vector 써라
+						  // vector의 소멸자에는 메모리 반납하는게 들어있다.
+	int m_length = 0;
 
 public:
-	Simple(const int& id_in)
-		: m_id(id_in)
+	IntArray(const int length_in)
 	{
-		cout << "Constructor " << m_id << endl;
+		m_length = length_in;
+		m_arr = new int[m_length];
+
+		//cout << "Constructor " << endl;
 	}
 
-	~Simple()
+	~IntArray()
 	{
-		cout << "Destructor " << m_id << endl;
+		if(m_arr != nullptr)
+			delete[] m_arr;
 	}
+
+	int getLength() { return m_length; }
 };
+
 
 int main()
 {
-	//Simple s1(0);
-	Simple *s1 = new Simple(0);
-	Simple s2(1);
-
-	delete s1;
-	// 보통 소멸자는 instance가 메모리에서 해제될 떄 내부에서 자동으로 호출.
-	// 동적할당으로 만들어진 경우에는 영역을 벗어나도 자동으로 메모리가 해제되지 않기 때문에
-	// delete로 메모리를 해제할 때에만 소멸자가 호출된다.
-	// 소멸자를 프로그래머가 직접 호출하는 것은 대부부의 경우 권장하지 않는다.
-
+	while (true)
+	{
+		IntArray my_int_arr(10000);
+	}
+	// 죽었다 만들어졌다 할거임 => 메모리릭이 생긴다.
 
 	return 0;
 }
