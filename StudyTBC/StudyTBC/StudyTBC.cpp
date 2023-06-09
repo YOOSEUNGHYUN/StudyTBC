@@ -1,42 +1,38 @@
 #include <iostream>
 #include <string>
 #include <vector>
-//Destructor
+//this pointer and Chaining Member Functions
 using namespace std;
 
-class IntArray
+class Simple
 {
-private: 
-	int *m_arr = nullptr; // new, delete 하기 귀찮으면 vector 써라
-						  // vector의 소멸자에는 메모리 반납하는게 들어있다.
-	int m_length = 0;
+private:
+	int m_id;
 
 public:
-	IntArray(const int length_in)
+	Simple(int id) // 생성자가 받아들여서 초기화 해주고 있음
 	{
-		m_length = length_in;
-		m_arr = new int[m_length];
+		/*this->*/setID(id); // 맨 앞에 this-> 가 숨어있다. -> operator는 class. structure, pointer의 경우 멤버선택연산자
+		//(*this).setID(id); 이렇게도 할 수 있지만 굳이 이렇게 안쓴다.
+		/*this->*/m_id; // this 에서 멤버변수도 접근가능하다.
 
-		//cout << "Constructor " << endl;
+		cout << this << endl; // 자기자신의 주소를 출력해준다.
 	}
 
-	~IntArray()
-	{
-		if(m_arr != nullptr)
-			delete[] m_arr;
-	}
-
-	int getLength() { return m_length; }
+	void setID(int id) { m_id = id; }
+	int getID() { return m_id; }
 };
-
 
 int main()
 {
-	while (true)
-	{
-		IntArray my_int_arr(10000);
-	}
-	// 죽었다 만들어졌다 할거임 => 메모리릭이 생긴다.
+	Simple s1(1), s2(2); 
+	s1.setID(2);
+	s2.setID(4);
+
+	cout << &s1 << " " << &s2 << endl;
+
+	//Simple::setID(&s2, 4); 문법상 이렇게 쓸 수는 없지만 개념상 이렇다.
+	//== s2.setID(4); 문법상은 이렇게만 된다.
 
 	return 0;
 }
