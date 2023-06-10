@@ -4,35 +4,44 @@
 //this pointer and Chaining Member Functions
 using namespace std;
 
-class Simple
+class Calc
 {
 private:
-	int m_id;
+	int m_value;
 
 public:
-	Simple(int id) // 생성자가 받아들여서 초기화 해주고 있음
-	{
-		/*this->*/setID(id); // 맨 앞에 this-> 가 숨어있다. -> operator는 class. structure, pointer의 경우 멤버선택연산자
-		//(*this).setID(id); 이렇게도 할 수 있지만 굳이 이렇게 안쓴다.
-		/*this->*/m_id; // this 에서 멤버변수도 접근가능하다.
+	Calc(int init_value)
+		: m_value(init_value)
+	{}
 
-		cout << this << endl; // 자기자신의 주소를 출력해준다.
+	/*void*/ 
+	Calc& add(int value) { m_value += value; return *this; }
+	Calc& sub(int value) { m_value -= value; return *this;	}
+	Calc& mult(int value) { m_value *= value; return *this; }
+
+	void print()
+	{
+		cout << m_value << endl;
 	}
 
-	void setID(int id) { m_id = id; }
-	int getID() { return m_id; }
 };
 
 int main()
 {
-	Simple s1(1), s2(2); 
-	s1.setID(2);
-	s2.setID(4);
+	Calc cal(10);
 
-	cout << &s1 << " " << &s2 << endl;
+	/*Calc &temp1 = cal.add(10);
+	Calc &temp2 = temp1.sub(1);
+	Calc &temp3 = temp2.mult(2);
+	temp3.print();*/
+	// 위에 코드를 줄이면 이렇게 됨 (Member Function Chaining)
+	cal.add(10).sub(1).mult(2).print();
 
-	//Simple::setID(&s2, 4); 문법상 이렇게 쓸 수는 없지만 개념상 이렇다.
-	//== s2.setID(4); 문법상은 이렇게만 된다.
+	/*cal.add(10);
+	cal.sub(1);
+	cal.mult(2);*/
+	//cal.print();
+
 
 	return 0;
 }
