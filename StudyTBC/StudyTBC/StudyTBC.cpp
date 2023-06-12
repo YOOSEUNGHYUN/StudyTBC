@@ -7,10 +7,12 @@ class Something
 {
 public:
 	//static int s_value = 1; // static member var는 initialize 할 수 없다.
-	static int s_value;
+	static constexpr int s_value = 1; // 일반적인 const는 런타임에 값이 결정될 수 있다.
+									  // constexpr는 컴파일 타임에 값이 확실히 결정되어야 한다.
+									  // 리터럴이 들어오는 경우(숫자 1이 들어오는 경우는) constexpr을 쓸 수 있다.
 };
 
-int Something::s_value = 1;		// *** static 멤버 변수는 헤더에 넣지말고 cpp 파일에 넣어야 한다. 
+// int Something::s_value = 1;		// *** static 멤버 변수는 헤더에 넣지말고 cpp 파일에 넣어야 한다. 
 								// *** 헤더에 두면 에러난다. 중복선언 문제 발생한다.
 
 int main()
@@ -21,12 +23,12 @@ int main()
 	Something st1;
 	Something st2;
 
-	st1.s_value = 2;	// static 붙이면 st1의 값만 바꿔도 st2 값도 같이 바뀐다.
+	// st1.s_value = 2;	// static 붙이면 st1의 값만 바꿔도 st2 값도 같이 바뀐다.
 
 	cout << &st1.s_value << " " << st1.s_value << endl;
 	cout << &st2.s_value << " " << st2.s_value << endl;
 
-	Something::s_value = 1024;
+	// Something::s_value = 1024;
 
 	cout << &Something::s_value << " " << Something::s_value << endl;
 
