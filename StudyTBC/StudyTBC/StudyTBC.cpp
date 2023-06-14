@@ -1,36 +1,50 @@
 #include <iostream>
 #include <string>
 using namespace std;
-//static member variation
+//static member function
 
 class Something
 {
+private:
+	static int s_value;
+	int m_value;
+
 public:
-	//static int s_value = 1; // static member var는 initialize 할 수 없다.
-	static constexpr int s_value = 1; // 일반적인 const는 런타임에 값이 결정될 수 있다.
-									  // constexpr는 컴파일 타임에 값이 확실히 결정되어야 한다.
-									  // 리터럴이 들어오는 경우(숫자 1이 들어오는 경우는) constexpr을 쓸 수 있다.
+	static int getValue()
+	{
+		return s_value;	// s_value는 정적으로 메모리에 존재하니까 가능
+		// return this->s_value; 하면 에러난다.
+		// return m_value; 얘도 에러난다.
+		// static에서는 this pointer 못쓴다. this로 접근해야하는 모든 것이 안된다는 의미.
+	}
+
+	int temp()
+	{
+		return this->s_value;	
+		// this를 사용한다는 것은 특정 인스턴스의 주소를 받아다가 
+		// 그 인스턴스에 속해있는 멤버들의 주소를 가져다가 사용한다는 의미 
+	}
 };
 
-// int Something::s_value = 1;		// *** static 멤버 변수는 헤더에 넣지말고 cpp 파일에 넣어야 한다. 
-								// *** 헤더에 두면 에러난다. 중복선언 문제 발생한다.
+int Something::s_value = 1024;
 
 int main()
 {
-	cout << &Something::s_value << " " << Something::s_value << endl;
-	// static이라서 밑에 st1,st2가 없어도 s_value에 접근이 가능하다. (메모리에 정적으로 존재한다는 것)
+	cout << Something::getValue() << endl;
 
-	Something st1;
-	Something st2;
+	Something s1, s2;
+	cout << s1.getValue() << endl;
+	//cout << s1.s_value << endl;
 
-	// st1.s_value = 2;	// static 붙이면 st1의 값만 바꿔도 st2 값도 같이 바뀐다.
+	// int (Something::*fptr1)() = (s1.temp); 이러면 오류난다.
+	// 함수에서는 s1 의 m_value와 s2의 m_value의 주소가 같다.
+	
+	int(Something::*fptr1)() = &Something::temp; // 이렇게 포인터를 넣어주면 들어간다.
+												 // Something 에 속해있는 temp 라는 멤버함수라는 의미로 포인터를 넣어주면 들어간다.
 
-	cout << &st1.s_value << " " << st1.s_value << endl;
-	cout << &st2.s_value << " " << st2.s_value << endl;
-
-	// Something::s_value = 1024;
-
-	cout << &Something::s_value << " " << Something::s_value << endl;
-
+	cout << (s2.*fptr1)() << endl;
+	// Something 에 속해있는 temp 라는 멤버함수의 포인터를 갖고 있는데 이 포인터 위치에 있는 함수를 실행시킬 때
+	// s2라는 인스턴스에 포인터를 넘겨주고 s2라는 인스턴스의 this pointer를 가져다가 사용하는 형태로 작동한다.
+	// s2를 안쓰면 작동을 할 수가 없다. 왜냐하면 non-static member function은 인스턴스를 안주면 this pointer가 없으면 작동 못한다.
 	return 0;
 }
