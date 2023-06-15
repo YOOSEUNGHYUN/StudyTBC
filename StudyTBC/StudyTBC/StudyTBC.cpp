@@ -5,25 +5,44 @@ using namespace std;
 
 class Something
 {
+public:
+	class _init					// 이런식으로 간접적으로 초기화 해줄 수 는 있다.
+	{
+	public:
+		_init()
+		{
+			s_value = 9876;
+		}
+	};
+
 private:
-	static int s_value;
+	static int s_value;	
 	int m_value;
 
+	static _init s_initializer;
+
 public:
-	static int getValue()
+	Something()
+		: m_value(123)//, s_value(111) 
+		// static member variable은 constructor에서 초기화도 시켜줄 수 없다. 사용못함
+		// 여기서 초기화 하려면 생성자가 static이어야 하는데 C++에서는 static 생성자는 안된다.
+	{
+
+	}
+
+	static int getValue()	// static에서는 this를 사용할 수 없다.
 	{
 		return s_value;	
-	
 	}
 
 	int temp()
 	{
 		return this->s_value;	
-		
 	}
 };
 
-int Something::s_value = 1024;
+int Something::s_value;
+Something::_init Something::s_initializer;
 
 int main()
 {
