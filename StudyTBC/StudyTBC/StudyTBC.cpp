@@ -2,44 +2,32 @@
 using namespace std;
 // anonymous object
 
-class A
+class Cents
 {
+private:
+	int m_cents;
+
 public:
-	int m_value;
-
-	A(const int& input)
-		: m_value(input)
+	Cents(int cents)
 	{
-		cout << "Constructor" << endl;
+		m_cents = cents;
 	}
 
-	~A()
+	int getCents() const		// member variable을 갖고 있지 않으니까 const로 선언해준다.
 	{
-		cout << "Destructor" << endl;
-	}
-
-	void printDouble()
-	{
-		cout << m_value*2 << endl;
+		return m_cents;
 	}
 };
 
+Cents add(const Cents& c1, const Cents& c2)		// Cents 클래스를 리턴해주는 함수
+{
+	return Cents(c1.getCents() + c2.getCents());		// 두개의 멤버의 합을 멤버로 갖는 Cents를 새로 만들어 return
+}
+
 int main()
 {
-	A a(1);
-	a.printDouble();
-
-	A(1).printDouble();	// r-value처럼 작동한다.
-
-	//A a;
-	//a.print();	 //변수 선언하고 여러번 출력할 경우 Constructor와 Destructor가 한번씩만 호출됨.
-	//a.print();
-	//a.print();
-
-	//A().print(); // 별도로 변수를 만들지 않고 함수 실행 가능.
-	//			 // A() 가 r-value 처럼 작동한다.
-	//			 // 쓰고 나면 재사용 못한다.
-	//A().print(); // 또 쓰면 위 아래 객체가 다르다.
+	cout << add(Cents(6), Cents(8)).getCents() << endl;		// add 함수가 Cents를 return 하고 있어서 getCents를 리턴할 수 있다.
+	cout << int(6) + int(8) << endl;
 
 	return 0;
 }
