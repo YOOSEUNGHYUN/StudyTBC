@@ -1,60 +1,45 @@
 #include <iostream>
 #include <fstream>
-// Overloading Input Output Operator
+// Overloading Unary Operator
 using namespace std;
 
-class Point
+class Cents
 {
 private:
-	double m_x, m_y, m_z;
+	int m_cents;
 
 public:
-	Point(double x = 0.0, double y = 0.0, double z = 0.0)
-		: m_x(x), m_y(y), m_z(z)
-	{}
+	Cents(int cents = 0) { m_cents = cents; }
+	int getCents() const { return m_cents; }
+	int& getCents() { return m_cents; }
 
-	double getX() { return m_x; }
-	double getY() { return m_y; }
-	double getZ() { return m_z; }
-
-	/*void print()
+	Cents operator - () const
 	{
-		cout << m_x << " " << m_y << " " << m_z;
-	}*/
-
-	friend std::ostream& operator << (std::ostream &out, const Point &point)
-	{
-		out << "(" << point.m_x << " " << point.m_y << " " << point.m_z << ")";
-
-		return out;
+		return Cents(-m_cents);
 	}
 
-	friend std::istream& operator >> (std::istream& in, Point& point)
+	bool operator ! () const
 	{
-		in >> point.m_x >> point.m_y >> point.m_z;
+		return (m_cents == 0) ? true : false;
+	}
 
-		return in;
+	friend std::ostream& operator << (std::ostream& out, const Cents& cents)
+	{
+		out << cents.m_cents;
+		return out;
 	}
 };
 
 int main()
 {
-	ofstream of("out.txt");
+	Cents cents1(6);
+	Cents cents2(0);
 
-	//Point p1(0.0, 0.1, 0.2), p2(3.4, 1.5, 2.0);
-	Point p1, p2;
+	/*cout << cents1 << endl;
+	cout << -cents1 << endl;
+	cout << -Cents(-10) << endl;*/
 
-	cin >> p1 >> p2;
-
-	/*p1.print();
-	cout << " ";
-	p2.print();
-	cout << endl;*/
-
-	cout << p1 << " " << p2 << endl;
-	of << p1 << " " << p2 << endl;
-
-	of.close();
+	cout << !cents1 << " " << !cents2 << endl;
 
 	return 0;
 }
