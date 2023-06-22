@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-// Overloading Unary Operator
+// Overloading Comparing Operator
 using namespace std;
 
 class Cents
@@ -13,14 +13,9 @@ public:
 	int getCents() const { return m_cents; }
 	int& getCents() { return m_cents; }
 
-	Cents operator - () const
+	friend bool operator == (const Cents& c1, const Cents& c2)
 	{
-		return Cents(-m_cents);
-	}
-
-	bool operator ! () const
-	{
-		return (m_cents == 0) ? true : false;
+		return c1.m_cents == c2.m_cents;
 	}
 
 	friend std::ostream& operator << (std::ostream& out, const Cents& cents)
@@ -35,11 +30,10 @@ int main()
 	Cents cents1(6);
 	Cents cents2(0);
 
-	/*cout << cents1 << endl;
-	cout << -cents1 << endl;
-	cout << -Cents(-10) << endl;*/
+	if (cents1 == cents2)
+		cout << "Equal " << endl;
 
-	cout << !cents1 << " " << !cents2 << endl;
+	cout << std::boolalpha;
 
 	return 0;
 }
