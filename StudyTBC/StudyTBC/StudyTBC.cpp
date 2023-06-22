@@ -1,5 +1,7 @@
 #include <iostream>
-#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <random>
 // Overloading Comparing Operator
 using namespace std;
 
@@ -13,9 +15,10 @@ public:
 	int getCents() const { return m_cents; }
 	int& getCents() { return m_cents; }
 
-	friend bool operator == (const Cents& c1, const Cents& c2)
+	// std sort 쓸 때는 왼쪽이 오른쪽보다 더 작냐라고 비교해야한다.
+	friend bool operator < (const Cents& c1, const Cents& c2)
 	{
-		return c1.m_cents == c2.m_cents;
+		return c1.m_cents < c2.m_cents;
 	}
 
 	friend std::ostream& operator << (std::ostream& out, const Cents& cents)
@@ -27,13 +30,26 @@ public:
 
 int main()
 {
-	Cents cents1(6);
-	Cents cents2(0);
+	vector<Cents> arr(20);
+	for (unsigned i = 0; i < 20; ++i)
+		arr[i].getCents() = i;
+	
+	//	C++ 17 에서 std::random_shuffle은 폐기됨.
+	//	std::shuffle을 사용하면 된다.
+	//	#include <random>
+	std::random_device rd;
+	std::mt19937 g(rd());
+	std::shuffle(arr.begin(), arr.end(), g);
 
-	if (cents1 == cents2)
-		cout << "Equal " << endl;
+	for (auto& e : arr)
+		cout << e << " ";
+	cout << endl;
 
-	cout << std::boolalpha;
+	std::sort(begin(arr), end(arr));
+
+	for (auto& e : arr)
+		cout << e << " ";
+	cout << endl;
 
 	return 0;
 }
