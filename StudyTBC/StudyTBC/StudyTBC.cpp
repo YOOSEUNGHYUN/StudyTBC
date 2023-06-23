@@ -1,55 +1,50 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
-#include <random>
-// Overloading Comparing Operator
+
+// Overloading 증감연산자
 using namespace std;
 
-class Cents
+class Digit
 {
 private:
-	int m_cents;
-
+	int m_digit;
 public:
-	Cents(int cents = 0) { m_cents = cents; }
-	int getCents() const { return m_cents; }
-	int& getCents() { return m_cents; }
+	Digit(int digit = 0) : m_digit(digit) {}
 
-	// std sort 쓸 때는 왼쪽이 오른쪽보다 더 작냐라고 비교해야한다.
-	friend bool operator < (const Cents& c1, const Cents& c2)
+	// prefix
+	Digit& operator ++ ()
 	{
-		return c1.m_cents < c2.m_cents;
+		++m_digit;
+		return *this;
 	}
 
-	friend std::ostream& operator << (std::ostream& out, const Cents& cents)
+	// postfix
+	// prefix와 구분 할 때에는 파라미터에 int 같은거 아무거나 넣어주면 된다.
+	Digit operator ++ (int)
 	{
-		out << cents.m_cents;
+		Digit temp(m_digit); // 먼저 현재 값을 저장한다.
+
+		++(*this);
+
+		return temp;
+	}
+
+
+	friend ostream& operator << (ostream& out, const Digit& d)
+	{
+		out << d.m_digit;
 		return out;
 	}
 };
 
 int main()
 {
-	vector<Cents> arr(20);
-	for (unsigned i = 0; i < 20; ++i)
-		arr[i].getCents() = i;
-	
-	//	C++ 17 에서 std::random_shuffle은 폐기됨.
-	//	std::shuffle을 사용하면 된다.
-	//	#include <random>
-	std::random_device rd;
-	std::mt19937 g(rd());
-	std::shuffle(arr.begin(), arr.end(), g);
+	Digit d(5);
 
-	for (auto& e : arr)
-		cout << e << " ";
-	cout << endl;
+	cout << ++d << endl;
+	cout << d << endl;
 
-	std::sort(begin(arr), end(arr));
-
-	for (auto& e : arr)
-		cout << e << " ";
-	cout << endl;
+	cout << d++ << endl;
+	cout << d << endl;
 
 	return 0;
 }
