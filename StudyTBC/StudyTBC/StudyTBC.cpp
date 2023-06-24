@@ -1,50 +1,64 @@
 #include <iostream>
-
-// Overloading 증감연산자
+#include <cassert>
+// Overloading subscript operator
 using namespace std;
 
-class Digit
+class IntList
 {
 private:
-	int m_digit;
+	int m_list[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
 public:
-	Digit(int digit = 0) : m_digit(digit) {}
-
-	// prefix
-	Digit& operator ++ ()
+	int& operator [] (const int index) // 레퍼런스로 하는 이유는 값을 읽을 수 도 있고 바꿀 수 도 있게 하려고
 	{
-		++m_digit;
-		return *this;
+		assert(index >= 0);			// 디버깅 할 때 if문 보다 유용하다.
+		assert(index < 10);
+
+		return m_list[index];
+
 	}
 
-	// postfix
-	// prefix와 구분 할 때에는 파라미터에 int 같은거 아무거나 넣어주면 된다.
-	Digit operator ++ (int)
+	const int& operator [] (const int index) const
 	{
-		Digit temp(m_digit); // 먼저 현재 값을 저장한다.
+		assert(index >= 0);
+		assert(index < 10);
 
-		++(*this);
-
-		return temp;
+		return m_list[index];
 	}
 
-
-	friend ostream& operator << (ostream& out, const Digit& d)
+	/*void setItem(int index, int value)
 	{
-		out << d.m_digit;
-		return out;
+		m_list[index] = value;
 	}
+
+	int getItem(int index)
+	{
+		return m_list[index];
+	}
+
+	int* getList()
+	{
+		return m_list;
+	}*/
 };
 
 int main()
 {
-	Digit d(5);
+	const IntList my_list;
+	//my_list[3] = 10;
+	cout << my_list[3] << endl;
 
-	cout << ++d << endl;
-	cout << d << endl;
+	/*IntList my_list;
+	my_list.setItem(3, 1);
+	cout << my_list.getItem(3) << endl;
+	my_list.getList()[3] = 10;
+	cout << my_list.getList()[3] << endl;*/
 
-	cout << d++ << endl;
-	cout << d << endl;
+	//IntList *list = new IntList;
+
+	//list[3] = 10; // Not OK
+	//(*list)[3] = 10; // OK
 
 	return 0;
+
 }
