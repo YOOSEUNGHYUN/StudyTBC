@@ -1,60 +1,56 @@
 #include <iostream>
-// Overloading static_cast typecasts
+#include <cassert>
+// copy constructor, copy initialization, Return Value Optimization
 using namespace std;
 
-class Cents
+class Fraction
 {
 private:
-	int m_cents;
+	int m_numerator;
+	int m_denominator;
 
 public:
-	Cents(int cents = 0)
+	Fraction(int num = 0, int den = 1)
+		: m_numerator(num), m_denominator(den)
 	{
-		m_cents = cents;
+		assert(den != 0);
 	}
 
-	int getCents() { return m_cents; }
-	void setCents(int cents) { m_cents = cents; }
-
-	//	int 형으로 변환을 하는 형변환을 오버로딩 하는 것
-	operator int()
+	Fraction(const Fraction& fraction) // copy constructor
+		: m_numerator(fraction.m_numerator), m_denominator(fraction.m_denominator)
 	{
-		cout << "cast here" << endl;
-		return m_cents;
+		cout << "Copy constructor called" << endl;
+	}
+
+	friend std::ostream& operator << (std::ostream& out, const Fraction& f)
+	{
+		out << f.m_numerator << " / " << f.m_denominator << endl;
+		return out;
 	}
 };
 
-class Dollar
+Fraction doSomething()
 {
-private:
-	int m_dollars = 0;
+	Fraction temp(1, 2);
+	cout << &temp << endl;
 
-public:
-	Dollar(const int& input) : m_dollars(input) {}
-
-	operator Cents()
-	{
-		return Cents(m_dollars * 100);
-	}
-};
-
-void printInt(const int& value)
-{
-	cout << value << endl;
+	return temp;
 }
 
 int main()
 {
-	//Cents cents(7);
-	// overloading 한 typecast 연산자를 사용하고 있다는 것을 확인 할 수 있다.
-	/*int value = (int)cents;
-	value = int(cents);
-	value = static_cast<int>(cents);*/
+	//Fraction frac(3, 5);
 
-	Dollar dol(2);
-	Cents cents = dol;
+	//Fraction fr_copy(frac);
+	//Fraction fr_copy = frac;
+	//Fraction fr_copy(3, 10);
 
-	printInt(cents);
+	//cout << frac << " " << fr_copy << endl;
+
+	Fraction result = doSomething();
+
+	cout << &result << endl;
+	cout << result << endl;
 
 	return 0;
 }
