@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cassert>
-// copy constructor, copy initialization, Return Value Optimization
+// Converting constructor, explicit, delete
 using namespace std;
 
 class Fraction
@@ -10,7 +10,9 @@ private:
 	int m_denominator;
 
 public:
-	Fraction(int num = 0, int den = 1)
+	Fraction(char) = delete;
+
+	explicit Fraction(int num = 0, int den = 1)
 		: m_numerator(num), m_denominator(den)
 	{
 		assert(den != 0);
@@ -29,28 +31,17 @@ public:
 	}
 };
 
-Fraction doSomething()
+void doSomething(Fraction frac)
 {
-	Fraction temp(1, 2);
-	cout << &temp << endl;
-
-	return temp;
+	cout << frac << endl;
 }
 
 int main()
 {
-	//Fraction frac(3, 5);
+	//Fraction frac2('c'); À§¿¡ delete·Î ¸·Èû
+	Fraction frac(7);
 
-	//Fraction fr_copy(frac);
-	//Fraction fr_copy = frac;
-	//Fraction fr_copy(3, 10);
-
-	//cout << frac << " " << fr_copy << endl;
-
-	Fraction result = doSomething();
-
-	cout << &result << endl;
-	cout << result << endl;
+	doSomething(frac);
 
 	return 0;
 }
