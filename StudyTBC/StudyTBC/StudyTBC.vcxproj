@@ -142,8 +142,9 @@
     <ClCompile Include="StudyTBC.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Monster.h" />
-    <ClInclude Include="Position2D.h" />
+    <ClInclude Include="Lecture.h" />
+    <ClInclude Include="Student.h" />
+    <ClInclude Include="Teacher.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -20,10 +20,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Monster.h">
+    <ClInclude Include="Lecture.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Position2D.h">
+    <ClInclude Include="Teacher.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Student.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
