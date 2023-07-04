@@ -1,54 +1,101 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "Lecture.h"
+
 //Object Relationship-Association
+
+using namespace std;
+
+class Doctor;	// forward declaration
+
+class Patient
+{
+private:
+	string m_name;
+	vector<Doctor*> m_doctors;
+
+public:
+	Patient(string name_in)
+		: m_name(name_in)
+	{}
+
+	void addDoctor(Doctor* new_doctor)
+	{
+		m_doctors.push_back(new_doctor);
+	}
+
+	void meetDoctors();
+
+	friend class Doctor;
+
+};
+
+class Doctor
+{
+private:
+	string m_name;
+	vector<Patient*> m_patients;
+
+public:
+	Doctor(string name_in)
+		: m_name(name_in)
+	{}
+
+	void addPatient(Patient* new_patient)
+	{
+		m_patients.push_back(new_patient);
+	}
+
+	void meetPatients()
+	{
+		for (auto& ele : m_patients)
+		{
+			cout << "Meet patient : " << ele->m_name << endl;
+		}
+	}
+	friend class Patient;
+};
+
+void Patient::meetDoctors()
+{
+	for (auto& ele : m_doctors)
+	{
+		cout << "Meet doctor : " << ele->m_name << endl;
+	}
+}
 
 int main()
 {
-	using namespace std;
+	Patient* p1 = new Patient("Jack Jack");
+	Patient* p2 = new Patient("Dash");
+	Patient* p3 = new Patient("Violet");
 
-	Student *std1 = new Student("Jack Jack", 0);
-	Student *std2 = new Student("Dash", 1);
-	Student *std3 = new Student("Violet", 2);
+	Doctor* d1 = new Doctor("Doctor K");
+	Doctor* d2 = new Doctor("Doctor L");
+	
+	p1->addDoctor(d1);
+	d1->addPatient(p1);
 
-	Teacher *teacher1 = new Teacher("Prof. Hong");
-	Teacher *teacher2 = new Teacher("Prof. Good");
+	p2->addDoctor(d2);
+	d2->addPatient(p2);
 
-	// Composition Relationship
-	Lecture lec1("Introdunctio to Computer programming");
-	lec1.assignTeacher(teacher1);
-	lec1.registerStudent(std1);
-	lec1.registerStudent(std2);
-	lec1.registerStudent(std3);
+	p2->addDoctor(d1);
+	d1->addPatient(p2);
 
-	Lecture lec2("Computational Thinking");
-	lec2.assignTeacher(teacher2);
-	lec2.registerStudent(std1);
+	// patients meet doctors
+	p1->meetDoctors();
 
-	//TODO: implement Aggregation Relationship
+	// doctors meet patients
+	d1->meetPatients();
 
-	//test
-	{
-		cout << lec1 << endl;
-		cout << lec2 << endl;
+	// deletes
+	delete p1;
+	delete p2;
+	delete p3;
 
-		//	event
-		lec2.study();
-
-		cout << lec1 << endl;
-		cout << lec2 << endl;
-	}
-
-	// TODO: class HobbyClub
-
-	// delete memory (if necessary)
-	delete std1;
-	delete std2;
-	delete std3;
-
-	delete teacher1;
-	delete teacher2;
+	delete d1;
+	delete d2;
 
 	return 0;
+
 }
