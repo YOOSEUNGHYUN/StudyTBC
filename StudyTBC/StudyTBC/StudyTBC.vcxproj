@@ -140,11 +140,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="StudyTBC.cpp" />
-    <ClCompile Include="Worker.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="TImer.h" />
-    <ClInclude Include="Worker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
