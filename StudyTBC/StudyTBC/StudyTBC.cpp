@@ -1,35 +1,65 @@
-#include "Student.h"
-#include "Teacher.h"
+#include <iostream>
 
-//	Inheritance (is-a relationship) 상속의 기본 2/2
+//	Derived class 생성순서
 
 using namespace std;
 
+//class Mother
+//{
+//public:
+//	int m_i;
+//
+//	Mother(const int & i_in = 0)
+//		: m_i(i_in)
+//	{
+//		cout << "Mother construction " << endl;
+//	}
+//};
+//
+//class Child : public Mother
+//{
+//public:
+//	double m_d;
+//
+//public:
+//	Child()
+//		: Mother(1024), m_d(1.0)
+//	{
+//		cout << "Child construction " << endl;
+//	}
+//};
+
+class A
+{
+public:
+	A()
+	{
+		cout << "A constructor" << endl;
+	}
+};
+
+class B : public A
+{
+public:
+	B()
+	{
+		cout << "B constructor" << endl;
+	}
+};
+
+class C : public B
+{
+public:
+	C()
+	{
+		cout << "C constructor" << endl;
+	}
+};
+
 int main()
 {
-	Student std("Jack Jack");
-	std.setName("Jack Jack 2");
-	std::cout << std.getName() << std::endl;
-
-	Teacher teacher1("Dr.H");
-	teacher1.setName("Dr. K");
-
-	std::cout << teacher1.getName() << std::endl;
-
-	std::cout << std << std::endl;
-	std::cout << teacher1 << std::endl;
-
-	std.doNothing();
-	teacher1.doNothing();
-
-	std.study();
-	teacher1.teach();
-
-	Person person;
-	person.setName("Mr. Incredible");
-	person.getName();
-
-
+	//Child c1;
+	C c;
 
 	return 0;
 }

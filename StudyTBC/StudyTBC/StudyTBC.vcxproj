@@ -141,11 +141,6 @@
   <ItemGroup>
     <ClCompile Include="StudyTBC.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Person.h" />
-    <ClInclude Include="Student.h" />
-    <ClInclude Include="Teacher.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
