@@ -1,65 +1,41 @@
 #include <iostream>
 
-//	Derived class 생성순서
+//	Derived class 생성과 초기화
 
 using namespace std;
 
-//class Mother
-//{
-//public:
-//	int m_i;
-//
-//	Mother(const int & i_in = 0)
-//		: m_i(i_in)
-//	{
-//		cout << "Mother construction " << endl;
-//	}
-//};
-//
-//class Child : public Mother
-//{
-//public:
-//	double m_d;
-//
-//public:
-//	Child()
-//		: Mother(1024), m_d(1.0)
-//	{
-//		cout << "Child construction " << endl;
-//	}
-//};
-
-class A
+class Mother
 {
 public:
-	A()
+	int m_i;
+
+	Mother(const int & i_in = 0)
+		: m_i(i_in)
 	{
-		cout << "A constructor" << endl;
+		cout << "Mother construction " << endl;
 	}
 };
 
-class B : public A
+class Child : public Mother
 {
 public:
-	B()
+	float m_d;
+
+public:
+	Child()
+		: Mother(1024), m_d(1.0f)
 	{
-		cout << "B constructor" << endl;
+		cout << "Child construction " << endl;
 	}
 };
 
-class C : public B
-{
-public:
-	C()
-	{
-		cout << "C constructor" << endl;
-	}
-};
+
 
 int main()
 {
-	//Child c1;
-	C c;
+	Child c1;
+	cout << sizeof(Mother) << endl;
+	cout << sizeof(Child) << endl;
 
 	return 0;
 }
