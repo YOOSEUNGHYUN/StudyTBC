@@ -1,42 +1,43 @@
 #include <iostream>
 
-//	Derived class 생성과 초기화
+//	상속과 접근 지정자
 
 using namespace std;
 
-class Mother
+class Base
 {
 public:
-	int m_i;
+	int m_public;
+protected:
+	int m_protected;
+private:
+	int m_private;
+};
 
-	Mother(const int & i_in = 0)
-		: m_i(i_in)
+class Derived : private Base
+{
+public:
+	Derived()
 	{
-		cout << "Mother construction " << endl;
+		Base::m_public;
+		Base::m_protected;
+		//Base::m_private;
 	}
 };
 
-class Child : public Mother
+class GrandChild : public Derived
 {
 public:
-	float m_d;
-
-public:
-	Child()
-		: Mother(1024), m_d(1.0f)
+	GrandChild()
 	{
-		cout << "Child construction " << endl;
+		//Derived::m_public;
 	}
 };
-
-
-
 int main()
 {
-	Child c1;
-	cout << sizeof(Mother) << endl;
-	cout << sizeof(Child) << endl;
+	Derived derived;
+
+	//base.m_public = 123;
 
 	return 0;
 }
-
