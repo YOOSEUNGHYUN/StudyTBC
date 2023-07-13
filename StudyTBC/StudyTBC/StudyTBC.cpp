@@ -1,43 +1,34 @@
 #include <iostream>
 
-//	상속과 접근 지정자
+// 유도된 클래스에 새로운 기능 추가하기
 
 using namespace std;
 
 class Base
 {
-public:
-	int m_public;
-protected:
-	int m_protected;
 private:
-	int m_private;
+	int m_value;
+public:
+	Base(int value)
+		: m_value(value)
+	{
+
+	}
 };
 
 class Derived : private Base
 {
 public:
-	Derived()
+	Derived(int value)
+		: Base(value)
 	{
-		Base::m_public;
-		Base::m_protected;
-		//Base::m_private;
+	
 	}
 };
 
-class GrandChild : public Derived
-{
-public:
-	GrandChild()
-	{
-		//Derived::m_public;
-	}
-};
+
 int main()
 {
-	Derived derived;
-
-	//base.m_public = 123;
 
 	return 0;
 }
