@@ -1,6 +1,5 @@
 #include <iostream>
-// Inherited Functions 상속받은 함수를 오버라이딩 하기
-
+// Inherited Functions 상속받은 함수를 감추기
 using namespace std;
 
 class Base
@@ -11,55 +10,42 @@ protected:
 public:
 	Base(int value)
 		: m_i(value)
-	{
-	}
+	{}
 
 	void print()
 	{
 		cout << "I'm Base" << endl;
 	}
 
-	friend std::ostream& operator << (std::ostream& out, const Base& b)
-	{
-		out << "This is base output" << endl;
-		return out;
-	}
 };
 
-class Derived : private Base
+class Derived : public Base
 {
 private:
 	double m_d;
+	using Base::print; // 함수 이름 옆에 괄호 치면 안돼
 
 public:
 	Derived(int value)
 		: Base(value)
-	{
-	
-	}
+	{}
 
-	void print()
-	{
-		Base::print();
-		cout << "I'm Derived" << endl;
-	}
+	using Base::m_i;
 
-	friend std::ostream& operator << (std::ostream& out, const Derived& b)
-	{
-		cout << static_cast<Base>(b);
-		out << "This is Derived output" << endl;
-		return out;
-	}
+private:
+	void print() = delete; // 자식에서는 접근불가. 부모에서는 접근가능
 };
 
 
 int main()
 {
 	Base base(5);
-	cout << base;
+	base.print();
 
 	Derived derived(7);
-	cout << derived;
 
+	derived.m_i = 1024;
+	//derived.print();
+	
 	return 0;
 }
