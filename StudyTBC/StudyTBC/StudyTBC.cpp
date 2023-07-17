@@ -1,51 +1,50 @@
 #include <iostream>
-// Inherited Functions 상속받은 함수를 감추기
+// Multiple Inheritance 다중상속
 using namespace std;
 
-class Base
-{
-protected:
-	int m_i;
-
-public:
-	Base(int value)
-		: m_i(value)
-	{}
-
-	void print()
-	{
-		cout << "I'm Base" << endl;
-	}
-
-};
-
-class Derived : public Base
+class USBDevice
 {
 private:
-	double m_d;
-	using Base::print; // 함수 이름 옆에 괄호 치면 안돼
+	long m_id;
 
 public:
-	Derived(int value)
-		: Base(value)
-	{}
+	USBDevice(long id) : m_id(id) {}
 
-	using Base::m_i;
+	long getID() { return m_id; }
 
-private:
-	void print() = delete; // 자식에서는 접근불가. 부모에서는 접근가능
+	void plugAndPlay() {}
 };
 
+class NetworkDevice
+{
+private:
+	long m_id;
+
+public:
+	NetworkDevice(long id) : m_id(id) {}
+
+	long getID() { return m_id; }
+
+	void networking() {}
+};
+
+class USBNetworkDevice : public USBDevice, public NetworkDevice	//	다중상속
+{
+public:
+	USBNetworkDevice(long usb_id, long net_id)
+		: USBDevice(usb_id), NetworkDevice(net_id)
+	{}
+};
 
 int main()
 {
-	Base base(5);
-	base.print();
+	USBNetworkDevice my_device(3.14, 6.022);
 
-	Derived derived(7);
+	my_device.networking();
+	my_device.plugAndPlay();
 
-	derived.m_i = 1024;
-	//derived.print();
-	
+	my_device.USBDevice::getID();
+	my_device.NetworkDevice::getID();
+
 	return 0;
 }
