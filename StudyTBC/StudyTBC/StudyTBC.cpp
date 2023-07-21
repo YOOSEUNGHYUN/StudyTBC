@@ -1,46 +1,42 @@
 #include <iostream>
-// 공변 반환형
-// override, final, covariant return type
+// 가상 소멸자
+
 using namespace std;
 
-class A
+class Base
 {
 public:
-	void print() { cout << "A" << endl; }
-	virtual A* getThis() { 
-		cout << "A::getThis()" << endl; 
-		return this; }
-};
-
-class B : public A
-{
-public:
-	void print() { cout << "B" << endl; } // final 하면 오버라이드 못한다.
-	virtual B* getThis() {
-		cout << "B::getThis()" << endl;
-		return this;
+	virtual ~Base()
+	{
+		cout << "~Base()" << endl;
 	}
 };
 
-class C : public B
+class Derived : public Base
 {
-public:
-	virtual void print() { cout << "C" << endl; }
-};
+private:
+	int* m_array;
 
+public:
+	Derived(int length)
+	{
+		m_array = new int[length];
+	}
+
+	virtual ~Derived() override
+	{
+		cout << "~Derived" << endl;
+		delete[] m_array;
+	}
+};
 
 int main()
 {
-	A a;
-	B b;
-	//C c;
-	
-	A& ref = b;
-	b.getThis()->print();
-	ref.getThis()->print();
+	//Derived derived(5);
 
-	cout << typeid(b.getThis()).name() << endl;
-	cout << typeid(ref.getThis()).name() << endl;
+	Derived *derived = new Derived(5);
+	Base *base = derived;
+	delete base;
 
 	return 0;
 }
