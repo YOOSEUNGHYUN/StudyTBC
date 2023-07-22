@@ -1,42 +1,53 @@
 #include <iostream>
-// 가상 소멸자
+// 동적 바인딩과 정적 바인딩
 
 using namespace std;
 
-class Base
+int add(int x, int y)
 {
-public:
-	virtual ~Base()
-	{
-		cout << "~Base()" << endl;
-	}
-};
+	return x + y;
+}
 
-class Derived : public Base
+int subtract(int x, int y)
 {
-private:
-	int* m_array;
+	return x - y;
+}
 
-public:
-	Derived(int length)
-	{
-		m_array = new int[length];
-	}
-
-	virtual ~Derived() override
-	{
-		cout << "~Derived" << endl;
-		delete[] m_array;
-	}
-};
+int multiply(int x, int y)
+{
+	return x * y;
+}
 
 int main()
 {
-	//Derived derived(5);
+	int x, y;
+	cin >> x >> y;
 
-	Derived *derived = new Derived(5);
-	Base *base = derived;
-	delete base;
+	int op;
+	cout << "0 : add, 1 : subtract, 2 : multiply" << endl;
+	cin >> op;
+
+	//static binding (early binding)
+	//int result;
+	//switch (op)
+	//{
+	//case 0: result = add(x, y); break;
+	//case 1: result = subtract(x, y); break;
+	//case 2: result = multiply(x, y); break;
+	//}
+
+	//cout << result << endl;
+
+	// Dynamic binding (late binding)
+	int(*func_ptr)(int, int) = nullptr;
+	switch (op)
+	{
+	case 0: func_ptr = add; break;
+	case 1: func_ptr = subtract; break;
+	case 2: func_ptr = multiply; break;
+	}
+
+	cout << func_ptr(x, y) << endl;
 
 	return 0;
 }
