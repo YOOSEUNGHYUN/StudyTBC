@@ -4,64 +4,46 @@
 
 using namespace std;
 
-class Animal
+class IErrorLog	// 인터페이스일 경우 I를 붙여준다.
 {
-protected: 
-	string m_name;
-
 public:
-	Animal(std::string name)
-		: m_name(name)
-	{}
+	virtual bool reportError(const char* errorMessage) = 0;	// pure virtual function
 
-public:
-	string getName() { return m_name; }
-
-	virtual void speak() const = 0;	// pure virtual function
-
-	/*virtual void speak() const
-	{
-		cout << m_name << " ??? " << endl;
-	}*/
+	virtual ~IErrorLog() {}
 };
 
-//void Animal::speak() const	// the body of the pure virtual function
-//{
-//	cout << m_name << " ??? " << endl;
-//}
-
-class Cat : public Animal
+class FileErrorLog : public IErrorLog
 {
 public:
-	Cat(string name)
-		: Animal(name)
-	{}
-
-	void speak() const
+	bool reportError(const char* errorMessage) override
 	{
-		cout << m_name << " Meow " << endl;
+		cout << "Writing error to a file" << endl;
+		return true;
 	}
 };
 
-class Cow : public Animal
+class ConsoleErrorLog : public IErrorLog
 {
 public:
-	Cow(string name)
-		: Animal(name)
-	{}
-
-	virtual void speak() const
+	bool reportError(const char* errorMessage) override
 	{
-		cout << m_name << " Mooo " << endl;
+		cout << "Printing error to a console" << endl;
+		return true;
 	}
 };
+
+void doSomething(IErrorLog& log)
+{
+	log.reportError("Runtime error!!");
+}
 
 int main()
 {
-	//Animal ani("Hi");
-	//ani.speak();
+	FileErrorLog file_log;
+	ConsoleErrorLog console_log;
 
-	Cow cow("hello");
-	cow.speak();
+	doSomething(file_log);
+	doSomething(console_log);
+
 	return 0;
 }
