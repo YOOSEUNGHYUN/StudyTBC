@@ -1,32 +1,67 @@
 #include <iostream>
-// Virtual Tables
-// 가상 (함수) 표
+#include <string>
+// 순수 가상 함수, 추상 기본 클래스, 인터페이스 클래스
 
 using namespace std;
 
-class Base
+class Animal
 {
+protected: 
+	string m_name;
+
 public:
-	//FunctionPointer *_vptr;
-	virtual void fun1() {};
-	virtual void fun2() {};
+	Animal(std::string name)
+		: m_name(name)
+	{}
+
+public:
+	string getName() { return m_name; }
+
+	virtual void speak() const = 0;	// pure virtual function
+
+	/*virtual void speak() const
+	{
+		cout << m_name << " ??? " << endl;
+	}*/
 };
 
-class Der : public Base
+//void Animal::speak() const	// the body of the pure virtual function
+//{
+//	cout << m_name << " ??? " << endl;
+//}
+
+class Cat : public Animal
 {
 public:
-	//FunctionPointer *_vptr;
-	virtual void fun1() {};
-	virtual void fun3() {};
+	Cat(string name)
+		: Animal(name)
+	{}
+
+	void speak() const
+	{
+		cout << m_name << " Meow " << endl;
+	}
+};
+
+class Cow : public Animal
+{
+public:
+	Cow(string name)
+		: Animal(name)
+	{}
+
+	virtual void speak() const
+	{
+		cout << m_name << " Mooo " << endl;
+	}
 };
 
 int main()
 {
-	Base my_base;
-	Der my_derived;
+	//Animal ani("Hi");
+	//ani.speak();
 
-	cout << sizeof(Base) << endl;
-	cout << sizeof(Der) << endl;
-
+	Cow cow("hello");
+	cow.speak();
 	return 0;
 }
