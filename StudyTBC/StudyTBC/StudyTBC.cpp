@@ -1,49 +1,58 @@
 #include <iostream>
 #include <string>
-// 순수 가상 함수, 추상 기본 클래스, 인터페이스 클래스
+// 가상 기본 클래스와 다이아몬드 문제
+// Virtual base classes and The diamond problem
 
 using namespace std;
 
-class IErrorLog	// 인터페이스일 경우 I를 붙여준다.
+class PoweredDevice
 {
 public:
-	virtual bool reportError(const char* errorMessage) = 0;	// pure virtual function
+	int m_i;
 
-	virtual ~IErrorLog() {}
-};
-
-class FileErrorLog : public IErrorLog
-{
-public:
-	bool reportError(const char* errorMessage) override
+	PoweredDevice(int power)
 	{
-		cout << "Writing error to a file" << endl;
-		return true;
+		cout << "PoweredDevice: " << power << '\n';
 	}
 };
 
-class ConsoleErrorLog : public IErrorLog
+class Scanner : virtual public PoweredDevice
 {
 public:
-	bool reportError(const char* errorMessage) override
+	Scanner(int scanner, int power)
+		: PoweredDevice(power)
 	{
-		cout << "Printing error to a console" << endl;
-		return true;
+		cout << "Scanner: " << scanner << '\n';
 	}
 };
 
-void doSomething(IErrorLog& log)
+class Printer : virtual public PoweredDevice
 {
-	log.reportError("Runtime error!!");
-}
+public:
+	Printer(int printer, int power)
+		: PoweredDevice(power)
+	{
+		cout << "Printer: " << printer << '\n';
+	}
+};
+
+class Copier : public Scanner, public Printer
+{
+public:
+	Copier(int scanner, int printer, int power)
+		: Scanner(scanner, power), Printer(printer, power),
+		PoweredDevice(power)
+	{
+
+	}
+};
 
 int main()
 {
-	FileErrorLog file_log;
-	ConsoleErrorLog console_log;
+	Copier cop(1, 2, 3);
 
-	doSomething(file_log);
-	doSomething(console_log);
+	cout << &cop.Scanner::PoweredDevice::m_i << endl;
+	cout << &cop.Printer::PoweredDevice::m_i << endl;
 
 	return 0;
 }
