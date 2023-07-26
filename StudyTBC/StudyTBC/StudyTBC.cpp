@@ -1,58 +1,56 @@
 #include <iostream>
-#include <string>
-// 가상 기본 클래스와 다이아몬드 문제
-// Virtual base classes and The diamond problem
+#include <vector>
+#include <functional>
+// object slicing and reference_wrapper
 
 using namespace std;
 
-class PoweredDevice
+class Base
 {
 public:
-	int m_i;
+	int m_i = 0;
 
-	PoweredDevice(int power)
+	virtual void print()
 	{
-		cout << "PoweredDevice: " << power << '\n';
+		cout << "I'm Base" << endl;
 	}
 };
 
-class Scanner : virtual public PoweredDevice
+class Derived : public Base
 {
 public:
-	Scanner(int scanner, int power)
-		: PoweredDevice(power)
+	int m_j = 1;
+
+	virtual void print() override
 	{
-		cout << "Scanner: " << scanner << '\n';
+		cout << "I'm derived" << endl;
 	}
 };
 
-class Printer : virtual public PoweredDevice
+void doSomething(Base& b)
 {
-public:
-	Printer(int printer, int power)
-		: PoweredDevice(power)
-	{
-		cout << "Printer: " << printer << '\n';
-	}
-};
-
-class Copier : public Scanner, public Printer
-{
-public:
-	Copier(int scanner, int printer, int power)
-		: Scanner(scanner, power), Printer(printer, power),
-		PoweredDevice(power)
-	{
-
-	}
-};
+	b.print();
+}
 
 int main()
-{
-	Copier cop(1, 2, 3);
+{/*
+	Derived d;
+	Base &b = d;
 
-	cout << &cop.Scanner::PoweredDevice::m_i << endl;
-	cout << &cop.Printer::PoweredDevice::m_i << endl;
+	b.print();
+
+	doSomething(d);*/
+
+	Base b;
+	Derived d;
+
+	std::vector<std::reference_wrapper<Base>> my_vec;	// 강제로 슬라이싱 주의
+
+	my_vec.push_back(b);
+	my_vec.push_back(d);
+
+	for (auto& ele : my_vec)
+		ele.get().print();
 
 	return 0;
 }
