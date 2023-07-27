@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <functional>
-// object slicing and reference_wrapper
+// Dynamic Casting 동적 형변환
 
 using namespace std;
 
@@ -16,10 +16,10 @@ public:
 	}
 };
 
-class Derived : public Base
+class Derived1 : public Base
 {
 public:
-	int m_j = 1;
+	int m_j = 1024;
 
 	virtual void print() override
 	{
@@ -27,30 +27,33 @@ public:
 	}
 };
 
-void doSomething(Base& b)
+class Derived2 : public Base
 {
-	b.print();
-}
+public:
+	string m_name = "Dr. Two";
+
+	virtual void print() override
+	{
+		cout << "I'm derived" << endl;
+	}
+};
+
 
 int main()
-{/*
-	Derived d;
-	Base &b = d;
+{
+	Derived1 d1;
+	d1.m_j = 2048;
+	// ....
 
-	b.print();
+	Base *base = &d1;
 
-	doSomething(d);*/
+	auto* base_to_d1 = dynamic_cast<Derived1*>(base);
 
-	Base b;
-	Derived d;
+	if (base_to_d1 != nullptr)
+		base_to_d1->print();
+	else
+		cout << "Failed" << endl;
 
-	std::vector<std::reference_wrapper<Base>> my_vec;	// 강제로 슬라이싱 주의
-
-	my_vec.push_back(b);
-	my_vec.push_back(d);
-
-	for (auto& ele : my_vec)
-		ele.get().print();
-
+	
 	return 0;
 }
