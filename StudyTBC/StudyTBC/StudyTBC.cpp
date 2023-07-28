@@ -1,59 +1,51 @@
 #include <iostream>
 #include <vector>
 #include <functional>
-// Dynamic Casting 동적 형변환
+// 유도 클래스에서 출력 연산자 사용하기
 
 using namespace std;
 
 class Base
 {
 public:
-	int m_i = 0;
+	Base() {}
 
-	virtual void print()
+	// friend는 멤버가 아니다. 즉 직접 오버라이딩 불가
+	friend std::ostream& operator << (std::ostream& out, const Base& b)
 	{
-		cout << "I'm Base" << endl;
+		return b.print(out);
 	}
+
+	virtual std::ostream& print(std::ostream& out) const
+	{
+		out << "Base";
+		return out;
+	}
+	
 };
 
-class Derived1 : public Base
+class Derived : public Base
 {
 public:
-	int m_j = 1024;
+	Derived() {}
 
-	virtual void print() override
+	virtual std::ostream& print(std::ostream& out) const override
 	{
-		cout << "I'm derived" << endl;
+		out << "Derived";
+		return out;
 	}
 };
-
-class Derived2 : public Base
-{
-public:
-	string m_name = "Dr. Two";
-
-	virtual void print() override
-	{
-		cout << "I'm derived" << endl;
-	}
-};
-
 
 int main()
 {
-	Derived1 d1;
-	d1.m_j = 2048;
-	// ....
+	Base b;
+	std::cout << b << '\n';
 
-	Base *base = &d1;
+	Derived d;
+	std::cout << d << '\n'; //	note that this works even with no operator << that explicit
 
-	auto* base_to_d1 = dynamic_cast<Derived1*>(base);
+	Base& bref = d;
+	std::cout << bref << '\n';
 
-	if (base_to_d1 != nullptr)
-		base_to_d1->print();
-	else
-		cout << "Failed" << endl;
-
-	
 	return 0;
 }
