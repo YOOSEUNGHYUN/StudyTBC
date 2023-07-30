@@ -1,51 +1,42 @@
 #include <iostream>
-#include <vector>
-#include <functional>
-// 유도 클래스에서 출력 연산자 사용하기
-
+#include "Cents.h"
+// 함수 템플릿 templates
 using namespace std;
 
-class Base
+template<typename T>	// typename 대신에 class 적을 수 있음
+T getMax(T x, T y)
 {
-public:
-	Base() {}
+	return (x > y) ? x : y;
+}
 
-	// friend는 멤버가 아니다. 즉 직접 오버라이딩 불가
-	friend std::ostream& operator << (std::ostream& out, const Base& b)
-	{
-		return b.print(out);
-	}
-
-	virtual std::ostream& print(std::ostream& out) const
-	{
-		out << "Base";
-		return out;
-	}
-	
-};
-
-class Derived : public Base
-{
-public:
-	Derived() {}
-
-	virtual std::ostream& print(std::ostream& out) const override
-	{
-		out << "Derived";
-		return out;
-	}
-};
+//int getMax(int x, int y)
+//{
+//	return (x > y) ? x : y;
+//}
+//
+//double getMax(double x, double y)
+//{
+//	return (x > y) ? x : y;
+//}
+//
+//float getMax(float x, float y)
+//{
+//	return (x > y) ? x : y;
+//}
+//
+//char getMax(char x, char y)
+//{
+//	return (x > y) ? x : y;
+//}
 
 int main()
 {
-	Base b;
-	std::cout << b << '\n';
+	std::cout << getMax(1, 2 ) << std::endl;
+	std::cout << getMax(3.14, 1.592) << std::endl;
+	std::cout << getMax(1.0f, 3.4f) << std::endl;
+	std::cout << getMax('a', 'c') << std::endl;
 
-	Derived d;
-	std::cout << d << '\n'; //	note that this works even with no operator << that explicit
-
-	Base& bref = d;
-	std::cout << bref << '\n';
+	std::cout << getMax(Cents(5), Cents(9)) << std::endl;
 
 	return 0;
 }
