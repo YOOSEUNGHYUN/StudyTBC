@@ -139,10 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="MyArray.cpp" />
     <ClCompile Include="StudyTBC.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cents.h" />
+    <ClInclude Include="MyArray.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
