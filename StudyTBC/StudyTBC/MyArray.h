@@ -2,29 +2,22 @@
 #include <assert.h> // for assert()
 #include <iostream>
 
-template<typename T>
+template<typename T, unsigned int T_SIZE>
 class MyArray
 {
 private:
-	int m_length;
-	T	*m_data;
+	//int m_length;
+	T	*m_data;	// T m_data[T_SIZE]
 
 public:
 	MyArray()
 	{
-		m_length = 0;
-		m_data = nullptr;
-	}
-
-	MyArray(int length)
-	{
-		m_data = new T [length];
-		m_length = length;
+		m_data = new T[T_SIZE];
 	}
 
 	~MyArray()
 	{
-		reset();
+		delete[] m_data;
 	}
 
 	void reset()
@@ -36,22 +29,19 @@ public:
 
 	T & operator[](int index)
 	{
-		assert(index >= 0 && index < m_length);
+		assert(index >= 0 && index < T_SIZE);
 		return m_data[index];
 	}
 
 	int getLength()
 	{
-		return m_length;
+		return T_SIZE;
 	}
 
 	void print();
+	{
+		for (int i = 0; i < T_SIZE; ++i)
+			std::cout << m_data[i] << " ";
+		std::cout << std::endl;
+	}
 };
-
-template<typename T>
-void MyArray<T>::print()
-{
-	for (int i = 0; i < m_length; ++i)
-		std::cout << m_data[i] << " ";
-	std::cout << std::endl;
-}
