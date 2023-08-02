@@ -1,20 +1,33 @@
-#include "MyArray.h"
-// 자료형이 아닌 템플릿 매개변수 Non-type Template Parameters
+#include <iostream>
+#include "Storage.h"
+// 함수 템플릿 특수화 Specialization
 using namespace std;
+
+//template<typename T>
+//T getMax(T x, T y)
+//{
+//	return (x > y) ? x : y;
+//}
+//
+//template<>
+//char getMax(char x, char y)
+//{
+//	cout << "Warning : comparing chars" << endl;
+//
+//	return (x > y) ? x : y;
+//}
+	
 
 int main()
 {
-	//	컴파일 타임에 결정되지 않았어도 가능 (cin으로 들어왔어도 가능)
-	//	std::vector<double> my_array; my_array.resize(100);
-	//	MyArray<double> my_array(100);
-	
-	// 밑에 들어가는 숫자는 컴파일 타임에 결정이 되어있어야만 함
-	MyArray<double, 100> my_array;	// std::array<double,100>
+	/*cout << getMax(1, 2) << endl;
+	cout << getMax('a', 'b') << endl;*/
 
-	for (int i = 0; i < my_array.getLength(); ++i)
-		my_array[i] = i + 65;
+	Storage<int> nValue(5);
+	Storage<double> dValue(6.7);
 
-	my_array.print();
+	nValue.print();
+	dValue.print();
 
 	return 0;
 }
