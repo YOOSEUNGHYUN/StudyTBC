@@ -1,34 +1,74 @@
 #include <iostream>
-#include "Storage.h"
-// 함수 템플릿 특수화 Specialization
+#include <array>
+#include "Storage8.h"
+// 클래스 템플릿 특수화 Specialization
 using namespace std;
 
-//template<typename T>
-//T getMax(T x, T y)
-//{
-//	return (x > y) ? x : y;
-//}
-//
+template<typename T>
+class A
+{
+public:
+	A(const T& input)
+	{}
+
+	void doSomething()
+	{
+		cout << typeid(T).name() << endl;
+	}
+
+	void test()
+	{}
+};
+
 //template<>
-//char getMax(char x, char y)
+//class A<char>	//	specialization
 //{
-//	cout << "Warning : comparing chars" << endl;
+//public:
+//	A(const char& temp)
+//	{}
 //
-//	return (x > y) ? x : y;
-//}
-	
+//
+//	void doSomething()
+//	{
+//		cout << "Char type specialization" << endl;
+//	}
+//};
 
 int main()
 {
-	/*cout << getMax(1, 2) << endl;
-	cout << getMax('a', 'b') << endl;*/
+	//A<int>		a_int(1);
+	//A<double>	a_double(3.14);
+	//A<char>		a_char('a');
 
-	Storage<int> nValue(5);
-	Storage<double> dValue(6.7);
+	//a_int.test();
+	//a_double.test();
+	////a_char.test(); 얘는 안돼
 
-	nValue.print();
-	dValue.print();
+	//a_int.doSomething();
+	//a_double.doSomething();
+	//a_char.doSomething();
+
+	// Define a Storage8 for integers
+	Storage8<int> intStorage;
+
+	for (int count = 0; count < 8; ++count)
+		intStorage.set(count, count);
+
+	for (int count = 0; count < 8; ++count)
+		std::cout << intStorage.get(count) << '\n';
+
+	cout << "Sizeof Storage8<int> " << sizeof(Storage8<int>) << endl;
+
+	// Define a Storage8 for bool
+	Storage8<bool> boolStorage;
+	for (int count = 0; count < 8; ++count)
+		boolStorage.set(count, count & 3);
+
+	for (int count = 0; count < 8; ++count)
+		std::cout << (boolStorage.get(count) ? "true" : "false") << '\n';
+
+	cout << "Sizeof Storage8<bool> " << sizeof(Storage8<bool>) << endl;
 
 	return 0;
-}
 
+}
