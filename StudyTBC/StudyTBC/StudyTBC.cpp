@@ -1,74 +1,75 @@
 #include <iostream>
-#include <array>
-#include "Storage8.h"
-// 클래스 템플릿 특수화 Specialization
+
+// 템플릿을 부분적으로 특수화하기 Partial Specialization
 using namespace std;
 
-template<typename T>
-class A
+template <class T, int size>
+class StaticArray_BASE
 {
-public:
-	A(const T& input)
-	{}
+private:
+	T m_array[size];
 
-	void doSomething()
+public:
+	T* getArray() { return m_array; }
+
+	T& operator[](int index)
 	{
-		cout << typeid(T).name() << endl;
+		return m_array[index];
 	}
 
-	void test()
-	{}
+	void print()
+	{
+		for (int count = 0; count < size; ++count)
+			std::cout << (*this)[count] << ' ';
+		std::cout << endl;
+	}
 };
 
-//template<>
-//class A<char>	//	specialization
+
+
+//template <int size>
+//void print(StaticArray<char, size>& array)
 //{
-//public:
-//	A(const char& temp)
-//	{}
-//
-//
-//	void doSomething()
-//	{
-//		cout << "Char type specialization" << endl;
-//	}
-//};
+//	for (int count = 0; count < size; ++count)
+//		std::cout << array[count];
+//	std::cout << endl;
+//}
+
+template <class T, int size>
+class StaticArray : public StaticArray_BASE<T, size>
+{
+};
+
+template <int size>
+class StaticArray<char, size> : public StaticArray_BASE<char, size>
+{
+public:
+	void print()
+	{
+		for (int count = 0; count < size; ++count)
+			std::cout << (*this)[count];
+		std::cout << endl;
+	}
+};
 
 int main()
 {
-	//A<int>		a_int(1);
-	//A<double>	a_double(3.14);
-	//A<char>		a_char('a');
+	StaticArray<int, 4> int4;
+	int4[0] = 1;
+	int4[1] = 2;
+	int4[2] = 3;
+	int4[3] = 4;
 
-	//a_int.test();
-	//a_double.test();
-	////a_char.test(); 얘는 안돼
+	int4.print();
 
-	//a_int.doSomething();
-	//a_double.doSomething();
-	//a_char.doSomething();
+	StaticArray<char, 14> char14;
+	char14[0] = 'H';
+	char14[1] = 'e';
+	//...
+	strcpy_s(char14.getArray(), 14, "Hello, World");
+	//strcpy_s((char*)&char14[0], 14 * sizeof(char), "Hello, World");
 
-	// Define a Storage8 for integers
-	Storage8<int> intStorage;
-
-	for (int count = 0; count < 8; ++count)
-		intStorage.set(count, count);
-
-	for (int count = 0; count < 8; ++count)
-		std::cout << intStorage.get(count) << '\n';
-
-	cout << "Sizeof Storage8<int> " << sizeof(Storage8<int>) << endl;
-
-	// Define a Storage8 for bool
-	Storage8<bool> boolStorage;
-	for (int count = 0; count < 8; ++count)
-		boolStorage.set(count, count & 3);
-
-	for (int count = 0; count < 8; ++count)
-		std::cout << (boolStorage.get(count) ? "true" : "false") << '\n';
-
-	cout << "Sizeof Storage8<bool> " << sizeof(Storage8<bool>) << endl;
+	char14.print();
 
 	return 0;
-
 }
