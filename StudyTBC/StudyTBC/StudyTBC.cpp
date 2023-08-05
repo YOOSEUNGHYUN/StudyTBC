@@ -1,75 +1,59 @@
 #include <iostream>
 
-// 템플릿을 부분적으로 특수화하기 Partial Specialization
+// 포인터에 대한 템플릿 특수화하기 Partial Specialization
 using namespace std;
 
-template <class T, int size>
-class StaticArray_BASE
+template<class T>
+class A
 {
 private:
-	T m_array[size];
+	T m_value;
 
 public:
-	T* getArray() { return m_array; }
-
-	T& operator[](int index)
+	A(const T& input)
+		: m_value(input)
 	{
-		return m_array[index];
+
 	}
 
 	void print()
 	{
-		for (int count = 0; count < size; ++count)
-			std::cout << (*this)[count] << ' ';
-		std::cout << endl;
+		cout << m_value < endl;
 	}
 };
 
-
-
-//template <int size>
-//void print(StaticArray<char, size>& array)
-//{
-//	for (int count = 0; count < size; ++count)
-//		std::cout << array[count];
-//	std::cout << endl;
-//}
-
-template <class T, int size>
-class StaticArray : public StaticArray_BASE<T, size>
+template<class T>
+class A<T*>
 {
-};
+private:
+	T* m_value;
 
-template <int size>
-class StaticArray<char, size> : public StaticArray_BASE<char, size>
-{
 public:
+	A(T* input)
+		: m_value(input)
+	{
+
+	}
+
 	void print()
 	{
-		for (int count = 0; count < size; ++count)
-			std::cout << (*this)[count];
-		std::cout << endl;
+		cout << *m_value < endl;
 	}
 };
 
 int main()
 {
-	StaticArray<int, 4> int4;
-	int4[0] = 1;
-	int4[1] = 2;
-	int4[2] = 3;
-	int4[3] = 4;
+	A<int> a_int(123);
+	a_int.print();
 
-	int4.print();
+	int temp = 456;
 
-	StaticArray<char, 14> char14;
-	char14[0] = 'H';
-	char14[1] = 'e';
-	//...
-	strcpy_s(char14.getArray(), 14, "Hello, World");
-	//strcpy_s((char*)&char14[0], 14 * sizeof(char), "Hello, World");
+	A<int*> a_int_ptr(&temp);
+	a_int_ptr.print();
 
-	char14.print();
+	double temp_d = 3.141592;
+	A<double*> a_double_ptr(&temp_d);
+	a_double_ptr.print();
 
 	return 0;
 }
