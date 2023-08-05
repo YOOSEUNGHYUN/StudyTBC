@@ -1,6 +1,6 @@
 #include <iostream>
 
-// 포인터에 대한 템플릿 특수화하기 Partial Specialization
+// 멤버 함수를 한번 더 템플릿화하기 Templatize
 using namespace std;
 
 template<class T>
@@ -16,44 +16,26 @@ public:
 
 	}
 
-	void print()
+	template<typename TT>
+	void doSomething(const TT & input)
 	{
-		cout << m_value < endl;
-	}
-};
-
-template<class T>
-class A<T*>
-{
-private:
-	T* m_value;
-
-public:
-	A(T* input)
-		: m_value(input)
-	{
-
+		cout << typeid(T).name() << " " << typeid(TT).name() << endl;
+		cout << (TT)m_value << endl;
 	}
 
 	void print()
 	{
-		cout << *m_value < endl;
+		cout << m_value << endl;
 	}
 };
+
 
 int main()
 {
-	A<int> a_int(123);
-	a_int.print();
+	A<char> a_char('A');
+	a_char.print();
 
-	int temp = 456;
-
-	A<int*> a_int_ptr(&temp);
-	a_int_ptr.print();
-
-	double temp_d = 3.141592;
-	A<double*> a_double_ptr(&temp_d);
-	a_double_ptr.print();
+	a_char.doSomething(char());
 
 	return 0;
 }
