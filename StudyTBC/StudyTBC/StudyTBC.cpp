@@ -1,41 +1,44 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 
-// 멤버 함수를 한번 더 템플릿화하기 Templatize
+// 예외 처리의 기본 Exception Handling
 using namespace std;
 
-template<class T>
-class A
+int findFirstChar(const char* string, char ch)
 {
-private:
-	T m_value;
+	for (std::size_t index = 0; index < strlen(string); ++index)
+		if (string[index] == ch)
+			return index;
 
-public:
-	A(const T& input)
-		: m_value(input)
+	return -1; // no match
+}
+
+double divide(int x, int y, bool& success)
+{
+	if (y == 0)
 	{
-
+		success = false;
+		return 0.0;
 	}
 
-	template<typename TT>
-	void doSomething(const TT & input)
-	{
-		cout << typeid(T).name() << " " << typeid(TT).name() << endl;
-		cout << (TT)m_value << endl;
-	}
-
-	void print()
-	{
-		cout << m_value << endl;
-	}
-};
-
+	success = false;
+	return static_cast<double>(x) / y;
+}
 
 int main()
 {
-	A<char> a_char('A');
-	a_char.print();
+	bool success;
+	double result = divide(5, 3, success);
 
-	a_char.doSomething(char());
+	if (!success)
+		std::cerr << "An error occurred" << std::endl;
+	else
+		std::cout << "Result is " << result << std::endl;
+
+	std::ifstream input_file("temp.txt");
+	if (!input_file)
+		std::cerr << "Cannot open file" << std::endl;
 
 	return 0;
 }
