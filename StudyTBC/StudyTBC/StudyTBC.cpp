@@ -1,27 +1,33 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
 // 예외 처리의 기본 Exception Handling
 using namespace std;
-
 
 int main()
 {
 	//try, catch, throw
-	double x;
-	cin >> x;
-
+	
 	try
 	{
-		if (x < 0.0) throw std::string("Negative input");
-
-		cout << std::sqrt(x) << endl;
-
+		//	something happend
+		throw std::string("My error message");
+	}
+	catch (int x)
+	{
+		cout << "Catch integer" << x << endl;
+	}
+	catch (double x)
+	{
+		cout << "Catch double " << x << endl;
+	}
+	catch (const char * error_message)
+	{
+		cout << "Char * " << error_message << endl;
 	}
 	catch (std::string error_message)
 	{
-		//	do something to respond
+		
 		cout << error_message << endl;
 	}
 
