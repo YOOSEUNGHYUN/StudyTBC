@@ -1,84 +1,86 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-// 예외 처리와 스택 되감기 Stack Unwinding
+// 예외 클래스와 상속
 using namespace std;
 
-// void last() throw(int) exception specifier
-// void last() throw(...) exception specifier
-
-void last()	throw(...)
+class Exception
 {
-	cout << "last " << endl;
-	cout << "Throws exception" << endl;
+public:
+	void report()
+	{
+		cerr << "Exception report" << endl;
+	}
+};
 
-	throw 'a';
-
-	cout << "End last " << endl;
-}
-
-void third()
+class ArrayException : public Exception
 {
-	cout << "Third" << endl;
+public:
+	void report()
+	{
+		cerr << "Array exception" << endl;
+	}
+};
 
-	last();
-
-	cout << "End third" << endl;
-}
-
-void second()
+class MyArray
 {
-	cout << "Second" << endl;
+private:
+	int m_data[5];
+
+public:
+	int& operator [] (const int& index)
+	{
+		//if (index < 0 || index >= 5) throw - 1;
+		if (index < 0 || index >= 5) throw ArrayException();
+
+		return m_data[index];
+	}
+};
+
+void doSomething()
+{
+	MyArray my_array;
 
 	try
 	{
-		third();
+		my_array[100];
 	}
-	catch (double)
+	catch (const int& x)
 	{
-		cerr << "Second caught double exception" << endl;
+		cerr << "Exception " << x << endl;
 	}
-
-	cout << "End second " << endl;
-}
-
-void first()
-{
-	cout << "first" << endl;
-
-	try
+	/*catch (ArrayException& e)
 	{
-		second();
-	}
-	catch (int)
+		cout << "doSomething()" << endl;
+		e.report();
+		throw e;
+	}*/
+	catch (Exception& e)
 	{
-		cerr << "first caught int exception" << endl;
+		cout << "doSomething()" << endl;
+		e.report();
+		throw;
 	}
 
-	cout << "End first " << endl;
 }
 
 int main()
 {
-	cout << "Start" << endl;
-
 	try
 	{
-		first();
+		doSomething();
 	}
-	catch (int)
+	catch (ArrayException& e)
 	{
-		//cerr,cout,clog 로그를 콘솔에 출력하는 채널이라고 생각하면 됨. 
-		cerr << "main caught int exception" << endl;
+		cout << "main()" << endl;
+		e.report();
 	}
-	//	uncaught exceptions
-
-	catch (...) // catch-all handlers
+	catch (Exception& e)
 	{
-		cerr << "main caught ellipses exception" << endl;
+		cout << "main()" << endl;
+		e.report();
 	}
 
-	cout << "End main" << endl;
-	
 	return 0;
+
 }
