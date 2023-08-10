@@ -1,84 +1,38 @@
 #include <iostream>
-#include <fstream>
+#include <exception>
 #include <string>
-// 예외 클래스와 상속
+// std::exception 소개
 using namespace std;
 
-class Exception
+class CustomException : public std::exception
 {
 public:
-	void report()
+	const char* what() const noexcept override
 	{
-		cerr << "Exception report" << endl;
+		return "Custom exception";
 	}
 };
 
-class ArrayException : public Exception
-{
-public:
-	void report()
-	{
-		cerr << "Array exception" << endl;
-	}
-};
-
-class MyArray
-{
-private:
-	int m_data[5];
-
-public:
-	int& operator [] (const int& index)
-	{
-		//if (index < 0 || index >= 5) throw - 1;
-		if (index < 0 || index >= 5) throw ArrayException();
-
-		return m_data[index];
-	}
-};
-
-void doSomething()
-{
-	MyArray my_array;
-
-	try
-	{
-		my_array[100];
-	}
-	catch (const int& x)
-	{
-		cerr << "Exception " << x << endl;
-	}
-	/*catch (ArrayException& e)
-	{
-		cout << "doSomething()" << endl;
-		e.report();
-		throw e;
-	}*/
-	catch (Exception& e)
-	{
-		cout << "doSomething()" << endl;
-		e.report();
-		throw;
-	}
-
-}
 
 int main()
 {
 	try
 	{
-		doSomething();
+		/*std::string s;
+		s.resize(-1);*/
+
+		//throw std::runtime_error("Bad thing happend");
+		throw CustomException();
 	}
-	catch (ArrayException& e)
+	/*catch (std::length_error& exception)
 	{
-		cout << "main()" << endl;
-		e.report();
-	}
-	catch (Exception& e)
+		std::cerr << "Length_Error" << std::endl;
+		std::cerr << exception.what() << std::endl;
+	}*/
+	catch (std::exception& exception)
 	{
-		cout << "main()" << endl;
-		e.report();
+		std::cout << typeid(exception).name() << std::endl;
+		std::cerr << exception.what() << std::endl;
 	}
 
 	return 0;
