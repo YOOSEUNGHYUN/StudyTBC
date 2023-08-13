@@ -1,58 +1,35 @@
 #include <iostream>
-#include <exception>
-#include <string>
-// 함수 try
+#include <memory>
+// 예외처리의 위험성과 단점
 using namespace std;
 
 class A
 {
-private:
-	int m_x;
 public:
-	A(int x) : m_x(x)
+	~A()
 	{
-		if (x <= 0)
-			throw 1;
+		throw "error";
 	}
 };
-
-class B : public A
-{
-public:
-	B(int x)
-		: A(x)
-	{
-	}
-
-	B(int x) try : A(x)
-	{
-		//	do initialization
-	}
-	catch (...)
-	{
-		cout << "Catch in B constructor " << endl;
-		//throw; 없지만 있는 것 처럼 작동한다.
-	}
-};
-void doSomething()
-//try
-//{
-//	throw - 1;
-//}
-//catch (...)
-//{
-//	cout << "Catch in doSomething()" << endl;
-//}
 
 int main()
 {
 	try
 	{
-		//doSomething();
-		B b(0);
+		int *i = new int[1000000];
+		unique_ptr<int> up_i(i);
+		
+		// do something with i
+		throw "error";
+
+		//delete[] i;
+
+		//A a;
 	}
 	catch (...)
 	{
-		cout << "Catch in main()" << endl;
+		cout << "Catch" << endl;
 	}
+
+	return 0;
 }
