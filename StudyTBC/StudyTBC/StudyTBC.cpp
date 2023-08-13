@@ -8,7 +8,7 @@ class A
 public:
 	~A()
 	{
-		throw "error";
+		//throw "error"; // 소멸자에서는 예외를 던질 수 없다.
 	}
 };
 
@@ -16,15 +16,7 @@ int main()
 {
 	try
 	{
-		int *i = new int[1000000];
-		unique_ptr<int> up_i(i);
-		
-		// do something with i
-		throw "error";
-
-		//delete[] i;
-
-		//A a;
+		A a;
 	}
 	catch (...)
 	{
