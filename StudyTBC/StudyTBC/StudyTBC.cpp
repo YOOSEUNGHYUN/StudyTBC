@@ -1,26 +1,51 @@
 #include <iostream>
-#include <memory>
-// 예외처리의 위험성과 단점
+#include "Resource.h"
+#include "AutoPtr.h"
+
+// Move semantics and Smart pointers
 using namespace std;
 
-class A
-{
-public:
-	~A()
-	{
-		//throw "error"; // 소멸자에서는 예외를 던질 수 없다.
-	}
-};
+//	RAII : resource acquisition is initialization
 
-int main()
+void doSomething()
 {
 	try
-	{
-		A a;
+	{ 
+		Resource* res = new Resource;
+
+		// work with res
+		if (false)
+		{
+			throw - 1;	//	exception
+		}
+
+		delete res;
 	}
 	catch (...)
 	{
-		cout << "Catch" << endl;
+
+	}
+
+	return;
+}
+
+int main()
+{
+	{
+		doSomething();
+
+		/*AutoPtr<Resource> res1(new Resource);
+		AutoPtr<Resource> res2;
+
+		cout << std::boolalpha;
+
+		cout << res1.m_ptr << endl;
+		cout << res2.m_ptr << endl;
+
+		res2 = res1;
+
+		cout << res1.m_ptr << endl;
+		cout << res2.m_ptr << endl;*/
 	}
 
 	return 0;
