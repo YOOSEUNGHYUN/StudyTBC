@@ -20,22 +20,23 @@ public:
 
 	}
 
-	//AutoPtr(AutoPtr &a)
-	/*{	
+	AutoPtr(AutoPtr &a)
+	{	
 		m_ptr = a.m_ptr;
 		a.m_ptr = nullptr;
-	}*/
+	}
 
-	/*AutoPtr& operator = (AutoPtr& a)
+	AutoPtr& operator = (AutoPtr& a)
 	{
 		if (&a == this)
 			return *this;
 
+		// 소유권 이전
 		delete m_ptr;
 		m_ptr = a.m_ptr;
 		a.m_ptr = nullptr;
 		return *this;
-	}*/
+	}
 	
 	T& operator*() const { return *m_ptr; }
 	T* operator->() const { return m_ptr; }
