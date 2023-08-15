@@ -1,66 +1,59 @@
 #include <iostream>
-#include "Resource.h"
-#include "AutoPtr.h"
-
-// Move semantics and Smart pointers
+// 오른쪽 값 참조 R-value References
 using namespace std;
+void doSomething(int &lref)
+{
+	cout << "L-value ref" << endl;
+}
 
-//	RAII : resource acquisition is initialization
+void doSomething(int &&ref)
+{
+	cout << "R-value ref" << endl;
+}
 
-//void doSomething()
-//{
-//	try
-//	{ 
-//		//Resource* res = new Resource; // dull pointer
-//		AutoPtr<Resource> res(new Resource); // smart pointer
-//
-//		return;
-//
-//		// work with res
-//		if (true)
-//		{
-//			throw - 1;	//	exception
-//		}
-//
-//		//delete res;
-//	}
-//	catch (...)
-//	{
-//
-//	}
-//
-//	return;
-//}
+int getResult()
+{
+	return 100 * 100;
+}
 
 int main()
 {
-	{
-		//doSomething();
+	int x = 5;
+	int y = getResult();
+	const int cx = 6;
+	const int cy = getResult();
 
-		AutoPtr<Resource> res1(new Resource); // int i; int *ptr1(&i); int *ptr2 = nullptr;
-		AutoPtr<Resource> res2;
+	//	L-value references
 
-		cout << std::boolalpha;
+	int &lr1 = x;		// Modifiable l-values
+	//int &lr2 = cx;	// Non-modifiable l-values
+	//int &lr3 = 5;		// R-values
 
-		cout << res1.m_ptr << endl;
-		cout << res2.m_ptr << endl;
+	const int &lr4 = x;		// Modifiable l-values
+	const int &lr5 = cx;	// Non-modifiable l-values
+	const int &lr6 = 5;		// R-values
 
-		res2 = res1;	//소유권 이전 move semantics
+	//	R-value references 곧 사라질 애들만 다룰 수 있음
 
-		cout << res1.m_ptr << endl;
-		cout << res2.m_ptr << endl;
-	}
+	//int &&rr1 = x;		// Modifiable l-values
+	//int &&rr2 = cx;		// Non-modifiable l-values
+	int &&rr3 = 5;			// R-values
+	//int &&rrr = getResult();
 
-	//// syntax vs. semantics
-	//int x = 1, y = 1;
-	//x + y;
+	cout << rr3 << endl;
+	rr3 = 10;
+	cout << rr3 << endl;
 
-	//string str1("Hello"), str2("World");
-	//str1 + str2;	// append
+	//const int &&rr4 = x;	// Modifiable l-values
+	//const int &&rr5 = cx; // Non-modifiable l-values
+	const int&& rr6 = 5;	// R-values
 
-	//	value semantics (copy semantics)
-	//	reference semantics (pointer)
-	//	move semantics (move)
+	// L/R-value reference parameters
+	doSomething(x);
+	//doSomething(cx);
+	doSomething(5);
+	doSomething(getResult());
 
 	return 0;
+
 }
