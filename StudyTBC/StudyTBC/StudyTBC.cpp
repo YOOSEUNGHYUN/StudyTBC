@@ -1,59 +1,30 @@
 #include <iostream>
-// 오른쪽 값 참조 R-value References
+#include "Timer.h"
+#include "AutoPtr.h"
+#include "Resource.h"
+// 이동 생성자와 이동 대입 Move constructors and Move assignment
 using namespace std;
-void doSomething(int &lref)
-{
-	cout << "L-value ref" << endl;
-}
 
-void doSomething(int &&ref)
+AutoPtr<Resource> generateResource()
 {
-	cout << "R-value ref" << endl;
-}
+	AutoPtr<Resource> res(new Resource(10000000));
 
-int getResult()
-{
-	return 100 * 100;
+	return res;
 }
 
 int main()
 {
-	int x = 5;
-	int y = getResult();
-	const int cx = 6;
-	const int cy = getResult();
+	streambuf* orig_buf = cout.rdbuf();
+	//cout.rdbuf(NULL); // disconnect cout from buffer 로그 안나오게 하는것
 
-	//	L-value references
+	Timer timer;
+	{
+		AutoPtr<Resource> main_res;
+		main_res = generateResource();
+	}
 
-	int &lr1 = x;		// Modifiable l-values
-	//int &lr2 = cx;	// Non-modifiable l-values
-	//int &lr3 = 5;		// R-values
-
-	const int &lr4 = x;		// Modifiable l-values
-	const int &lr5 = cx;	// Non-modifiable l-values
-	const int &lr6 = 5;		// R-values
-
-	//	R-value references 곧 사라질 애들만 다룰 수 있음
-
-	//int &&rr1 = x;		// Modifiable l-values
-	//int &&rr2 = cx;		// Non-modifiable l-values
-	int &&rr3 = 5;			// R-values
-	//int &&rrr = getResult();
-
-	cout << rr3 << endl;
-	rr3 = 10;
-	cout << rr3 << endl;
-
-	//const int &&rr4 = x;	// Modifiable l-values
-	//const int &&rr5 = cx; // Non-modifiable l-values
-	const int&& rr6 = 5;	// R-values
-
-	// L/R-value reference parameters
-	doSomething(x);
-	//doSomething(cx);
-	doSomething(5);
-	doSomething(getResult());
+	cout.rdbuf(orig_buf);
+	timer.elapsed();
 
 	return 0;
-
 }

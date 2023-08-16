@@ -141,6 +141,11 @@
   <ItemGroup>
     <ClCompile Include="StudyTBC.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AutoPtr.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="Timer.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
