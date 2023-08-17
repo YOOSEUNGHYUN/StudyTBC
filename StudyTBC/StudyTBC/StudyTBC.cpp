@@ -1,30 +1,80 @@
 #include <iostream>
-#include "Timer.h"
+#include <utility>	// std::move
 #include "AutoPtr.h"
 #include "Resource.h"
-// 이동 생성자와 이동 대입 Move constructors and Move assignment
+
 using namespace std;
 
-AutoPtr<Resource> generateResource()
+template<class T>
+void MySwap(T& a, T& b)
 {
-	AutoPtr<Resource> res(new Resource(10000000));
+	/*T tmp = a;
+	a = b;
+	b = tmp;*/
 
-	return res;
+	T tmp{ std::move(a) };
+	a = std::move(b);
+	b = std::move(tmp);
 }
 
 int main()
 {
-	streambuf* orig_buf = cout.rdbuf();
-	//cout.rdbuf(NULL); // disconnect cout from buffer 로그 안나오게 하는것
+//{
+//	AutoPtr<Resource> res1(new Resource(10000000));
+//
+//	cout << res1.m_ptr << endl;
+//
+//	AutoPtr<Resource> res2 = std::move(res1);
+//
+//	cout << res1.m_ptr << endl;
+//	cout << res2.m_ptr << endl;
+//
+//	return 0;
+//}
 
-	Timer timer;
-	{
-		AutoPtr<Resource> main_res;
-		main_res = generateResource();
-	}
+//{
+//	AutoPtr<Resource> res1(new Resource(3));
+//	res1->setAll(3);
+//
+//	AutoPtr<Resource> res2(new Resource(5));
+//	res2->setAll(5);
+//
+//	res1->print();
+//	res2->print();
+//
+//	MySwap(res1, res2);
+//
+//	res1->print();
+//	res2->print();
+//}
 
-	cout.rdbuf(orig_buf);
-	timer.elapsed();
+//{
+//	vector<string> v;
+//	string str = "Hello";
+//
+//	v.push_back(str);
+//
+//	cout << str << endl;
+//	cout << v[0] << endl;
+//
+//	v.push_back(std::move(str));
+//
+//	cout << str << endl;
+//	cout << v[0] << " " << v[1] << endl;
+//}
+
+{
+	std::string x{ "abc" };
+	std::string y{ "de" };
+
+	std::cout << "x: " << x << std::endl;
+	std::cout << "y: " << y << std::endl;
+
+	MySwap(x, y);
+
+	std::cout << "x: " << x << std::endl;
+	std::cout << "y: " << y << std::endl;
+}
 
 	return 0;
 }
