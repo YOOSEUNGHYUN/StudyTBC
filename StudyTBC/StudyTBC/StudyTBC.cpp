@@ -1,46 +1,60 @@
 #include <iostream>
-#include "Resource.h"
-
-//	std::shared_ptr
+#include <memory>
+#include <string>
+//	Circular dependency issues 순환 의존성 문제와 std::weak_ptr
 
 using namespace std;
 
-//void soSomething(std::unique_ptr<Resource> res)
-//{
-//
-//}
+class Person
+{
+	std::string m_name;
+	//std::shared_ptr<Person> m_partner;	shared_ptr을 weak_ptr로 바꾸면 됨
+	std::weak_ptr<Person> m_partner;
+
+public:
+	Person(const std::string& name) : m_name(name)
+	{
+		std::cout << m_name << " created\n";
+	}
+
+	~Person()
+	{
+		std::cout << m_name << " destroyed\n";
+	}
+
+	friend bool partnerUp(std::shared_ptr<Person>& p1, std::shared_ptr<Person>& p2)
+	{
+		if (!p1 || !p2)
+			return false;
+		p1->m_partner = p2;
+		p2->m_partner = p1;
+
+		std::cout << p1->m_name << " is partnered with " << p2->m_name << "\n";
+
+		return true;
+	}
+
+	const std::shared_ptr<Person> getPartner() const	//	shared_ptr로 리턴
+	{
+		return m_partner.lock();		// weak_ptr의 내용을 사용하려면 lock()을 해줘야함.
+	}
+
+	const std::string& getName() const
+	{
+		return m_name;
+	}
+};
 
 int main()
 {
-	//soSomething(std::unique_ptr<Resource>(new Resource(1000000))); //	이것보단
-	//soSomething(std::make_unique<Resource>(100000)); //	make_unique 사용하는게 좋다.
+	auto lucy = std::make_shared<Person>("Lucy");
+	auto ricky = std::make_shared<Person>("Ricky");
 
-	/*Resource* res = new Resource(3);
-	res->setAll(1);*/
-	{
-		//std::shared_ptr<Resource> ptr1(res);
 
-		auto ptr1 = std::make_shared<Resource>(3);
-		ptr1->setAll(1);
+	partnerUp(lucy, ricky);
 
-		ptr1->print();
-
-		{
-			//std::shared_ptr<Resource> ptr2(ptr1);
-			//std::shared_ptr<Resource> ptr2(res);
-			auto ptr2 = ptr1;
-
-			ptr2->setAll(3);
-			ptr2->print();
-
-			std::cout << "Going out of the block" << std::endl;
-		}
-
-		ptr1->print();
-
-		std::cout << "Going out of the outer block" << std::endl;
-	}
-
+	std::cout << lucy->getPartner()->getName() << std::endl;
 
 	return 0;
 }
+
