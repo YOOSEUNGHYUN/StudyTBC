@@ -1,60 +1,163 @@
 #include <iostream>
-#include <memory>
+#include <vector>
+#include <deque>
+#include <set>		// multiset도 set 안에 들어있다.
+#include <map>		// multimap도 map 안에 들어있다.
 #include <string>
-//	Circular dependency issues 순환 의존성 문제와 std::weak_ptr
+#include <stack>
+#include <queue>
+//	Standard Template Libraries and Containers 표준 템플릿 라이브러리와 컨테이너 소개
+//	http://en.cppreference.com/w/cpp/header
 
 using namespace std;
 
-class Person
+void sequence_containers()
 {
-	std::string m_name;
-	//std::shared_ptr<Person> m_partner;	shared_ptr을 weak_ptr로 바꾸면 됨
-	std::weak_ptr<Person> m_partner;
+	//	vector	//	vector에는 push_front가 없다.
+	//{
+	//	vector<int> vec;	//	#include <vector>
+	//	for (int i = 0; i < 10; ++i)
+	//		vec.push_back(i);
 
-public:
-	Person(const std::string& name) : m_name(name)
-	{
-		std::cout << m_name << " created\n";
-	}
+	//	for (auto& e : vec)
+	//		cout << e << " ";
+	//	cout << endl;
+	//}
 
-	~Person()
-	{
-		std::cout << m_name << " destroyed\n";
-	}
+	//	deque	자료를 앞에도 넣을 수 있고 뒤에도 넣을 수 있다.
+	//{
+	//	std::deque<int> deq;	//	#include <deque>
+	//	for (int i = 0; i < 10; ++i)
+	//	{
+	//		deq.push_back(i);
+	//		deq.push_front(i);
+	//	}
 
-	friend bool partnerUp(std::shared_ptr<Person>& p1, std::shared_ptr<Person>& p2)
-	{
-		if (!p1 || !p2)
-			return false;
-		p1->m_partner = p2;
-		p2->m_partner = p1;
+	//	for (auto & e : deq)
+	//		cout << e << " ";
+	//	cout << endl;
+	//	//	9 8 7 6 5 4 3 2 1 0 0 1 2 3 4 5 6 7 8 9 
+	//}
+}
 
-		std::cout << p1->m_name << " is partnered with " << p2->m_name << "\n";
+void associative_containers()
+{
+	//	set			//	원소가 중복되지 않는다.
+	//{
+	//	set<string> str_set;
 
-		return true;
-	}
+	//	str_set.insert("Hello");		//	set은 insert를 쓴다.
+	//	str_set.insert("World");
+	//	str_set.insert("Hello");
 
-	const std::shared_ptr<Person> getPartner() const	//	shared_ptr로 리턴
-	{
-		return m_partner.lock();		// weak_ptr의 내용을 사용하려면 lock()을 해줘야함.
-	}
+	//	cout << str_set.size() << endl;
 
-	const std::string& getName() const
-	{
-		return m_name;
-	}
-};
+	//	for (auto& e : str_set)
+	//		cout << e << " ";
+	//	cout << endl;
+	//}
+
+	//	multiset	: duplication is allowed
+	//{
+	//	std::multiset<string> str_set;
+
+	//	str_set.insert("Hello");
+	//	str_set.insert("World");
+	//	str_set.insert("Hello");
+
+	//	cout << str_set.size() << endl;
+
+	//	for (auto& e : str_set)
+	//		cout << e << " ";
+	//	cout << endl;
+	//}
+
+	////	map : key/value	(json 구조와 비슷)
+	//{
+	//	std::map<char, int> map;
+	//	map['a'] = 10;
+	//	map['b'] = 20;
+	//	map['c'] = 50;
+
+	//	cout << map['a'] << endl;
+
+	//	map['a'] = 100;
+
+	//	cout << map['a'] << endl;
+
+	//	for (auto& e : map)
+	//		cout << e.first << " " << e.second << " ";	// fist가 key, second가 value
+	//	cout << endl;
+	//}
+
+	//	multimap : duplicated keys
+	//{
+	//	std::multimap<char, int> map;
+	//	map.insert(std::pair<char, int>('a', 10));	//	Before c++ 14, pair<char, int>('a', 10)
+	//	map.insert(std::pair<char, int>('b', 10));
+	//	map.insert(std::pair<char, int>('c', 10));
+	//	map.insert(std::pair<char, int>('a', 100));
+
+	//	cout << map.count('a') << endl;	// 해당하는 key에 원소가 몇개가 들어있는지 세어주는 기능
+
+	//	for (auto& e : map)
+	//		cout << e.first << " " << e.second << " ";
+	//	cout << endl;
+	//}
+}
+
+void container_adapters()
+{
+	//	stack	층층이 쌓는 것
+	//{
+	//	cout << "Stack" << endl;
+
+	//	std::stack<int> stack;
+	//	stack.push(1);		// push adds a copy  푸쉬는 복사해서 넣는다.
+	//	stack.emplace(2);	// emplace constructs a new object  emplace는 새로운 객체를 만들어서 집어넣는다.
+	//	stack.emplace(3);
+	//	cout << stack.top() << endl;	// stack 가장 위에 있는 것
+	//	stack.pop();					// 가장 위에 있는 것 제거. 늦게 추가 된 것이 먼저 pop 된다.
+	//	cout << stack.top() << endl;
+	//}
+
+	//	queue	// 먼저 추가 된 것이 먼저 pop 된다.
+	/*{
+		cout << "Queue" << endl;
+
+		std::queue<int> queue;
+		queue.push(1);
+		queue.push(2);
+		queue.push(3);
+		cout << queue.front() << " " << queue.back() << endl;
+		queue.pop();
+		cout << queue.front() << " " << queue.back() << endl;
+	}*/
+
+	////	Priority queue	얘는 sorting 해준다.
+	//{
+	//	cout << "Priority queue" << endl;
+
+	//	std::priority_queue<int> queue;
+
+	//	for (const int n : {1, 8, 5, 6, 3, 4, 0, 9, 7, 2})
+	//		queue.push(n);
+
+	//	for (int i = 0; i < 10; ++i)
+	//	{
+	//		cout << queue.top() << endl;
+	//		queue.pop();	// 하나씩 빼면서 출력
+	//	}
+	//}
+}
 
 int main()
 {
-	auto lucy = std::make_shared<Person>("Lucy");
-	auto ricky = std::make_shared<Person>("Ricky");
+	//sequence_containers();
 
+	//associative_containers();
 
-	partnerUp(lucy, ricky);
-
-	std::cout << lucy->getPartner()->getName() << std::endl;
+	//container_adapters();
 
 	return 0;
 }
-
