@@ -9,19 +9,9 @@ using namespace std;
 
 int main()
 {
-	vector<int> container;
+	list<int> container;
 	for (int i = 0; i < 10; ++i)
 		container.push_back(i);
-
-	vector<int>::const_iterator itr;	// 반복자 자체를 변수로 만든다.
-	itr = container.begin();			// return값이 iterator 
-	while (itr != container.end())
-	{
-		cout << *itr << " ";
-
-		++itr;
-	}
-	cout << endl;
 
 	for (auto itr = container.begin(); itr != container.end(); ++itr)
 		cout << *itr << " ";
