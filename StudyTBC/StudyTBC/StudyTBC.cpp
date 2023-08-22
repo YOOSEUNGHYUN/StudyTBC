@@ -9,9 +9,9 @@ using namespace std;
 
 int main()
 {
-	list<int> container;
+	set<int> container;
 	for (int i = 0; i < 10; ++i)
-		container.push_back(i);
+		container.insert(i);	//	set은 데이터를 넣을 때 insert로 넣는다.
 
 	for (auto itr = container.begin(); itr != container.end(); ++itr)
 		cout << *itr << " ";
