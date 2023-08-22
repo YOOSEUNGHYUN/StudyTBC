@@ -9,12 +9,14 @@ using namespace std;
 
 int main()
 {
-	set<int> container;
+	//	map은 tuple
+	map<int, char> container;
 	for (int i = 0; i < 10; ++i)
-		container.insert(i);	//	set은 데이터를 넣을 때 insert로 넣는다.
+		container.insert(make_pair(i, char(i + 65))); 
 
 	for (auto itr = container.begin(); itr != container.end(); ++itr)
-		cout << *itr << " ";
+		//cout << *itr << " ";	// iterator가 가르키는게 pair다.
+		cout << itr->first << " " << itr->second << endl;
 	cout << endl;
 
 	return 0;
