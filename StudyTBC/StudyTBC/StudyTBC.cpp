@@ -1,22 +1,44 @@
 #include <iostream>
 #include <vector>
-#include <list>
-#include <set>		// multiset도 set 안에 들어있다.
-#include <map>		// multimap도 map 안에 들어있다.
+#include <algorithm>
 
-//	  Iterators STL 반복자 소개
+//	  STL 알고리즘 소개 Algorithms
 using namespace std;
 
 int main()
 {
-	//	map은 tuple
-	map<int, char> container;
+	vector<int> container;
 	for (int i = 0; i < 10; ++i)
-		container.insert(make_pair(i, char(i + 65))); 
+		container.push_back(i);
 
-	for (auto itr = container.begin(); itr != container.end(); ++itr)
-		//cout << *itr << " ";	// iterator가 가르키는게 pair다.
-		cout << itr->first << " " << itr->second << endl;
+	//auto itr = li.begin();
+	//	list<int>::const_iterator itr;
+	auto itr = min_element(container.begin(), container.end());
+	cout << *itr << endl;
+
+	itr = max_element(container.begin(), container.end());
+	cout << *itr << endl;
+
+	cout << endl;
+
+	itr = find(container.begin(), container.end(), 3);
+	container.insert(itr, 128);
+
+	for (auto& e : container) cout << e << " ";
+	cout << endl;
+
+	sort(container.begin(), container.end());
+	//li.sort();
+	//container.sort();
+
+	for (auto& e : container) cout << e << " ";
+	cout << endl;
+
+	reverse(container.begin(), container.end());
+	//li.reverse();
+	//container.reverse();
+
+	for (auto& e : container) cout << e << " ";
 	cout << endl;
 
 	return 0;
