@@ -1,39 +1,17 @@
 #include <iostream>
 #include <string>
-#include <vector>
-#include <sstream>	//	string stream
 
-//	  std::string의 여러가지 생성자들과 형변환
+// std::string의 길이와 용량
 using namespace std;
-
-template <typename T>
-std::string ToString(T x)
-{
-	std::ostringstream osstream;
-	ossstream << x;
-	return osstream.str();
-}
-
-template <typename T>
-bool FromString(const std::string& str, T& x)
-{
-	std::istringstream isstream(str);	// input string stream을 초기화 할 때 string을 넣어서 초기화
-	return (isstream >> x) ? true : false;
-}
 
 int main()
 {
-	std::string my_str(ToString(3.141592));
+	string my_str("012345678");
 
-	double d;
-
-	if (FromString(my_str, d))
-		std::cout << d << std::endl;
-	else
-		std::cout << "Cannot convert string to double" << std::endl;
-
-	std::cout << my_str << std::endl;
-	
+	cout << my_str.size() << endl;	// C style은 뒤에 null char이 추가되는데 C++은 아님.
+									// string은 class 이다. 
+									// 내부적으로 포인터말고 문자열 char *말고 길이를 직접 가지고 있다.
+									// 문자가 끝났는지 안끝났는지 null char을 찾을 필요가 없다.
 
 	return 0;
 }
