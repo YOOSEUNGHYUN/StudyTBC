@@ -7,14 +7,18 @@ using namespace std;
 
 int main()
 {
-	string my_str("abcdefg");
+	string my_str("abcdefg"); 
 	
-	cout << my_str[0] << endl;
-	cout << my_str[3] << endl;
+	try
+	{
+		//my_str[100] = 'X';	//	얘는 예외 처리를 안해준다, 퍼포먼스가 더 중요할 때
+		my_str.at(100) = 'X';	// 똑같은 함수들이 vector에도 있다. , 안정성이 더 중요할 때
 
-	my_str[3] = 'Z';
-
-	cout << my_str << endl;
+	}
+	catch (std::exception& e)
+	{
+		cout << e.what() << endl;
+	}
 
 	return 0;
 }
