@@ -7,35 +7,23 @@ using namespace std;
 
 int main()
 {
-	//char buf[5];	// 저장할 때 마지막에 null char 저장
+	//string buf;
+	//getline(cin, buf);	// string을 쓸 때에는 cin이 파라미터로 들어간다.
+	//cout << cin.gcount() << " " << buf << endl;
 
-	//cin >> setw(5) >> buf;
-	//cout << buf << endl;
+	char buf[1024];
 
-	//cin >> setw(5) >> buf;
-	//cout << buf << endl;
+	//cin.ignore(2);	//	ignore()은 입력받은 한글자를 무시한다.
+	//cout << (char)cin.peek() << endl;	//	peek()은 살짝 보기만 하고 버퍼에서 꺼내지는 않는다.
 
-	//cin >> setw(5) >> buf;
-	//cout << buf << endl;
+	cin >> buf;
+	cout << buf << endl;
 
+	//cin.unget();	// 마지막에 읽은 것을 버퍼에 다시 넣는다.
+	cin.putback('A');	//	원하는 글자를 다시 넣는다.
 
-	//char ch;
-
-	//while (cin >> ch)	// cin으로 가져올 때 빈칸 뺴고 가져온다.
-	//	cout << ch;
-	
-	//// 빈칸도 입력받고 싶으면 cin.get()을 사용하면 된다.
-	//char ch;
-	//while (cin.get(ch))
-	//	cout << ch;
-	
-	char buf[100];
-
-	cin.get(buf, 100);
-	cout << cin.gcount() << " " << buf << endl;
-
-	cin.getline(buf, 100);	// 줄바꿈 char 까지 같이 읽음
-	cout << cin.gcount() << " " << buf << endl;
+	cin >> buf;
+	cout << buf << endl;
 
 	return 0;
 }
