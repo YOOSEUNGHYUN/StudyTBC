@@ -1,37 +1,41 @@
 #include <iostream>
 #include <string>
-#include <vector>
+#include <iomanip>	//	input/output manipulators
 
-// std::string 대입, 교환, 덧붙이기(append), 삽입
+// istream으로 입력받기
 using namespace std;
 
 int main()
 {
-	string str1("one");
+	//char buf[5];	// 저장할 때 마지막에 null char 저장
 
-	//string str2;
-	//str2 = str1;
-	//str2 = "two";
-	//str2.assign("two").append(" ").append("three ").append("Four");		
-	//// assign은 자기자신의 레퍼런스를 return 한다.
+	//cin >> setw(5) >> buf;
+	//cout << buf << endl;
 
-	string str2("two");
+	//cin >> setw(5) >> buf;
+	//cout << buf << endl;
 
-	//cout << str1 << " "<< str2 << endl;
-	//std::swap(str1, str2);
-	//cout << str1 << " " << str2 << endl;
-	//str1.swap(str2);
-	//cout << str1 << " " << str2 << endl;
+	//cin >> setw(5) >> buf;
+	//cout << buf << endl;
 
-	//str1.append("three");
-	//str1.push_back('A');	// push_back은 문자열은 안되고 문자만 들어간다.
-	//str1 += "three";
 
-	//str1 = str2 + "four";
+	//char ch;
 
-	string str("aaaa");
-	str.insert(2, "bbb");
-	cout << str << endl;	// aabbbaa
+	//while (cin >> ch)	// cin으로 가져올 때 빈칸 뺴고 가져온다.
+	//	cout << ch;
+	
+	//// 빈칸도 입력받고 싶으면 cin.get()을 사용하면 된다.
+	//char ch;
+	//while (cin.get(ch))
+	//	cout << ch;
+	
+	char buf[100];
+
+	cin.get(buf, 100);
+	cout << cin.gcount() << " " << buf << endl;
+
+	cin.getline(buf, 100);	// 줄바꿈 char 까지 같이 읽음
+	cout << cin.gcount() << " " << buf << endl;
 
 	return 0;
 }
