@@ -1,29 +1,29 @@
 #include <iostream>
-#include <string>
 #include <iomanip>	//	input/output manipulators
 
-// istream으로 입력받기
+// ostream으로 출력하기
 using namespace std;
 
 int main()
 {
-	//string buf;
-	//getline(cin, buf);	// string을 쓸 때에는 cin이 파라미터로 들어간다.
-	//cout << cin.gcount() << " " << buf << endl;
+	//cout.setf(std::ios::showpos);	// plus 기호 출력
+	//cout << 108 << endl;
 
-	char buf[1024];
+	//cout.unsetf(std::ios::showpos);	// plus 기호 사라짐
+	//cout << 109 << endl;
 
-	//cin.ignore(2);	//	ignore()은 입력받은 한글자를 무시한다.
-	//cout << (char)cin.peek() << endl;	//	peek()은 살짝 보기만 하고 버퍼에서 꺼내지는 않는다.
+	//cout.unsetf(std::ios::dec);	//	10진수 모드 끄기
+	//cout.setf(std::ios::hex);	//	16진수 모드 켜기
 
-	cin >> buf;
-	cout << buf << endl;
+	//cout.setf(std::ios::hex, std::ios::basefield);	// basefield에 hex 바로 set
 
-	//cin.unget();	// 마지막에 읽은 것을 버퍼에 다시 넣는다.
-	cin.putback('A');	//	원하는 글자를 다시 넣는다.
+	//cout.setf(std::ios::uppercase);	//	16진수 알파벳 대문자로 출력
+	cout << std::hex << std::uppercase;
+	cout << 108 << endl;
+	cout << 109 << endl;
 
-	cin >> buf;
-	cout << buf << endl;
+	cout << std::dec;
+	cout << 110 << endl;
 
 	return 0;
 }
