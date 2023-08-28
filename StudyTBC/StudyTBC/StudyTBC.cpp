@@ -6,19 +6,12 @@ using namespace std;
 
 int main()
 {
-	//cout << std::boolalpha;	//	bool값이 0과 1이 아닌 true, false로 나온다.
-	//cout << true << " " << false << endl;
-
-	//cout << std::defaultfloat;	// 기본
-	//cout << std::scientific << std::uppercase;	// 알파벳 E 대문자로
-	//cout << std::fixed;				//	소수점 뒷 자리 고정
-	cout << std::showpoint;	// 소수점이 나온다.
-	cout << std::setprecision(3) << 123.456 << endl;	
-	cout << std::setprecision(4) << 123.456 << endl;	// 반올림
-	cout << std::setprecision(5) << 123.456 << endl;
-	cout << std::setprecision(6) << 123.456 << endl;
-	cout << std::setprecision(7) << 123.456 << endl;
-
+	cout << -12345 << endl;
+	cout.fill('*');		// 빈칸을 *로 다 채워준다.
+	cout << std::setw(10) << -12345 << endl;
+	cout << std::setw(10) << std::left << -12345 << endl;
+	cout << std::setw(10) << std::right << -12345 << endl;
+	cout << std::setw(10) << std::internal << -12345 << endl;	// 부호와 숫자 사이에 빈칸
 
 	return 0;
 }
