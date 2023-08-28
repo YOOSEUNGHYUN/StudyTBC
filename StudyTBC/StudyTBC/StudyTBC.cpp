@@ -5,25 +5,35 @@ using namespace std;
 
 int main()
 {
+	// 빈칸으로 구분한다.
+
 	stringstream os;
 
-	os << "Hello, World!";	//	stringstream에 원하는 문구를 집어넣는다.
-							//	<< : insertion operator		데이터를 집어넣는다.
-							//	>> : extraction operator	데이터를 뽑아온다.
-	
-	os << "Hello, World!2" << endl;	// 앞에 Hello, World!에 덧붙여서 나온다.
-									// endl; 줄바꿈도 stringstream에 포함.
-	//os.str("Hello, World!");	// 버퍼에 있는 내용을 싹 지우고 전부 이걸로 바꾸는 거임
-	//os.str("Hello, World!\n");	//	줄바꿈도 string에 포함임.
+	//int i = 12345;
+	//double d = 67.89;
 
-	string str;
+	//os << i << " " << d;
+	os << "12345 67.89";
 
-	//os >> str;	// 이렇게 extraction 할 수 있음. but 빈칸이 있으면 잘라버린다.
-	str = os.str();	// 빈칸 포함 string을 통째로 가져온다.
+	//string str1;
+	//string str2;
 
-	cout << str << endl;	 
-	cout << os.str() << endl;	//	직접 출력하는 방법도 있다.
-	
+	//os >> str1 >> str2;
+
+	//cout << str1 << "|" << str2 << endl;
+
+	/*int i2;
+	double d2;
+
+	os >> i2 >> d2;
+
+	cout << i2 << "|" << d2 << endl;*/
+
+	//	stringstream을 비우려면
+	os.str("");			//	방법 1
+	os.str(string());	//	방법 2
+	os.clear();			//	방법 3	먼저 os.str(""); 하고 써야함. state까지 초기화한다.
+	cout << os.str() << endl;
 
 	return 0;
 }
