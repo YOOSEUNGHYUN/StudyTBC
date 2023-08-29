@@ -1,84 +1,53 @@
 #include <iostream>		
-#include <cctype>
-#include <string>
-#include <bitset>
-// stream states and input validation 흐름 상태와 입력 유효성 검증
+#include <regex>	//	regular expressions
 using namespace std;
 
-void printCharacterClassification(const int& i)
-{
-	cout << boolalpha;
-	cout << "isalnum " << bool(std::isalnum(i)) << endl;	// <cctpye>에 있음, 알파벳 또는 넘버, return type이 integer다.
-	cout << "isblank " << bool(std::isblank(i)) << endl;
-	cout << "isdigit " << bool(std::isdigit(i)) << endl;	// decimal digit 10진수 숫자냐
-	cout << "islower " << bool(std::islower(i)) << endl;	// 소문자냐
-	cout << "isupper " << bool(std::isupper(i)) << endl;	// 대문자냐
-
-	//www.cplusplus.com/reference/cctype/
-}
-
-void printStates(const std::ios& stream)
-{
-	//	stream은 file과 console에 대해서 일관성있게 구현할때 편함.
-	//	특히 file 입출력을 같이 할 때 
-	//	C 언어에서는 fprintf()를 별도로 사용하는데
-	//	C++ 에서는 console 출력을 위한 코드를 파일 입출력을 위해서 그대로 사용할 수 있다.
-	cout << boolalpha;
-	cout << "good()=" << stream.good() << endl;
-	cout << "eof()=" << stream.eof() << endl;	//	end of file 파일을 다 읽었는지 체크할 때
-	cout << "fail()=" << stream.fail() << endl;	//	실패했을 때 true, 좋은 상태면 false
-	cout << "bad()=" << stream.bad() << endl;
-
-	//www.cpluscpls.com/reference/ios/ios/
-}
-
-void classifyCharacters(const string& str)	
-{
-	//	입력받은 string을 한글자씩 다 뒤져본다.
-
-	for (auto e : str)
-	{
-		cout << e << endl;
-		std::cout << "isdigit " << std::isdigit(e) << endl;
-		std::cout << "isblank " << std::isblank(e) << endl;
-		std::cout << "isalpha " << std::isalpha(e) << endl;
-	}
-}
+//	regular expressions 정규 표현식
 
 int main()
 {
-	//while (true)
-	//{
-	//	char i;
-	//	cin >> i;		// cin에서는 blank를 자른다.
+	regex re("\\d");	// \\d 숫자인지 판별
+	//regex re("\\d+");	// +를 붙이면 한개 이상의 글자 입력받을 수 있음
+	//regex re("\\d*");	// *을 붙이면 입력을 안받아도 괜찮다는 의미 
+	//regex re("[ab]");	//	a와 b만 괜찮다.
+	
+	//	\d 와 [:digit:] 는 같다, a decimal digit character
+	//  바깥쪽 대괄호는 대괄호 안에 있는 것들에 해당하는 문자는 ok라는 의미
+	
+	
+	//regex re("[[:digit:]]{3}");	//	digit을 3개를 딱 맞춰서 입력받는다.
+									//	0,1,2,3,4,5,6,7,8,9 중에
+	//regex re("[A-Z]+");			// 알파벳으로 입력받고 개수는 1개 이상이면 상관없다.
+	//regex re("[A-Z]{3}");
+	//regex re("[A-Z]{1,5}");		//	최소 한개, 최대 다섯개
+	//regex re("([0-9]{1})([-]?)([0-9]{1,4})"); //	([-]?) -가 있어도 되고 없어도 된다는 의미
 
-	//	printStates(cin);
+	string str;
 
-	//	//cout << i << endl;
+	while (true)
+	{
+		getline(cin, str);
 
-	//	//cout << boolalpha;
-	//	//cout << std::bitset<8>(cin.rdstate()) << endl;			// good대신에 readstate 호출
-	//	//cout << std::bitset<8>(std::istream::goodbit) << endl;	//	mask
-	//	//cout << std::bitset<8>(std::istream::failbit) << endl;	//	mask
-	//	//cout << !bool((cin.rdstate() & std::istream::failbit) != 0) << endl;	
-	//	//	readstate로 읽어온 flag로 부터 failbit mask를 이용해서 현재 상태를 추출
-	//	//	logical and operation을 해서 0이 아니라면 fail인 상태 
-	//	//	goodbit 을 호출하려면 앞에 not operator를 붙여줌
-	//	//cin.rdstate() == std::istream::goodbit;	// 이렇게 추출하는 방법도 있음.
+		if (std::regex_match(str, re))	// 위에서 입력한 규칙에 string이 맞는지 판별해준다.
+			cout << "Match" << endl;
+		else
+			cout << "No match" << endl;
 
-	//	printCharacterClassification(i);
+		//	print matches
+		{
+			//	sregex_iterator를 이용해서 match하는 부분만 출력
+			auto begin = std::sregex_iterator(str.begin(), str.end(), re);
+			auto end = std::sregex_iterator();
+			for (auto itr = begin; itr != end; ++itr)
+			{
+				std::smatch match = *itr;
+				cout << match.str() << " ";
+			}
+			cout << endl;
+		}
 
-	//	cin.clear();
-	//	cin.ignore(1024, '\n');	// 앞에서 buffer에 입력받은 것들 다 처리 하고 다시 받기위해서 청소
-	//	cout << endl;
-	//}
-
-	cout << boolalpha;
-	classifyCharacters("1234");
-	classifyCharacters("a 1234");
-
-	//	regular expression
+		cout << endl;
+	}
 
 	return 0;
 }
-
