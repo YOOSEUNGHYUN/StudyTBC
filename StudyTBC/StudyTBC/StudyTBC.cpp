@@ -1,52 +1,94 @@
 #include <iostream>		
-#include <regex>	//	regular expressions
+#include <fstream>	//	file stream
+#include <string>
+#include <cstdlib>	//	exit()
+#include <sstream>
 using namespace std;
 
-//	regular expressions 정규 표현식
+//	기본적인 파일 입출력
 
 int main()
 {
-	regex re("\\d");	// \\d 숫자인지 판별
-	//regex re("\\d+");	// +를 붙이면 한개 이상의 글자 입력받을 수 있음
-	//regex re("\\d*");	// *을 붙이면 입력을 안받아도 괜찮다는 의미 
-	//regex re("[ab]");	//	a와 b만 괜찮다.
-	
-	//	\d 와 [:digit:] 는 같다, a decimal digit character
-	//  바깥쪽 대괄호는 대괄호 안에 있는 것들에 해당하는 문자는 ok라는 의미
-	
-	
-	//regex re("[[:digit:]]{3}");	//	digit을 3개를 딱 맞춰서 입력받는다.
-									//	0,1,2,3,4,5,6,7,8,9 중에
-	//regex re("[A-Z]+");			// 알파벳으로 입력받고 개수는 1개 이상이면 상관없다.
-	//regex re("[A-Z]{3}");
-	//regex re("[A-Z]{1,5}");		//	최소 한개, 최대 다섯개
-	//regex re("([0-9]{1})([-]?)([0-9]{1,4})"); //	([-]?) -가 있어도 되고 없어도 된다는 의미
-
-	string str;
-
-	while (true)
+	//	writing
+	if (true)
 	{
-		getline(cin, str);
+		//	out file stream
+		ofstream ofs("my_first_file.dat", ios::app);	//	ios::app, ios::binary
+														//	append 모드도 가능 (파일 존재하면 그 뒤에 이어서 작업)
+		//ofs.open("my_first_file.dat");
 
-		if (std::regex_match(str, re))	// 위에서 입력한 규칙에 string이 맞는지 판별해준다.
-			cout << "Match" << endl;
-		else
-			cout << "No match" << endl;
-
-		//	print matches
+		if (!ofs)
 		{
-			//	sregex_iterator를 이용해서 match하는 부분만 출력
-			auto begin = std::sregex_iterator(str.begin(), str.end(), re);
-			auto end = std::sregex_iterator();
-			for (auto itr = begin; itr != end; ++itr)
-			{
-				std::smatch match = *itr;
-				cout << match.str() << " ";
-			}
-			cout << endl;
+			cerr << "Couldn't open file " << endl;
+			exit(1);
 		}
 
-		cout << endl;
+		//	file writing
+		//ofs << "Line 1" << endl;		//	ofs를 이용하면 텍스트로 저장이 된다.
+		//ofs << "Line 2" << endl;
+
+		//	binary로 저장할 떄는 이 데이터가 어디까지있는지 알 수 없다. 미리 약속을 해서 알고 있어야 함
+		const unsigned num_data = 10;
+		ofs.write((char*)&num_data, sizeof(num_data));
+
+		for (int i = 0; i < num_data; ++i)
+			ofs.write((char*)&i, sizeof(i));
+
+		/*stringstream ss;
+		ss << "Line 1" << endl;
+		ss << "Line 2" << endl;
+		string str = ss.str();
+
+		unsigned str_length = str.size();
+		ofs.write((char*)&str_length, sizeof(str_length));
+		ofs.write(str.c_str(), str_length);*/
+
+		//ofs.close();	//	not necessary
+	}
+
+	//	reading
+	if (true)
+	{
+		//	input file stream
+		ifstream ifs("my_first_file.dat"/*, ios::binary*/);
+
+		if (!ifs)
+		{
+			cerr << "Cannot open file" << endl;
+			exit(1);
+		}
+
+		while (ifs)
+		{
+			std::string str;
+			getline(ifs, str);	// string으로 한줄씩 읽는다. 끝까지 읽으면 while문이 false 됨.
+
+			std::cout << str << endl;
+		}
+
+		//	unsigned ineger가 저장되어 있으니까 읽어들여서 데이터가 몇개 있는지 확인 
+		//unsigned num_data = 0;
+		//ifs.read((char*)&num_data, sizeof(num_data));
+
+		////	실제로 읽어들임
+		//for (unsigned i = 0; i < num_data; ++i)
+		//{
+		//	int num;
+		//	ifs.read((char*)&num, sizeof(num));
+
+		//	std::cout << num << endl;
+		//}
+
+		/*unsigned str_len = 0;
+		ifs.read((char*)&str_len, sizeof(str_len));
+
+		string str;
+		str.resize(str_len);
+		ifs.read(&str[0], str_len);
+
+		cout << str << endl;*/
+
+		//ifs.close();	//	not necessary
 	}
 
 	return 0;
