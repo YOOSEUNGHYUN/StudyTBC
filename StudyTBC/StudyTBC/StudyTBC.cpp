@@ -1,57 +1,72 @@
 #include <iostream>		
-#include <fstream>	//	file stream
 #include <string>
-#include <cstdlib>	//	exit()
-#include <sstream>
+#include <vector>
+#include <algorithm>	//	for_each()
+#include <functional>
 using namespace std;
 
-//	파일의 임의 위치 접근하기
+//	람다 함수 lambda function and std::function
+
+void goodbye(const string& s)
+{
+	cout << "Goodbye " << s << endl;
+}
+
+class Object
+{
+public:
+	void hello(const string& s)
+	{
+		cout << "Hello " << s << endl;
+	}
+};
 
 int main()
 {
-	const string filename = "my_file.txt";
+	//	lambda-introducer
+	//	lambda-parameter-declaration
+	//	lambda-return-type-clause
+	//	compound-statement
+	auto func = [](const int& i) -> void { cout << "Hello, World!" << endl; };
 
-	//	make a file
+	func(123);
+
+	[](const int& i) -> void { cout << "Hello, World!" << endl; } (1234);
+
 	{
-		ofstream ofs(filename);
-
-		for (char i = 'a'; i <= 'z'; ++i)
-			ofs << i;
-		ofs << endl;
-
-	//	read the file
-		{
-			ifstream ifs("my_file.txt");
-
-			ifs.seekg(5);//ifs.seekg(5, ios::beg);
-			cout << (char)ifs.get() << endl;
-
-			ifs.seekg(5, ios::cur);
-			cout << (char)ifs.get() << endl;
-
-			//ifs.seekg(-5, ios::end);
-
-			/*ifs.seekg(0, ios::end);
-			cout << ifs.tellg() << endl;*/	//	 현재 위치 알려줌
-
-			/*string str;
-			getline(ifs, str);
-
-			cout << str << endl;*/
-		}
-
-		{
-			//fstream iofs(filename, ios::in | ios::out);
-			fstream iofs(filename);
-
-			iofs.seekg(5);
-			cout << (char)iofs.get() << endl;	// read
-
-			iofs.seekg(5);
-			iofs.put('A');	//	write
-		}
-
-		return 0;
+		string name = "Hyoni";
+		[&]() {std::cout << name << endl; } ();
 	}
+
+	vector<int> v;
+	v.push_back(1);
+	v.push_back(2);
+
+	auto func2 = [](int val) {cout << val << endl; };
+	for_each(v.begin(), v.end(), func2);
+	for_each(v.begin(), v.end(), [](int val) {cout << val << endl; });
+
+	cout << []() -> int {return 1; }() << endl;
+
+	std::function<void(int)> func3 = func2;
+	func3(123);
+
+	std::function<void()>func4 = std::bind(func3, 456);
+	func4();
+
+	//	http://en.cppreference.com/w/cpp/utility/functional/placeholders
+	{
+		Object instance;
+		auto f = std::bind(&Object::hello, &instance, std::placeholders::_1);
+
+		f(string("World"));
+
+		auto f2 = std::bind(&goodbye, std::placeholders::_1);
+
+		f2(string("World"));
+	}
+	
+	return 0;
+	
 
 }
