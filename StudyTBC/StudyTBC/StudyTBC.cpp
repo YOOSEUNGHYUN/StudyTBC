@@ -1,22 +1,51 @@
 #include <iostream>		
-#include <tuple>
+#include <string>
+#include <thread>
+#include <chrono>
+#include <vector>
+#include <mutex>
 using namespace std;
 
-//	함수에서 여러개의 리턴값 반환하기 C++ 17
+//	std::thread와 멀티쓰레딩 multithreading 의 기초
 
-auto my_func()
-{
-	return tuple(123, 456, 789, 10);
-}
 int main()
 {
-	auto [a, b, c, d] = my_func();
+	/*cout << std::thread::hardware_concurrency() << endl;
+	cout << std::this_thread::get_id() << endl;*/
 
-	cout << a << " " << b << " " << c << " " << d << " " << endl;
+	const int num_pro = std::thread::hardware_concurrency();
 
-	//auto result = my_func();
+	cout << std::this_thread::get_id() << endl;
 
-	//cout << get<0>(result) << " " << get<1>(result) <<  " " << get<2>(result) << endl;
+	vector<std::thread> my_threads;
+	my_threads.resize(num_pro);
 
-	return 0;
+	for (auto& e : my_threads)
+		e = std::thread([]() {
+					cout << std::this_thread::get_id() << endl;
+					while (true) {}});
+	for (auto& e : my_threads)
+		e.join();
+
+
+	//std::thread t1 = std::thread([]() {
+	//	cout << std::this_thread::get_id() << endl; 
+	//	while (true) {}});
+
+	//std::thread t2 = std::thread([]() {
+	//	cout << std::this_thread::get_id() << endl;
+	//	while (true) {}});
+
+	//std::thread t3 = std::thread([]() {
+	//	cout << std::this_thread::get_id() << endl;
+	//	while (true) {}});
+
+	//std::thread t4 = std::thread([]() {
+	//	cout << std::this_thread::get_id() << endl;
+	//	while (true) {}});
+
+	//t1.join();	//	t1이 끝날 때 까지 기다린다.
+	//t2.join();
+	//t3.join();
+	//t4.join();
 }
