@@ -1,44 +1,58 @@
 #include <iostream>		
 #include <thread>
-#include <atomic>	// 쪼갤 수 없다는 의미
-					//	operation이 읽어오고 값을 바꾸고 갖고 가는 세단계를 한번에 해치우도록 묶은 변수
-#include <chrono>
-#include <mutex>	// mutual exclusion (상호배제) 이거 내꺼 나만쓸 수 있어라고 선언
+#include <future> //	async, future, promise 사용
 using namespace std;
 
-//	Race Condition, std::atomic, std::scoped_lock 레이스 컨디션
-
-mutex mtx;
+//	작업 기반 비동기 프로그래밍 Task-Based async, future, promise
 
 int main()
-{
-	int shared_memory(0);
+{	
+	//	multi-threading
+	{
+		int result;
+		std::thread t([&] {result = 1 + 2; });
+		t.join();
+		cout << result << endl;
+	}
+	
+	//	task-based parallelism
+	{
+		//	std::future<int> fut = ...
+		auto fut = std::async([] { return 1 + 2; });	//	async 비동기적이다의 약자
+		cout << fut.get() << endl;
+	}
 
-	auto count_func = [&]() {
-		for (int i = 0; i < 1000; ++i)
+	//	future and promise
+	{
+		std::promise<int> prom;
+		auto fut = prom.get_future();
+
+		auto t = std::thread([](std::promise<int>&& prom)
 		{
-			this_thread::sleep_for(chrono::microseconds(1));
+			prom.set_value(1 + 2);
 
-			//mtx.lock();	// lock 걸었으면 반드시 unlock 걸어줘야함.
+		}, std::move(prom));
 
-			//std::lock_guard lock(mtx);
-			std::scoped_lock lock(mtx);
+		cout << fut.get() << endl;
+		t.join();
+	}
 
-			shared_memory++;	//	++은 atomic<int>의 증감 연산자가 overloading 되있는거. 
-								//	정의가 따로 되어있음
-			//shared_memory.fetch_add(1);	//	그냥 int의 더하기 빼기 보다는 속도가 조금 느리다.
-			//mtx.unlock();
-		}
-	};
+	{
+		std::async([] {
+			cout << "async1 start" << endl;
+			this_thread::sleep_for(chrono::seconds(2));
+			cout << "async1 end" << endl;
+			});
 
-	thread t1 = thread(count_func);
-	thread t2 = thread(count_func);
+		std::async([] {
+			cout << "async2 start" << endl;
+			this_thread::sleep_for(chrono::seconds(1));
+			cout << "async2 end" << endl;
+			});
 
-	t1.join();
-	t2.join();
+		std::cout << "Main function" << endl;
 
-	cout << "After" << endl;
-	cout << shared_memory << endl;
+	}
 
 	return 0;
 }
